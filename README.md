@@ -17,15 +17,16 @@
 ```
 vguard/        核心库（features/masking/attack/baselines/channel/speaker/asv/vc/metrics/pipeline）
 scripts/       protect / convert / run_experiment / reevaluate / build_registry / build_asv_probe
+               + compute_wer / compute_mos / channel_sweep / channel_sim / run_eps_sweep / run_post_sweep / make_figures
 frontend/      Gradio 前端
-deploy/        Dockerfile + 华为云部署说明
+deploy/        Dockerfile + 华为云部署说明（docs/07_部署操作手册.md）
 tests/         数值对齐与单元测试
-tools/         curl 下载器 / 依赖解析安装器 / 官方对照脚本
-docs/          方案 / 进度 / 实验计划 / 报告
+tools/         curl 下载器 / 依赖解析安装器 / 官方对照脚本 / 图表与表格生成器
+docs/          方案 / 进度 / 实验计划 / 报告 / 结果表 / PPT 大纲与草稿
 third_party/   上游源码参考（attack-vc / Voice-Guard / AdaIN-VC 官方）
 checkpoints/   权重（git 忽略，云盘分发）
 data/          VCTK 语料（git 忽略）
-outputs/       攻击产物与实验表
+outputs/       攻击产物与实验表（git 忽略）
 ```
 
 ## 环境搭建（Windows, CUDA）
@@ -96,11 +97,24 @@ python frontend\app.py --model-dir checkpoints\adain-vc-official --registry outp
 `deploy/Dockerfile`（pytorch CUDA 基础镜像 + 华为云 pip 源）→ 推到 SWR → ModelArts
 自定义镜像在线服务（端口 7860，GPU 规格）。详见 `deploy/README.md`。
 
+## 主要结果（抽样复现，详见 docs/04_报告.md 与 docs/06_结果表.md）
+
+**ε 扫描**（5 句 × 4 档，ECAPA 口径 + 论文 clean-VC 筛选协议）：
+防御率 0.02→75%、0.05→75%、0.08→50%、0.10→50%（曲线 `docs/fig_eps_curve.png`）。
+低 ε 平台由 F_str"顽固句"限制，高 ε 由 F_imp 退化主导。
+
+**方法对比**（ε=0.05）：emb 20%、fb 40%、e2e 20%、VG w/o P（消融）、
+**VG 75%** —— 时域 + 掩蔽显著优于频域基线。
+
+**加分项（真实信道）**：mp3/aac 对防御几乎无影响；8k/G.711 双向分化；
+F_imp 是信道下最薄弱的一环。攻击侧 EOT 使防御全面变差（G.711 上 60%→20%），
+为如实报告的负面结果（机理 + 正确改进方向见报告 §5）。
+
 ## 状态
 
 - [x] W1：环境 / 权重 / H 对齐 / θx / 两阶段攻击 / 双注册库 / 端到端冒烟
-- [ ] W2：批量实验 + Es 探头 ASV + 基线（emb/fb/e2e、VG w/o P）（进行中）
-- [ ] W3：严格指标（MOS/WER）+ MCD 分桶
-- [ ] W5：前端 + 华为云部署
-- [ ] W6：加分项（二次压缩失效 + EOT 改进）
-- [ ] 报告 + 9 分钟 PPT + GitHub 提交
+- [x] W2：批量实验 / Es 探头 ASV / ε 扫描（75/75/50/50）/ 基线对比
+- [x] W3：严格指标（MCD / WER-Whisper / MOS-MOSNet）全部落地并跑通
+- [x] W5：Gradio 前端构建测试通过 + Dockerfile + 华为云操作手册（云端实例待部署）
+- [x] W6：加分项（信道失效分析 + EOT 对照，含负面结果与机理）
+- [~] 报告（约 80%，缺基线终值与分工签名）+ PPT 草稿（数据已填）+ GitHub 持续推送
