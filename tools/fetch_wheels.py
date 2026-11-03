@@ -68,8 +68,11 @@ def _compat(python_tag: str, abi: str, platform: str) -> int:
     if python_tag.startswith("cp312") or abi == "cp312":
         s += 4
         ok = True
+    elif python_tag.startswith("cp") and abi == "abi3":
+        s += 3  # abi3 稳定 ABI：cp310-abi3 等对 cp312 兼容
+        ok = True
     elif python_tag.startswith("cp"):
-        return -1  # cp311/cp313 等非 312 ABI 轮子装不上
+        return -1  # 非 312 且非 abi3 的 ABI 轮子装不上
     if "py3" in python_tag or "py2.py3" in python_tag:
         s += 3
         ok = True
@@ -125,7 +128,8 @@ def pick_best(files, spec_op: str = None, spec_ver: str = None):
     if best:
         return best[3], best[2]
     if sdists:
-        ok = [(fn, u) for fn, u in sdists if allowed(_ver_from_name(fn))]
+        ok = [(fn, u) for fn, u in sdists
+              if not _is_prerelease(_ver_from_name(fn)) and allowed(_ver_from_name(fn))]
         if ok:
             ok.sort(key=lambda x: _vkey(_ver_from_name(x[0])), reverse=True)
             return ok[0][1], ok[0][0]
