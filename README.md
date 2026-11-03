@@ -45,8 +45,15 @@ py -3.12 -m venv .venv
 
 ## 权重与数据下载
 
+> ⚠️ **验收前请把 `checkpoints/`（约 35 MB）与注册库 `outputs/registry*.npz` 打包上传云盘，
+> 并把分享链接替换到下面两行**（课件要求权重数据经云盘分发，GitHub 不入库）。
+
 ```powershell
-# AdaIN-VC 官方权重（NTU 直链，curl 可续传）
+# 云盘分发（待填）：百度网盘/阿里云盘分享链接
+# 链接1：checkpoints 打包  -> <待填>
+# 链接2：VCTK22 数据（可选，约 10.7 GB） -> <待填>
+
+# AdaIN-VC 官方权重（NTU 直链，curl 可续传；云盘链接失效时用）
 curl -L -C - -o checkpoints\adain-vc-official\vctk_model.ckpt "http://speech.ee.ntu.edu.tw/~jjery2243542/resource/model/is19/vctk_model.ckpt"
 curl -L -C - -o checkpoints\adain-vc-official\attr.pkl "http://speech.ee.ntu.edu.tw/~jjery2243542/resource/model/is19/attr.pkl"
 # config.yaml 已随仓库提供
@@ -58,6 +65,7 @@ tar -xf data\VCTK_22kHz_raw.zip -C data\VCTK22
 # ECAPA-TDNN（本地加载用 5 个文件）
 # hyperparams.yaml 已随仓库改好本地路径；ckpt 文件从 hf-mirror 下载到 checkpoints\ecapa-local\
 
+# MOSNet（HF 移植版，已随 tools/download_models.py 支持 curl 下载到 checkpoints\mosnet-hf\）
 # Whisper base.pt（WER 评测用）
 # 放到 C:\Users\<you>\.cache\whisper\base.pt（或首次使用自动下载）
 ```
