@@ -35,6 +35,8 @@ T = {
                     "使零样本语音转换（AdaIN-VC）无法再伪造你的声纹。",
         "badges": ["⏱ 时域扰动", "👂 心理声学掩蔽", "🧪 身份+质量+内容 三维判定"],
         "dark_label": "🌙 夜间模式",
+        "theme_dark": "🌙 黑夜",
+        "theme_light": "☀️ 白昼",
         "lang_label": "语言 / Language",
         "tab_protect": "🛡️ 一键保护",
         "tab_convert": "🔄 转换演示",
@@ -114,6 +116,8 @@ T = {
                     "(AdaIN-VC) can no longer forge your voiceprint.",
         "badges": ["⏱ Time-domain", "👂 Psychoacoustic masking", "🧪 Identity+Quality+Content"],
         "dark_label": "🌙 Dark mode",
+        "theme_dark": "🌙 Dark",
+        "theme_light": "☀️ Light",
         "lang_label": "语言 / Language",
         "tab_protect": "🛡️ Protect",
         "tab_convert": "🔄 Conversion demo",
@@ -523,7 +527,8 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
                    css=CSS) as demo:
         # 顶部控制条：昼夜选项 + 语言选项（格式统一）
         with gr.Row():
-            theme_radio = gr.Radio(choices=["🌙 黑夜", "☀️ 白昼"], value="🌙 黑夜",
+            theme_radio = gr.Radio(choices=[L["theme_dark"], L["theme_light"]],
+                                   value=L["theme_dark"],
                                    label="🌗 主题 / Theme", scale=1)
             lang_dd = gr.Dropdown(choices=["中文", "English"],
                                   value="中文" if lang == "zh" else "English",
@@ -649,15 +654,17 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
                 curve_out = gr.Image(value=curve_img, label=L["curve_label"], height=420)
 
         # ---- 语言切换：重写全部文案 ----
-        def on_lang(choice, speaker, state):
+        def on_lang(choice, speaker, theme_val, state):
             nl = "zh" if choice == "中文" else "en"
             NL = T[nl]
             rep = state.get("report")
             state = {"lang": nl, "report": rep, "mcd": state.get("mcd")}
+            keep_dark = "🌙" in str(theme_val)
             return [
                 gr.update(value=_hero_html(nl)),                    # 0 hero
                 gr.update(value=_steps_html(nl)),                   # 1 steps
-                gr.update(),                                        # 2 theme_radio（选项图标语言中立）
+                gr.update(choices=[NL["theme_dark"], NL["theme_light"]],
+                          value=NL["theme_dark"] if keep_dark else NL["theme_light"]),  # 2 theme_radio
                 gr.update(label=NL["lang_label"]),                  # 3 lang_dd
                 gr.update(value=f"### {NL['g1']}"),                 # 4 g1
                 gr.update(label=NL["defend_label"]),                # 5 defend_in
@@ -696,7 +703,7 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
                 gr.update(value=NL["sample_btn"]),                  # 36 sample_btn
             ]
 
-        lang_dd.change(on_lang, [lang_dd, speaker_dd, last_state],
+        lang_dd.change(on_lang, [lang_dd, speaker_dd, theme_radio, last_state],
                        [hero_html, steps_html, theme_radio, lang_dd, g1_md, defend_in, adv_in,
                         speaker_dd, g2_md, eps_sl, demo_cb, g3_md, run_btn, g4_md,
                         status_html, aud_orig, aud_def, aud_delta, aud_conv_clean, aud_conv_def,
