@@ -63,24 +63,43 @@ def main():
     print("[1/4] waiting for eps sweep...", flush=True)
     wait_for(eps010, rows=5, timeout_h=6.0)
 
-    # 2) 信道扫描 VG
-    print("[2/4] channel sweep on VG (exp03_eps005)", flush=True)
-    run([py, os.path.join(ROOT, "scripts", "channel_sweep.py"),
-         "--exp-dir", os.path.join(ROOT, "outputs", "exp03_eps005"),
-         "--model-dir", args.model_dir, "--registry", args.registry, "--probe", args.probe,
-         "--out", os.path.join(ROOT, "outputs", "exp03_eps005", "channel_results.csv"),
-         "--device", "cuda"])
+    # 2) 信道扫描 VG（已有结果则跳过，支持断点续跑）
+    vg_chan = os.path.join(ROOT, "outputs", "exp03_eps005", "channel_results.csv")
+    if os.path.exists(vg_chan):
+        print("[2/4] VG channel sweep already done, skip", flush=True)
+    else:
+        print("[2/4] channel sweep on VG (exp03_eps005)", flush=True)
+        run([py, os.path.join(ROOT, "scripts", "channel_sweep.py"),
+             "--exp-dir", os.path.join(ROOT, "outputs", "exp03_eps005"),
+             "--model-dir", args.model_dir, "--registry", args.registry, "--probe", args.probe,
+             "--out", vg_chan, "--device", "cuda"])
 
-    # 3) EOT 攻击
-    print("[3/4] VG+EOT batch (exp04)", flush=True)
-    run([py, os.path.join(ROOT, "scripts", "run_experiment.py"),
-         "--model-dir", args.model_dir, "--vctk", args.vctk, "--speakers", args.speakers,
-         "--per-speaker", "1", "--utt-offset", "30", "--max-dur", "2.2",
-         "--registry", args.registry, "--attack-registry", args.attack_registry,
-         "--source-speaker", args.source_speaker, "--source-utt", str(args.source_utt),
-         "--eps", str(args.eps), "--iters1", str(args.iters1), "--iters2", str(args.iters2),
-         "--eot", "--out-dir", os.path.join(ROOT, "outputs", "exp04"),
-         "--device", "cuda", "--no-progress"])
+    # 3) EOT 攻击（已有完整结果则跳过）
+    eot_csv = os.path.join(ROOT, "outputs", "exp04", "results.csv")
+    if os.path.exists(eot_csv):
+        with open(eot_csv, encoding="utf-8") as f:
+            n_eot = len(list(csv.DictReader(f)))
+        if n_eot >= 5:
+            print("[3/4] EOT batch already done, skip", flush=True)
+        else:
+            run([py, os.path.join(ROOT, "scripts", "run_experiment.py"),
+                 "--model-dir", args.model_dir, "--vctk", args.vctk, "--speakers", args.speakers,
+                 "--per-speaker", "1", "--utt-offset", "30", "--max-dur", "2.2",
+                 "--registry", args.registry, "--attack-registry", args.attack_registry,
+                 "--source-speaker", args.source_speaker, "--source-utt", str(args.source_utt),
+                 "--eps", str(args.eps), "--iters1", str(args.iters1), "--iters2", str(args.iters2),
+                 "--eot", "--out-dir", os.path.join(ROOT, "outputs", "exp04"),
+                 "--device", "cuda", "--no-progress"])
+    else:
+        print("[3/4] VG+EOT batch (exp04)", flush=True)
+        run([py, os.path.join(ROOT, "scripts", "run_experiment.py"),
+             "--model-dir", args.model_dir, "--vctk", args.vctk, "--speakers", args.speakers,
+             "--per-speaker", "1", "--utt-offset", "30", "--max-dur", "2.2",
+             "--registry", args.registry, "--attack-registry", args.attack_registry,
+             "--source-speaker", args.source_speaker, "--source-utt", str(args.source_utt),
+             "--eps", str(args.eps), "--iters1", str(args.iters1), "--iters2", str(args.iters2),
+             "--eot", "--out-dir", os.path.join(ROOT, "outputs", "exp04"),
+             "--device", "cuda", "--no-progress"])
 
     # 4) 信道扫描 EOT
     print("[4/4] channel sweep on VG+EOT (exp04)", flush=True)

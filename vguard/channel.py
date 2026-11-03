@@ -85,7 +85,7 @@ def differentiable_channel(x: torch.Tensor, sr: int, rng=None) -> torch.Tensor:
     """随机采样一条可微信道：重采样/低通/量化/增益。x: (L,)，输出保持长度 L。"""
     import torchaudio.functional as F_ta
 
-    rng = rng or torch.Generator(device=x.device)
+    rng = rng or torch.Generator()  # torch.randint/rand 只接受 CPU 生成器
     L = len(x)
     x = x.clone()
 
