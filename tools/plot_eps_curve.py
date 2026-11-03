@@ -36,6 +36,10 @@ def main():
         rows = load(d)
         if not rows:
             continue
+        # 论文筛选协议：剔除 clean-VC 失败（conv_clean 未达目标人）的句子
+        rows = [r for r in rows if str(r.get("conv_clean_hits_X")).lower() == "true"]
+        if not rows:
+            continue
         eps = float(rows[0]["eps"])
         n = len(rows)
         ok = sum(1 for r in rows if str(r["defense_ok"]).lower() == "true")
