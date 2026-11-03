@@ -83,6 +83,7 @@ T = {
         "info_auto_adv": "已自动选取 least-likely 说话人 {} 的音频",
         "info_start": "开始对抗优化（{}+{} 步，约 2–5 分钟）…",
         "examples_label": "💡 试试 VCTK 样例（点击载入）",
+        "sample_btn": "💡 载入 VCTK 样例音频（p225）",
         "conv_md": "零样本语音转换演示：**内容**来自一段音频、**声纹**来自另一段——"
                    "这正是攻击者伪造声音的方式；保护页生成的扰动会让这一步失效。",
         "src_label": "📄 内容音频 t̂",
@@ -161,6 +162,7 @@ T = {
         "info_auto_adv": "Auto-selected least-likely speaker {} audio",
         "info_start": "Starting adversarial optimization ({}+{} iters, ~2–5 min)…",
         "examples_label": "💡 Try a VCTK sample (click to load)",
+        "sample_btn": "💡 Load VCTK sample audio (p225)",
         "conv_md": "Zero-shot voice conversion demo: **content** from one clip, **voice** from another — "
                    "exactly how attackers forge voices; the perturbation from the Protect tab breaks this.",
         "src_label": "📄 Content audio t̂",
@@ -316,6 +318,9 @@ html.vg-dark {
   --checkbox-background-color: #1e293b;
   --checkbox-background-color-hover: #24324b;
   --checkbox-border-color: #334155;
+  --checkbox-label-background-fill: #0f172a;
+  --checkbox-label-text-color: #e2e8f0;
+  --checkbox-label-border-color: #24324b;
   --color-accent: #818cf8;
   --block-shadow: 0 6px 24px rgba(0,0,0,.45);
   --link-text-color: #7dd3fc;
@@ -348,27 +353,6 @@ html.vg-dark .vg-metric {
 html.vg-dark .vg-metric .k { color: #7dd3fc; }
 html.vg-dark .vg-metric .v { color: #e0f2fe; text-shadow: 0 0 12px rgba(125,211,252,.5); }
 html.vg-dark .vg-detail th { color: #94a3b8; }
-/* 黑夜：所有输入类控件统一深色卡片 + 白字（修复选项按钮/下拉白底白字） */
-html.vg-dark label, html.vg-dark fieldset {
-  color: #e2e8f0 !important;
-}
-html.vg-dark .wrap, html.vg-dark .radio-group label, html.vg-dark .options,
-html.vg-dark .dropdown-arrow, html.vg-dark .secondary-wrap {
-  background: #0f172a !important;
-  color: #e2e8f0 !important;
-  border-color: #24324b !important;
-}
-html.vg-dark .radio-group label:hover, html.vg-dark .wrap:hover {
-  background: #131c33 !important;
-}
-html.vg-dark .options .item:hover { background: #131c33 !important; }
-html.vg-dark input[type="radio"] { accent-color: #818cf8; }
-html.vg-dark .gr-box, html.vg-dark .panel, html.vg-dark .form,
-html.vg-dark .group, html.vg-dark .tabs, html.vg-dark .tabitem,
-html.vg-dark .block {
-  background: transparent !important;
-  border-color: #1e293b !important;
-}
 footer { display: none !important; }
 """
 
@@ -383,23 +367,28 @@ LOAD_JS = ("()=>{const saved=localStorage.getItem('vg-dark');"
            "document.documentElement.classList.toggle('vg-dark',dark);"
            "return dark?'🌙 黑夜':'☀️ 白昼';}")
 
-# 切换语言时同步翻译 gradio 内置文案（4.44 无 i18n 接口，只能 DOM 文本替换）
+# 切换语言时同步翻译 gradio 内置文案（4.44 无 i18n 接口，只能 DOM 文本替换；
+# 多次延时重试以覆盖组件重渲染）
 LANG_JS = r"""(v)=>{
   const en = v==='English';
   const pairs = en ? [
-    ['将音频拖放到此处','Drop audio here'],
-    ['或点击上传','or click to upload'],
-    ['点击上传，或将音频拖放到此处','Click to upload, or drop audio here'],
-    ['清除','Clear'],
-    ['录制','Record'],
+    ['将音频拖放到此处，或点击上传', 'Drop audio here, or click to upload'],
+    ['点击上传，或将音频拖放到此处', 'Click to upload, or drop audio here'],
+    ['将音频拖放到此处', 'Drop audio here'],
+    ['，或点击上传', ', or click to upload'],
+    ['或点击上传', 'or click to upload'],
+    ['清除', 'Clear'],
+    ['录制', 'Record'],
   ] : [
-    ['Drop audio here','将音频拖放到此处'],
-    ['or click to upload','或点击上传'],
-    ['Click to upload, or drop audio here','点击上传，或将音频拖放到此处'],
-    ['Clear','清除'],
-    ['Record','录制'],
+    ['Drop audio here, or click to upload', '将音频拖放到此处，或点击上传'],
+    ['Click to upload, or drop audio here', '点击上传，或将音频拖放到此处'],
+    ['Drop audio here', '将音频拖放到此处'],
+    [', or click to upload', '，或点击上传'],
+    ['or click to upload', '或点击上传'],
+    ['Clear', '清除'],
+    ['Record', '录制'],
   ];
-  setTimeout(()=>{
+  const patch = ()=>{
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     const nodes = [];
     while (walker.nextNode()) nodes.push(walker.currentNode);
@@ -409,7 +398,8 @@ LANG_JS = r"""(v)=>{
       for (const [a,b] of pairs) s = s.split(a).join(b);
       if (s !== n.nodeValue) n.nodeValue = s;
     });
-  }, 120);
+  };
+  [150, 600, 1500].forEach(ms => setTimeout(patch, ms));
   return v;
 }"""
 
@@ -626,10 +616,12 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
                            aud_conv_def, plot_out, metrics_html, detail_html, last_state])
 
             if speaker_first:
-                ex = [[speaker_first[pipe.speakers[0]], pipe.speakers[0]]]
-                with gr.Column(visible=(lang == "zh")) as excol_zh:
-                    gr.Examples(examples=ex, inputs=[defend_in, speaker_dd],
-                                label=T["zh"]["examples_label"])
+                sample_btn = gr.Button(L["sample_btn"], size="sm")
+
+                def on_sample():
+                    return gr.update(value=speaker_first[pipe.speakers[0]]), pipe.speakers[0]
+
+                sample_btn.click(on_sample, None, [defend_in, speaker_dd])
 
         with gr.Tab(L["tab_convert"]) as tab2:
             conv_md = gr.Markdown(L["conv_md"])
@@ -701,7 +693,7 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
                 gr.update(label=NL["t_try"]),                       # 33 tt1
                 gr.update(label=NL["t_plot"]),                      # 34 tt2
                 gr.update(label=NL["t_detail"]),                    # 35 tt3
-                gr.update(visible=(nl == "zh")),                    # 36 excol_zh（EN 模式隐藏示例，避免中文表头）
+                gr.update(value=NL["sample_btn"]),                  # 36 sample_btn
             ]
 
         lang_dd.change(on_lang, [lang_dd, speaker_dd, last_state],
@@ -710,7 +702,7 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
                         status_html, aud_orig, aud_def, aud_delta, aud_conv_clean, aud_conv_def,
                         plot_out, conv_md, src_in, tgt_in, conv_btn, conv_out, about_md,
                         metrics_html, detail_html, last_state, tab1, tab2, tab3,
-                        tt1, tt2, tt3, excol_zh])
+                        tt1, tt2, tt3, sample_btn])
 
         # 同步翻译 gradio 内置文案（音频拖放提示等）
         lang_dd.change(None, [lang_dd], None, js=LANG_JS)
