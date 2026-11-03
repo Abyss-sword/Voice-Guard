@@ -309,7 +309,9 @@ def build_app(args):
 def _patch_gradio_client_schema():
     """gradio-client 1.3.0 对 JSON Schema 的 `additionalProperties: true` 未处理
     （bool schema 会进入 get_type 抛 TypeError / APIInfoParseError），导致 /info
-    路由 500、launch 时 localhost 可达性检查失败。补丁：bool schema → "Any"。"""
+    路由 500、launch 时 localhost 可达性检查失败。补丁：bool schema → "Any"。
+    同时保留文件类型识别：FileData schema（含 `path: str` 字段）必须仍被解析为
+    "filepath"，否则客户端不会上传音频、只发路径字符串，服务端 preprocess 崩溃。"""
     try:
         import gradio_client.utils as gcu
 
@@ -329,9 +331,23 @@ def _patch_gradio_client_schema():
             def safe_get_type(schema):
                 if isinstance(schema, bool) or schema == {}:
                     return "Any"
+                if isinstance(schema, dict) and isinstance(schema.get("type"), list):
+                    # JSON Schema 可空字段 {"type": ["string","null"]}：取非 null 类型
+                    ts = [t for t in schema["type"] if t != "null"]
+                    schema = {**schema, "type": (ts[0] if ts else "null")}
                 return _orig_get_type(schema)
 
             gcu.get_type = safe_get_type
+
+            _orig_jstpt = gcu.json_schema_to_python_type
+
+            def safe_jstpt(schema):
+                t = _orig_jstpt(schema)
+                if isinstance(t, str) and "path: str" in t:
+                    return "filepath"
+                return t
+
+            gcu.json_schema_to_python_type = safe_jstpt
     except Exception:  # noqa: BLE001
         pass
 
