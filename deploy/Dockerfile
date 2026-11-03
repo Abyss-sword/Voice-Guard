@@ -16,11 +16,15 @@ ENV PYTHONUNBUFFERED=1 \
 WORKDIR /app
 
 # 1) Python 依赖（华为云镜像源，境内构建快）
+#    关键版本链（与本地验证一致）：fastapi/starlette 必须配 gradio 4.44（新版签名不兼容），
+#    jinja2 3.1.2、gradio-client==1.3.0（frontend/app.py 内含 schema 补丁）
 COPY requirements.txt .
 RUN pip install --no-cache-dir -i https://repo.huaweicloud.com/repository/pypi/simple/ \
-    numpy scipy librosa soundfile pyyaml tqdm matplotlib gradio fastapi uvicorn \
-    python-multipart gdown pypdf python-docx python-pptx openpyxl \
-    speechbrain "huggingface-hub<0.30" && \
+    numpy scipy librosa soundfile pyyaml tqdm matplotlib \
+    "gradio==4.44.1" "gradio-client==1.3.0" "fastapi==0.112.4" "starlette==0.37.2" \
+    "jinja2==3.1.2" uvicorn python-multipart gdown pypdf python-docx python-pptx openpyxl \
+    speechbrain "huggingface-hub<0.30" \
+    "transformers==4.57.6" "tokenizers==0.23.0rc0" safetensors einops && \
     pip install --no-cache-dir -i https://repo.huaweicloud.com/repository/pypi/simple/ \
     openai-whisper
 
