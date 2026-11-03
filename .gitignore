@@ -33,6 +33,7 @@ refs/_tmp_wheels/
 .mplcache/
 pip-*/
 vgch*/
+gradio/
 
 # IDE / OS
 .idea/
