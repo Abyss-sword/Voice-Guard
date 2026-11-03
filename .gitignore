@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+
+# Model weights & data (large, distributed via cloud instead of git)
+*.ckpt
+*.pth
+*.pt
+*.pkl
+*.npy
+*.npz
+*.zip
+*.tar.gz
+data/
+checkpoints/
+weights/
+
+# Outputs (defended audio, reports, figures)
+outputs/
+*.wav
+*.mp3
+*.flac
+
+# Downloads / caches / wheels
+refs/wheels/
+refs/_tmp_wheels/
+.hfcache/
+.mplcache/
+pip-*/
+vgch*/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
