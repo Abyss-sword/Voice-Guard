@@ -118,7 +118,7 @@ def differentiable_channel(x: torch.Tensor, sr: int, rng=None) -> torch.Tensor:
     # 3) 随机量化噪声（代理）
     if torch.rand(1, generator=rng).item() < 0.7:
         q = 10 ** float(torch.randint(-30, -14, (1,), generator=rng)) * 0.05
-        x = x + (torch.rand(x.shape, generator=rng, device=x.device) - 0.5) * q
+        x = x + (torch.rand(x.shape, generator=rng).to(x.device) - 0.5) * q
 
     # 4) 随机增益
     g_db = float(torch.randint(-30, 31, (1,), generator=rng))
