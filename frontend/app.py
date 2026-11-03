@@ -194,49 +194,102 @@ CSS = """
   --vg-accent2: #06b6d4;
   --vg-ink: #0f172a;
 }
-.vg-hero {
-  background: radial-gradient(1200px 400px at 12% -20%, rgba(99,102,241,.35), transparent),
-              radial-gradient(900px 320px at 88% 120%, rgba(6,182,212,.3), transparent),
-              linear-gradient(120deg, #1e1b4b 0%, #312e81 45%, #164e63 100%);
-  border-radius: 18px; padding: 26px 30px; color: #fff; margin-bottom: 16px;
-  border: 1px solid rgba(148,163,184,.35); box-shadow: 0 10px 30px rgba(30,27,75,.25);
+@keyframes vg-grad {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
-.vg-hero h2 { color: #fff; margin: 0 0 6px 0; font-size: 25px; letter-spacing: .3px; }
-.vg-hero p { margin: 4px 0; opacity: .93; font-size: 14px; line-height: 1.55; }
+@keyframes vg-float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-16px) scale(1.06); }
+}
+@keyframes vg-scan {
+  0% { transform: translateY(-120%); }
+  100% { transform: translateY(520%); }
+}
+@keyframes vg-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes vg-pulse {
+  0%, 100% { box-shadow: 0 0 16px rgba(34,211,238,.35); }
+  50% { box-shadow: 0 0 30px rgba(99,102,241,.7); }
+}
+.vg-hero {
+  position: relative; overflow: hidden;
+  background: radial-gradient(1200px 400px at 12% -20%, rgba(99,102,241,.4), transparent),
+              radial-gradient(900px 320px at 88% 120%, rgba(6,182,212,.35), transparent),
+              linear-gradient(120deg, #1e1b4b 0%, #312e81 45%, #164e63 100%);
+  background-size: 100% 100%, 100% 100%, 220% 220%;
+  animation: vg-grad 9s ease infinite;
+  border-radius: 18px; padding: 26px 30px; color: #ffffff; margin-bottom: 16px;
+  border: 1px solid rgba(148,163,184,.4); box-shadow: 0 10px 30px rgba(30,27,75,.28);
+}
+.vg-hero h2 { color: #ffffff !important; margin: 0 0 6px 0; font-size: 25px; letter-spacing: .3px; }
+.vg-hero p { color: #eef2ff !important; margin: 4px 0; opacity: .95; font-size: 14px; line-height: 1.55; }
+.vg-hero b { color: #a5f3fc; }
+.vg-hero::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 34%;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,.045) 0 1px, transparent 1px 4px);
+  animation: vg-scan 7s linear infinite; pointer-events: none;
+}
+.vg-orb {
+  position: absolute; border-radius: 999px; filter: blur(2px); pointer-events: none;
+}
+.vg-orb1 { width: 130px; height: 130px; right: 12%; top: -46px;
+  background: radial-gradient(circle, rgba(129,140,248,.55), transparent 70%);
+  animation: vg-float 6s ease-in-out infinite; }
+.vg-orb2 { width: 90px; height: 90px; right: 30%; bottom: -34px;
+  background: radial-gradient(circle, rgba(34,211,238,.5), transparent 70%);
+  animation: vg-float 8s ease-in-out infinite reverse; }
 .vg-badges { margin-top: 12px; }
 .vg-badge {
-  display: inline-block; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.4);
+  display: inline-block; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.42);
   border-radius: 999px; padding: 4px 14px; margin-right: 8px; font-size: 12.5px;
-  backdrop-filter: blur(4px);
+  color: #f1f5ff !important; backdrop-filter: blur(4px);
 }
 .vg-steps { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
 .vg-step {
   flex: 1; min-width: 148px; background: linear-gradient(160deg,#eef2ff,#ecfeff);
   border: 1px solid #c7d2fe; border-radius: 12px; padding: 10px 14px;
   font-size: 12.5px; color: #312e81; position: relative;
+  transition: transform .2s ease, box-shadow .2s ease;
 }
+.vg-step:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(99,102,241,.18); }
 .vg-step b { display: block; font-size: 14.5px; margin-bottom: 2px; color: #1e1b4b; }
 .vg-status-ok {
   background: linear-gradient(160deg,#ecfdf5,#f0fdfa); border: 1.5px solid #34d399;
   border-radius: 14px; padding: 14px 18px; font-size: 15px; color: #065f46;
   box-shadow: 0 4px 16px rgba(16,185,129,.15);
+  animation: vg-fade .5s ease both;
 }
 .vg-status-fail {
   background: linear-gradient(160deg,#fef2f2,#fff7ed); border: 1.5px solid #f87171;
   border-radius: 14px; padding: 14px 18px; font-size: 15px; color: #991b1b;
+  animation: vg-fade .5s ease both;
 }
 .vg-metrics { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
 .vg-metric {
   flex: 1; min-width: 104px; background: linear-gradient(160deg,#ffffff,#f1f5f9);
   border: 1px solid #e2e8f0; border-radius: 12px; padding: 9px 10px; text-align: center;
   box-shadow: 0 2px 8px rgba(15,23,42,.05);
+  animation: vg-fade .5s ease both;
+  transition: transform .2s ease;
 }
+.vg-metric:hover { transform: translateY(-2px); }
 .vg-metric .k { font-size: 11.5px; color: #64748b; }
 .vg-metric .v { font-size: 17px; font-weight: 600; color: #0f172a; margin-top: 2px;
   font-family: 'Consolas','JetBrains Mono',monospace; }
 .vg-note { font-size: 13px; color: #64748b; margin-top: 6px; }
-.vg-detail { font-size: 13.5px; }
+.vg-detail { font-size: 13.5px; animation: vg-fade .5s ease both; }
 .vg-detail th { text-align: left; padding: 2px 16px 2px 0; color: #475569; font-weight: 600; }
+button.primary {
+  transition: transform .18s ease, box-shadow .18s ease !important;
+  box-shadow: 0 4px 16px rgba(99,102,241,.35) !important;
+}
+button.primary:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 24px rgba(34,211,238,.55) !important;
+}
 
 /* ===== 黑夜模式（深空科技风）===== */
 html.vg-dark {
@@ -278,10 +331,12 @@ html.vg-dark .vg-step {
   background: linear-gradient(160deg,#131c33,#0e2433);
   border: 1px solid #24324b; color: #a5b4fc;
 }
+html.vg-dark .vg-step:hover { box-shadow: 0 8px 22px rgba(34,211,238,.25); }
 html.vg-dark .vg-step b { color: #e0e7ff; }
 html.vg-dark .vg-status-ok {
   background: rgba(16,185,129,.1); border-color: #059669; color: #6ee7b7;
   box-shadow: 0 0 24px rgba(16,185,129,.25);
+  animation: vg-fade .5s ease both, vg-pulse 3s ease-in-out infinite;
 }
 html.vg-dark .vg-status-fail {
   background: rgba(239,68,68,.1); border-color: #dc2626; color: #fca5a5;
@@ -296,13 +351,16 @@ html.vg-dark .vg-detail th { color: #94a3b8; }
 footer { display: none !important; }
 """
 
-HEAD = ("<script>"
-        "const saved=localStorage.getItem('vg-dark');"
-        "if(saved===null||saved==='1'){document.documentElement.classList.add('vg-dark');}"
-        "</script>")
+HEAD = ""
 
-DARK_JS = ("(v)=>{document.documentElement.classList.toggle('vg-dark',v);"
-           "localStorage.setItem('vg-dark',v?'1':'0');return v;}")
+RADIO_JS = ("(v)=>{const dark=(v===null||v.indexOf('🌙')>=0);"
+            "document.documentElement.classList.toggle('vg-dark',dark);"
+            "localStorage.setItem('vg-dark',dark?'1':'0');return v;}")
+
+LOAD_JS = ("()=>{const saved=localStorage.getItem('vg-dark');"
+           "const dark=(saved===null||saved==='1');"
+           "document.documentElement.classList.toggle('vg-dark',dark);"
+           "return dark?'🌙 黑夜':'☀️ 白昼';}")
 
 
 # ---------------------------------------------------------------- HTML 生成
@@ -367,7 +425,8 @@ def _detail_html(report: dict, lang: str) -> str:
 def _hero_html(lang: str) -> str:
     L = T[lang]
     badges = "".join(f'<span class="vg-badge">{b}</span>' for b in L["badges"])
-    return (f'<div class="vg-hero"><h2>{L["hero_title"]}</h2><p>{L["hero_sub"]}</p>'
+    return (f'<div class="vg-hero"><div class="vg-orb vg-orb1"></div><div class="vg-orb vg-orb2"></div>'
+            f'<h2>{L["hero_title"]}</h2><p>{L["hero_sub"]}</p>'
             f'<div class="vg-badges">{badges}</div></div>')
 
 
@@ -420,13 +479,17 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
                                              "docs", "fig_eps_curve.png"))
 
     with gr.Blocks(title="Voice Guard — Voice Privacy Defense", theme=theme,
-                   css=CSS, head=HEAD) as demo:
-        # 顶部控制条：昼夜 + 语言
+                   css=CSS) as demo:
+        # 顶部控制条：昼夜选项 + 语言选项（格式统一）
         with gr.Row():
-            dark_cb = gr.Checkbox(value=True, label=L["dark_label"], scale=1)
+            theme_radio = gr.Radio(choices=["🌙 黑夜", "☀️ 白昼"], value="🌙 黑夜",
+                                   label="🌗 主题 / Theme", scale=1)
             lang_dd = gr.Dropdown(choices=["中文", "English"],
                                   value="中文" if lang == "zh" else "English",
                                   label=L["lang_label"], scale=1)
+
+        # 页面加载时按 localStorage 恢复主题并同步选项
+        demo.load(None, [], [theme_radio], js=LOAD_JS)
 
         hero_html = gr.HTML(_hero_html(lang))
         steps_html = gr.HTML(_steps_html(lang))
@@ -457,7 +520,7 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
                 status_html = gr.HTML(f'<div class="vg-note">{L["status_placeholder"]}</div>')
                 metrics_html = gr.HTML()
                 with gr.Tabs():
-                    with gr.Tab(L["t_try"]):
+                    with gr.Tab(L["t_try"]) as tt1:
                         with gr.Row():
                             aud_orig = gr.Audio(label=L["a_orig"])
                             aud_def = gr.Audio(label=L["a_def"])
@@ -465,26 +528,27 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
                             aud_delta = gr.Audio(label=L["a_delta"])
                             aud_conv_clean = gr.Audio(label=L["a_cc"])
                             aud_conv_def = gr.Audio(label=L["a_cd"])
-                    with gr.Tab(L["t_plot"]):
+                    with gr.Tab(L["t_plot"]) as tt2:
                         plot_out = gr.Image(label=L["plot_label"])
-                    with gr.Tab(L["t_detail"]):
+                    with gr.Tab(L["t_detail"]) as tt3:
                         detail_html = gr.HTML()
 
-            last_state = gr.State({})
+            last_state = gr.State({"lang": lang, "report": None, "mcd": None})
 
             def on_protect(defend, speaker, adv, eps, demo_mode, state):
+                CL = T[state.get("lang", "zh")]
                 if not defend:
-                    raise gr.Error(L["err_no_defend"])
+                    raise gr.Error(CL["err_no_defend"])
                 if not adv:
                     y = pipe.least_likely(speaker)
                     if y in speaker_first:
                         adv = speaker_first[y]
-                        gr.Info(L["info_auto_adv"].format(y))
+                        gr.Info(CL["info_auto_adv"].format(y))
                     else:
-                        raise gr.Error(L["err_need_adv"])
+                        raise gr.Error(CL["err_need_adv"])
                 it1, it2 = (300, 200) if demo_mode else (args.iters1, args.iters2)
                 out_dir = os.path.join(args.out_dir, f"{speaker}_{int(time.time())}")
-                gr.Info(L["info_start"].format(it1, it2))
+                gr.Info(CL["info_start"].format(it1, it2))
                 rep = pipe.protect(defend, speaker, adv, eps=eps, iters1=it1, iters2=it2,
                                    out_dir=out_dir, progress=False)
 
@@ -498,11 +562,12 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
                     pass
 
                 png = _plot_waveforms(rep["files"], os.path.join(out_dir, "waves.png"))
-                state = {"report": rep, "mcd": mcd_val}
-                return (_status_html(rep, lang), rep["files"]["original"], rep["files"]["defended"],
-                        rep["files"]["delta"], rep["files"]["conv_clean"],
-                        rep["files"]["conv_def"], png, _metrics_html(rep, mcd_val, lang),
-                        _detail_html(rep, lang), state)
+                state = {"lang": state.get("lang", "zh"), "report": rep, "mcd": mcd_val}
+                return (_status_html(rep, state["lang"]), rep["files"]["original"],
+                        rep["files"]["defended"], rep["files"]["delta"],
+                        rep["files"]["conv_clean"], rep["files"]["conv_def"], png,
+                        _metrics_html(rep, mcd_val, state["lang"]),
+                        _detail_html(rep, state["lang"]), state)
 
             run_btn.click(on_protect,
                           [defend_in, speaker_dd, adv_in, eps_sl, demo_cb, last_state],
@@ -511,8 +576,12 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
 
             if speaker_first:
                 ex = [[speaker_first[pipe.speakers[0]], pipe.speakers[0]]]
-                gr.Examples(examples=ex, inputs=[defend_in, speaker_dd],
-                            label=L["examples_label"])
+                with gr.Column(visible=(lang == "zh")) as excol_zh:
+                    gr.Examples(examples=ex, inputs=[defend_in, speaker_dd],
+                                label=T["zh"]["examples_label"])
+                with gr.Column(visible=(lang == "en")) as excol_en:
+                    gr.Examples(examples=ex, inputs=[defend_in, speaker_dd],
+                                label=T["en"]["examples_label"])
 
         with gr.Tab(L["tab_convert"]) as tab2:
             conv_md = gr.Markdown(L["conv_md"])
@@ -522,15 +591,16 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
             conv_btn = gr.Button(L["conv_btn"], variant="primary")
             conv_out = gr.Audio(label=L["conv_out_label"])
 
-            def on_convert(src, tgt):
+            def on_convert(src, tgt, state):
+                CL = T[state.get("lang", "zh")]
                 if not src or not tgt:
-                    raise gr.Error(L["err_conv"])
+                    raise gr.Error(CL["err_conv"])
                 out = os.path.join(args.out_dir, f"conv_{int(time.time())}.wav")
                 from vguard.vc.adainvc import convert as vc_convert
                 vc_convert(pipe.model, pipe.config, pipe.attr, src, tgt, out, pipe.device)
-                return out
+                return out, state
 
-            conv_btn.click(on_convert, [src_in, tgt_in], [conv_out])
+            conv_btn.click(on_convert, [src_in, tgt_in, last_state], [conv_out, last_state])
 
         with gr.Tab(L["tab_about"]) as tab3:
             about_md = gr.Markdown(L["about_md"])
@@ -543,10 +613,11 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
             nl = "zh" if choice == "中文" else "en"
             NL = T[nl]
             rep = state.get("report")
+            state = {"lang": nl, "report": rep, "mcd": state.get("mcd")}
             return [
                 gr.update(value=_hero_html(nl)),                    # 0 hero
                 gr.update(value=_steps_html(nl)),                   # 1 steps
-                gr.update(label=NL["dark_label"]),                  # 2 dark
+                gr.update(),                                        # 2 theme_radio（选项图标语言中立）
                 gr.update(label=NL["lang_label"]),                  # 3 lang_dd
                 gr.update(value=f"### {NL['g1']}"),                 # 4 g1
                 gr.update(label=NL["defend_label"]),                # 5 defend_in
@@ -575,21 +646,27 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
                 gr.update(value=NL["about_md"]),                    # 26 about
                 gr.update(value=(_metrics_html(rep, state.get("mcd"), nl) if rep else "")),  # 27 metrics
                 gr.update(value=(_detail_html(rep, nl) if rep else "")),                    # 28 detail
-                state,                                              # 29 state
+                state,                                              # 29 state（含 lang）
                 gr.update(label=NL["tab_protect"]),                 # 30 tab1
                 gr.update(label=NL["tab_convert"]),                 # 31 tab2
                 gr.update(label=NL["tab_about"]),                   # 32 tab3
+                gr.update(label=NL["t_try"]),                       # 33 tt1
+                gr.update(label=NL["t_plot"]),                      # 34 tt2
+                gr.update(label=NL["t_detail"]),                    # 35 tt3
+                gr.update(visible=(nl == "zh")),                    # 36 excol_zh
+                gr.update(visible=(nl == "en")),                    # 37 excol_en
             ]
 
         lang_dd.change(on_lang, [lang_dd, speaker_dd, last_state],
-                       [hero_html, steps_html, dark_cb, lang_dd, g1_md, defend_in, adv_in,
+                       [hero_html, steps_html, theme_radio, lang_dd, g1_md, defend_in, adv_in,
                         speaker_dd, g2_md, eps_sl, demo_cb, g3_md, run_btn, g4_md,
                         status_html, aud_orig, aud_def, aud_delta, aud_conv_clean, aud_conv_def,
                         plot_out, conv_md, src_in, tgt_in, conv_btn, conv_out, about_md,
-                        metrics_html, detail_html, last_state, tab1, tab2, tab3])
+                        metrics_html, detail_html, last_state, tab1, tab2, tab3,
+                        tt1, tt2, tt3, excol_zh, excol_en])
 
-        # 昼夜切换（纯前端 JS + localStorage 记忆）
-        dark_cb.change(None, [dark_cb], None, js=DARK_JS)
+        # 昼夜切换（纯前端 JS + localStorage 记忆，与语言选项格式统一）
+        theme_radio.change(None, [theme_radio], None, js=RADIO_JS)
 
     return demo
 
