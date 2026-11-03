@@ -11,12 +11,22 @@ import numpy as np
 
 
 def load_mosnet(savedir: str = "checkpoints/mosnet-hf", device: Optional[str] = None):
+    import os
+
+    # 本机 C:\Users\<user>\.cache 有 ACL 问题（WinError 5），把 HF 缓存重定向到项目目录
+    _hf_home = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".hfcache"))
+    os.environ.setdefault("HF_HOME", _hf_home)
+    os.environ.setdefault("HF_MODULES_CACHE", os.path.join(_hf_home, "modules"))
+
     import torch
     from transformers import AutoModel
 
     if device is None:
         device = "cuda" if torch.cuda.is_available() else "cpu"
-    model = AutoModel.from_pretrained(savedir, trust_remote_code=True).to(device).eval()
+    # 离线加载（auto_map 已改为本地模块名；禁止走 hub）
+    model = AutoModel.from_pretrained(
+        savedir, trust_remote_code=True, local_files_only=True
+    ).to(device).eval()
     return model
 
 

@@ -142,9 +142,14 @@ def _ver_from_name(fn: str) -> str:
 
 
 def fetch_pypi_json(pkg: str):
-    r = curl(["-H", "Accept: application/vnd.pypi.simple.v1+json", f"{PYPI}/{pkg}/"], max_time=40)
+    r = curl(["--retry", "2", "--retry-delay", "3", "--retry-all-errors",
+              "-H", "Accept: application/vnd.pypi.simple.v1+json", f"{PYPI}/{pkg}/"],
+             max_time=150)
     if r.returncode == 0 and r.stdout.lstrip().startswith("{"):
-        data = json.loads(r.stdout)
+        try:
+            data = json.loads(r.stdout)
+        except json.JSONDecodeError:
+            return None
         return [(f["filename"], f["url"], f.get("yanked", False)) for f in data.get("files", [])]
     return None
 
