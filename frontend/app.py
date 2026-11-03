@@ -372,19 +372,19 @@ LOAD_JS = ("()=>{const saved=localStorage.getItem('vg-dark');"
 LANG_JS = r"""(v)=>{
   const en = v==='English';
   const pairs = en ? [
-    ['将音频拖放到此处，或点击上传', 'Drop audio here, or click to upload'],
     ['点击上传，或将音频拖放到此处', 'Click to upload, or drop audio here'],
+    ['将音频拖放到此处，或点击上传', 'Drop audio here, or click to upload'],
     ['将音频拖放到此处', 'Drop audio here'],
-    ['，或点击上传', ', or click to upload'],
-    ['或点击上传', 'or click to upload'],
+    ['点击上传', 'Click to upload'],
+    ['或', 'or'],
     ['清除', 'Clear'],
     ['录制', 'Record'],
   ] : [
-    ['Drop audio here, or click to upload', '将音频拖放到此处，或点击上传'],
     ['Click to upload, or drop audio here', '点击上传，或将音频拖放到此处'],
+    ['Drop audio here, or click to upload', '将音频拖放到此处，或点击上传'],
     ['Drop audio here', '将音频拖放到此处'],
-    [', or click to upload', '，或点击上传'],
-    ['or click to upload', '或点击上传'],
+    ['Click to upload', '点击上传'],
+    ['or', '或'],
     ['Clear', '清除'],
     ['Record', '录制'],
   ];
