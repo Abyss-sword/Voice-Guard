@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "id": "image_watermark",
+  "title": "图像可见水印",
+  "english": "Visible Image Watermark",
+  "category": "内容水印",
+  "summary": "将自定义文字嵌入图像，直观体验内容标记与素材归属声明。",
+  "description": "在浏览器中将文字绘制到图像上，输出 PNG 图片。它是用于验证平台完整流程的基础样例，不具有隐形水印或抗攻击能力。各组可按相同接口接入自己的论文复现方法。",
+  "team": "平台示例",
+  "version": "1.0.0",
+  "runtime": "浏览器 · CPU",
+  "inputs": [{ "name": "image", "label": "原始图像", "kind": "image", "accept": ["image/png", "image/jpeg", "image/webp"], "required": true, "max_mb": 25 }],
+  "parameters": [
+    { "name": "text", "label": "水印文字", "type": "text", "default": "ALGORITHM HUB", "required": true, "max_length": 80, "help": "建议填写团队名称或素材归属。" },
+    { "name": "opacity", "label": "水印不透明度", "type": "number", "default": 0.3, "min": 0.05, "max": 1, "step": 0.05, "required": true, "help": "数值越大，水印越明显。" },
+    { "name": "font_size", "label": "文字大小 / px", "type": "integer", "default": 32, "min": 12, "max": 160, "required": true },
+    { "name": "position", "label": "水印位置", "type": "select", "default": "center", "options": [{ "value": "center", "label": "画面中心" }, { "value": "bottom_right", "label": "右下角" }], "required": true },
+    { "name": "repeat", "label": "平铺水印", "type": "boolean", "default": false, "help": "在整幅图像上重复绘制文字。" }
+  ],
+  "examples": [{ "title": "一张图，说明水印的作用", "description": "左侧为原始样例，右侧为同一图像叠加文字后的效果。点击“用样例试一试”可自行调整参数并真实生成新结果。", "input": { "src": "samples/image_original.svg", "kind": "image", "label": "原始图像" }, "output": { "src": "samples/image_marked.svg", "kind": "image", "label": "添加可见水印" }, "parameters": { "text": "ALGORITHM HUB", "opacity": 0.3, "font_size": 32, "position": "center", "repeat": false } }],
+  "adapter": { "type": "browser", "handler": "image_watermark" }
+}

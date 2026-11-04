@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "id": "my_video_defense",
+  "title": "请填写视频防御方法名称",
+  "english": "Video Defense Method",
+  "category": "主动防御",
+  "summary": "请填写方法用途。",
+  "description": "请填写论文、方法原理、输出效果和适用边界。",
+  "team": "请填写贡献团队",
+  "version": "1.0.0",
+  "runtime": "算法服务 · GPU",
+  "inputs": [{ "name": "input_file", "label": "原始视频", "kind": "video", "accept": ["video/mp4"], "required": true, "max_mb": 100 }],
+  "parameters": [
+    { "name": "strength", "label": "保护强度", "type": "number", "default": 0.05, "min": 0, "max": 1, "step": 0.01, "required": true, "help": "请按真实算法修改范围与说明。" },
+    { "name": "seed", "label": "随机种子", "type": "integer", "default": 42, "min": 0, "max": 2147483647, "required": true }
+  ],
+  "examples": [{ "title": "请填写样例标题", "description": "请使用同一输入的真实防御输出，并说明观察重点。", "input": { "src": "samples/my_video_defense/input.mp4", "kind": "video", "label": "原始视频" }, "output": { "src": "samples/my_video_defense/output.mp4", "kind": "video", "label": "保护后视频" }, "parameters": { "strength": 0.05, "seed": 42 } }],
+  "adapter": { "type": "http", "endpoint": "https://your_algorithm.example/process" }
+}

@@ -1,0 +1,7 @@
+.method_grid{grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr))}
+.hero p,.section_heading p,.method_header p,.page_heading p,.method_body p,.contribution_banner p{color:#667660}
+.example_description,.method_description p,.input_note,.muted,.parameter_field small,.guide_card p,.guide_page .two_fields p,.editor_toolbar p,.connection_steps p{color:#6e7e65}
+.field_heading span,.example_title>span:last-child,.method_meta,.card_topline,.card_footer,.hero_meta,.category_filter,footer{color:#71816a}
+.tag_row span,.status_dot,.filter_tabs button,.text_button,.back_link{color:#657d58}
+.upload_area span,.run_bar span,.audio_visual span{color:#6f8361}
+@media(max-width:700px){.method_grid{grid-template-columns:1fr}}

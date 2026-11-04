@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "id": "audio_marker",
+  "title": "音频可听标记",
+  "english": "Audible Audio Marker",
+  "category": "内容水印",
+  "summary": "为音频加入可调节的周期提示音，体验音频输入、方法参数与结果试听。",
+  "description": "浏览器解码音频并叠加短促提示音，输出 WAV。此方法只是可听标记的流程样例，不是不可感知水印或安全防御算法，不代表任何论文效果。",
+  "team": "平台示例",
+  "version": "1.0.0",
+  "runtime": "浏览器 · CPU",
+  "inputs": [{ "name": "audio", "label": "原始音频", "kind": "audio", "accept": ["audio/*"], "required": true, "max_mb": 25 }],
+  "parameters": [
+    { "name": "strength", "label": "标记音量", "type": "number", "default": 0.06, "min": 0.01, "max": 0.3, "step": 0.01, "required": true, "help": "调节提示音的幅度，建议先使用默认值。" },
+    { "name": "frequency", "label": "标记频率 / Hz", "type": "integer", "default": 1200, "min": 300, "max": 3000, "required": true },
+    { "name": "interval", "label": "标记间隔 / 秒", "type": "number", "default": 1, "min": 0.5, "max": 5, "step": 0.5, "required": true }
+  ],
+  "examples": [{ "title": "听见原始声音与标记声音的区别", "description": "样例为本项目生成的合成音，不含任何人的录音。处理结果在原始声音上增加短促的周期提示音。", "input": { "src": "samples/audio_original.wav", "kind": "audio", "label": "原始合成音" }, "output": { "src": "samples/audio_marked.wav", "kind": "audio", "label": "加入周期标记" }, "parameters": { "strength": 0.06, "frequency": 1200, "interval": 1 } }],
+  "adapter": { "type": "browser", "handler": "audio_marker" }
+}

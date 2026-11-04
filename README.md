@@ -160,6 +160,7 @@ F_imp 是信道下最薄弱的一环。攻击侧 EOT 使防御全面变差（G.7
 
 | # | 事项 | 负责人 | 说明 |
 |---|---|---|---|
+| 0 | 课程平台接入（lym-lab/algorithm_research_frontend） | 任一成员 | **材料已备好**：适配服务 `platform/service/adapter.py`（已实测通过）、方法配置 `platform/methods/group_xx_voice_guard.json`、样例 `platform/samples/`、小组 README `platform/README-group.md`。剩余：Fork 平台仓库 → 复制 platform 内容 → 替换组号 XX → PR（标题 `第XX组-音频主动防御`）。步骤见 `docs/10_课程平台接入说明.md` |
 | 1 | 华为云 ModelArts 部署 | 任一成员 | **详细逐字段手册见 `docs/07_部署操作手册.md`**（路线 A：ECS 直跑，无需本地 Docker；路线 B：镜像→SWR→ModelArts 在线服务）。先跑 `python tools\make_cloud_bundle.py --zip` 生成 123 MB 部署包。完成后把**服务地址**贴到这里并同步报告 §3.1 |
 | 2 | 组员姓名与分工 | 两位成员 | 报告 `docs/04_报告.md` §6 与 PPT 封面（现为「成员 A/B」占位） |
 | 3 | 权重云盘分发 | 任一成员 | `checkpoints/`（约 35MB）+ `outputs/registry*.npz` 打包上传云盘，链接替换下方「<待填>」两处 |
