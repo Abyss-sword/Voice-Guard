@@ -45,6 +45,8 @@ def commands(stage, device, seed):
         return [[py, "tools/download_models.py", "models"]]
     if stage == "data":
         return [[py, "tools/download_models.py", "vctk", "--extract"]]
+    if stage == "data-subset":
+        return [[py, "tools/download_vctk_subset.py"]]
     if stage == "registry":
         return [[py, "scripts/build_registry.py", "--mode", "vc", "--model-dir", "checkpoints/adain-vc-official",
                  "--out", "outputs/registry_vc.npz", *registry],
@@ -58,6 +60,9 @@ def commands(stage, device, seed):
     if stage in ("smoke", "benchmark"):
         it1, it2 = (60, 30) if stage == "smoke" else (3000, 1500)
         specs = [(stage, "vg", ".05", "p225", it1, it2)]
+    elif stage == "baseline-smoke":
+        specs = [(f"smoke_{method}", method, ".05", "p225", 2, 1)
+                 for method in ("emb", "fb", "e2e")]
     elif stage == "main":
         specs = [(f"main_{m}", m, ".05", "p225,p226,p227,p228,p229", 3000, 1500)
                  for m in ("vg", "vg-nop", "emb", "fb", "e2e")]
@@ -71,7 +76,7 @@ def commands(stage, device, seed):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("stage", choices=["models", "data", "registry", "smoke", "benchmark", "main", "eps"])
+    ap.add_argument("stage", choices=["models", "data", "data-subset", "registry", "smoke", "baseline-smoke", "benchmark", "main", "eps"])
     ap.add_argument("--device", choices=["cuda", "cpu"], default="cuda")
     ap.add_argument("--seed", type=int, default=2026)
     ap.add_argument("--dry-run", action="store_true")

@@ -11,6 +11,7 @@ Ubuntu 22.04 + NVIDIA GPU 驱动，进入项目根目录：
 bash deploy/ecs_bootstrap.sh
 .venv/bin/python scripts/reproduce.py models
 .venv/bin/python scripts/reproduce.py data --max-hours 2
+# 或使用 data-subset，只下载本项目抽样协议需要的原始 WAV。
 .venv/bin/python scripts/reproduce.py registry
 .venv/bin/python tools/preflight.py --scope experiment --out outputs/cloud/preflight.json
 .venv/bin/python scripts/reproduce.py smoke
@@ -56,3 +57,7 @@ Gradio 队列与 WebSocket/SSE、超时和权重挂载需单独实测；不得�
 保留 ECS 区域/规格与订单截图、`nvidia-smi`、`runtime.json`、`preflight.json`、
 实验 `manifest.json/result.json/results.csv/summary.json`、服务日志和一次真实音频操作截图。
 资源价格、峰值显存、单句耗时应填写该 ECS 的实测值，不沿用历史 4060 数据。
+
+本轮实际部署与首句结果见 [华为云实测](../docs/11_华为云实测.md)。
+准备可选评测依赖与 MOS 模型后，`bash deploy/run_ecs_campaign.sh` 会运行主表、ε 扫描和质量评测，
+自动生成 `outputs/cloud/campaign-summary.json/.md`；不完整产物不会被标记为完成。

@@ -1,7 +1,7 @@
-"""WER/CER 评估：转换音频的转写内容 vs 内容源文本（Whisper base）。
+"""WER/CER 评估：原始/保护音频对照目标文本，转换音频对照内容源文本。
 
-口径：内容源 t̂ 的转写为 ground truth；对每句的 defended / conv_clean / conv_def
-转写并算 CER/WER。论文 Eq.9-11 中 ASR_th=10% 即用于此处（内容是否被保留）。
+默认使用 VCTK 人工转录；显式 --reference-mode whisper 可使用干净音频的伪参考。
+这里报告 Whisper base 的编辑距离，不将论文 ASR_th 直接等同于 WER 阈值。
 
 用法：
     python scripts/compute_wer.py --exp-dir outputs/exp02 --vctk data/VCTK22 \

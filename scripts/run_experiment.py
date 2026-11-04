@@ -22,6 +22,7 @@ import json
 import os
 import random
 import sys
+import time
 from pathlib import Path
 
 import numpy as np
@@ -198,6 +199,10 @@ def main():
                 print(f"skip {utt}: done")
                 continue
             seed = utterance_seed(args.seed, utt)
+            if device.startswith("cuda"):
+                torch.cuda.synchronize()
+                torch.cuda.reset_peak_memory_stats()
+            sample_started = time.monotonic()
             random.seed(seed)
             np.random.seed(seed)
             torch.manual_seed(seed)
@@ -251,6 +256,8 @@ def main():
 
             row = {"utterance": utt, "method": args.method, "seed": seed,
                    "eps": args.eps, "flag": res["flag"], "c": res["c"]}
+            if "stage" in res:
+                row["stage"] = res["stage"]
             row.update(input_hashes)
             row["mcd"] = round(mcd_mel(wav.astype(np.float32), adv_np, feature_kwargs,
                                        attr=None, device=device), 3)
@@ -258,7 +265,8 @@ def main():
             try:
                 if ecapa is None:
                     ecapa = load_ecapa(device=device, savedir="checkpoints/ecapa-local")
-                for key, p in [("defended", os.path.join(out_sub, "defended.wav")),
+                for key, p in [("original", os.path.join(out_sub, "original_trimmed.wav")),
+                               ("defended", os.path.join(out_sub, "defended.wav")),
                                ("conv_clean", conv_clean), ("conv_def", conv_def)]:
                     a, audio_sr = sf.read(p)
                     e = embed_wav(ecapa, a.astype(np.float32), audio_sr)
@@ -269,10 +277,16 @@ def main():
                     row[f"asv_{key}"] = pred
                     row[f"simX_{key}"] = round(float(sims[eval_reg.names.index(x)]), 3)
                 row["conv_clean_hits_X"] = row["asv_conv_clean"] == x
+                row["original_hits_X"] = row["asv_original"] == x
                 row["defense_ok"] = (row["asv_defended"] == x) and (row["asv_conv_def"] != x)
             except Exception as e:  # noqa: BLE001
                 row["asv_error"] = str(e)[:200]
 
+            if device.startswith("cuda"):
+                torch.cuda.synchronize()
+                row["peak_cuda_allocated_mib"] = round(torch.cuda.max_memory_allocated() / 1024**2, 1)
+                row["peak_cuda_reserved_mib"] = round(torch.cuda.max_memory_reserved() / 1024**2, 1)
+            row["elapsed_s"] = round(time.monotonic() - sample_started, 2)
             write_json(Path(out_sub) / "result.json", row)
             save_row(row)
             print(json.dumps(row, ensure_ascii=False))

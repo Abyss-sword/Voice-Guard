@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import os
 import sys
+from pathlib import Path
 
 import numpy as np
 import soundfile as sf
@@ -19,6 +20,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from vguard.asv import build_registry, load_ecapa  # noqa: E402
 from vguard.vc.adainvc import load_adainvc, speaker_embed  # noqa: E402
+from vguard.run_state import file_sha256, write_json  # noqa: E402
 
 
 def main():
@@ -36,10 +38,13 @@ def main():
     if len(set(names)) != len(names) or len(names) < 2 or args.per_speaker < 1:
         ap.error("need >=2 unique speakers and positive per-speaker")
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
+    enrollment = {}
     for name in names:
-        files = list(__import__("pathlib").Path(args.vctk, name).glob("*.wav"))
+        files = sorted(Path(args.vctk, name).glob("*.wav"))
         if len(files) < args.per_speaker:
             ap.error(f"{name}: need {args.per_speaker} enrollment WAVs, found {len(files)}")
+        enrollment[name] = [{"path": str(path), "sha256": file_sha256(path)}
+                            for path in files[:args.per_speaker]]
 
     if args.mode == "vc":
         model, config, attr = load_adainvc(args.model_dir, device=args.device)
@@ -81,6 +86,11 @@ def main():
         names = names_out
         np.savez(args.out, names=np.asarray(names), embeddings=embs.astype(np.float32))
 
+    write_json(str(args.out) + ".manifest.json", {
+        "mode": args.mode, "device": args.device, "per_speaker": args.per_speaker,
+        "enrollment": enrollment, "registry_sha256": file_sha256(args.out),
+        "shape": list(embs.shape),
+    })
     print(f"saved {args.out}: {names} {embs.shape}")
 
 

@@ -10,9 +10,10 @@ Perturbation in the Time Domain*，IJCAI 2023，4812–4820。
 
 - 初始目录为无 `.git` 的源码快照；现已连接原仓库并基于远程 `master` 创建独立分支。旧设备与实验完成记录不代表本机现状。
 - 本轮修复重采样、批量断点续跑、随机种子、筛选分母和 WER 参考文本错误，补齐模型下载与 ECS 部署工具。
-- 用户尚未创建华为云实例，有 500 元代金券；尚无云端部署地址或新一轮论文实验结果。
+- 已连接用户购买的华为云 GPU ECS：Ubuntu 22.04、Tesla T4（15GB 可用显存）、32GB 内存、100GB 系统盘；驱动和模型已就绪，实验执行状态见复现审计。
 - 历史表与报告保留供比较；原始 `outputs/` 和 VCTK 数据未随快照提供，历史 ε 曲线和 PPT 未经本轮重新验证。
 - 本轮验证记录见 [复现审计](docs/10_复现审计.md)，实际部署见 [华为云操作手册](docs/07_部署操作手册.md)。
+- 云端服务与真实语音首句已验证；完整步数首句身份维通过，但质量指标未达预期。主表/ε 扫描仍在后台运行，见 [华为云实测](docs/11_华为云实测.md)。
 
 ## 华为云 GPU ECS
 
@@ -25,6 +26,8 @@ Perturbation in the Time Domain*，IJCAI 2023，4812–4820。
 bash deploy/ecs_bootstrap.sh
 .venv/bin/python scripts/reproduce.py models
 .venv/bin/python scripts/reproduce.py data --max-hours 2
+# 也可只取本项目抽样协议需要的原始 WAV，节省下载流量：
+# .venv/bin/python scripts/reproduce.py data-subset --max-hours 2
 .venv/bin/python scripts/reproduce.py registry
 .venv/bin/python tools/preflight.py --scope experiment --out outputs/cloud/preflight.json
 .venv/bin/python scripts/reproduce.py smoke --max-hours 1
@@ -55,8 +58,12 @@ python -m venv .venv
 
 `models` 下载 NTU AdaIN-VC（自动生成 24kHz 配置）和固定提交的 SpeechBrain ECAPA；
 下载记录包含 URL/文件大小/SHA256。VCTK22 压缩包约 10.69GB，按发布摘要校验，解压到 `data/VCTK22/pXXX/`。
+`data-subset` 通过 HTTP Range 提取同一 ZIP 中的原始 WAV：5 位测试人各 80 句，其余 15 人各 31 句。
+保留完整语料排序后的前 30 句注册集；逐文件校验 ZIP CRC32 并记录 SHA256，**不声称验证完整压缩包摘要**。
 `requirements.txt` 另含 Whisper/报告工具；部署与身份维实验用固定版本 `deploy/requirements.txt`。
 Whisper/MOSNet 和完整数据需额外准备，不能因命令存在就标记评测完成。
+可选质量评测依赖见 `deploy/evaluation-requirements.txt`，MOS 模型下载命令为
+`python tools/download_models.py mosnet`；该第三方 MOSNet 移植的分数不等同于人工 MOS。
 
 ## 分阶段实验
 
