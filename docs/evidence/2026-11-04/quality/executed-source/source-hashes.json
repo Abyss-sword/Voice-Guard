@@ -1,0 +1,12 @@
+{
+  "vguard/attack.py": {
+    "executed_sha256": "7737450af32eb5a10d750bec13a8c37ba4b618c025721e9abc82642b02ae70d5",
+    "committed_sha256": "7737450af32eb5a10d750bec13a8c37ba4b618c025721e9abc82642b02ae70d5",
+    "equal_after_crlf_normalization": true
+  },
+  "vguard/masking.py": {
+    "executed_sha256": "d3b5000cef4b9bc1d56b40f9f8f5af5d08742bd7e4b9e780bf78c817b62d04e8",
+    "committed_sha256": "d3b5000cef4b9bc1d56b40f9f8f5af5d08742bd7e4b9e780bf78c817b62d04e8",
+    "equal_after_crlf_normalization": true
+  }
+}

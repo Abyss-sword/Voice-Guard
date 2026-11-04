@@ -13,6 +13,9 @@
 评分、转录和身份结果在对应 `*_eval` 目录，筛选后的统计在 `summary.json/results.csv`。
 历史 manifest 的代码摘要对应运行当时版本；本轮后续增加了导出验证、余弦分数记录及续跑检查。
 数值算法 `vguard/attack.py` 与 `vguard/masking.py` 的摘要在固定配置中保留。
+`executed-source/` 保存这两个模块当时执行的原始字节（`.py.txt`）。Git 对源码换行的规范化会改变
+原始 SHA256；`source-hashes.json` 映射执行时摘要和提交中摘要，并已核对仅 CRLF/LF 不同。
+证据目录关闭 Git 换行转换，保留原始 CSV 和源码快照的可核验摘要。
 `refine_replay_p225*` 与 `replay-check.json` 是最终生成脚本的一次独立重跑：联合门槛仍通过，
 但原始与重跑波形摘要不同，不声称 CUDA 逐位确定性，也未替换主比较表中的首次结果。
 
