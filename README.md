@@ -149,8 +149,8 @@ python frontend\app.py --model-dir checkpoints\adain-vc-official --registry outp
 防御率 0.02→75%、0.05→75%、0.08→50%、0.10→50%（曲线 `docs/fig_eps_curve.png`）。
 低 ε 平台由 F_str"顽固句"限制，高 ε 由 F_imp 退化主导。
 
-**方法对比**（ε=0.05）：emb 20%、fb 40%、e2e 20%、VG w/o P（消融）、
-**VG 75%** —— 时域 + 掩蔽显著优于频域基线。
+**方法对比**（ε=0.05，clean-VC 筛选后）：emb 0%（0/4）、fb 25%（1/4）、e2e 0%（0/4）、
+VG w/o P 75%（3/4）、**VG 75%**（3/4）—— 时域 + 掩蔽显著优于频域基线。
 
 **加分项（真实信道）**：mp3/aac 对防御几乎无影响；8k/G.711 双向分化；
 F_imp 是信道下最薄弱的一环。攻击侧 EOT 使防御全面变差（G.711 上 60%→20%），
