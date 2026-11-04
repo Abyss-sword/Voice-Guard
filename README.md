@@ -59,51 +59,45 @@ python -m venv .venv
 `requirements.txt` 另含 Whisper/报告工具；部署与身份维实验用固定版本 `deploy/requirements.txt`。
 Whisper/MOSNet 和完整数据需额外准备，不能因命令存在就标记评测完成。
 
-## 权重分发（云盘操作指南）
+## 权重分发（云盘下载，✅ 已上传）
 
-代码仓库不含权重/数据（GitHub 单文件 100 MB 限制 + 仓库体积要求）。权重约 120 MB，走云盘分发：
+代码仓库不含权重/数据（GitHub 单文件 100 MB 限制 + 仓库体积要求）。权重包已打包并上传三个云盘，
+**任选一个下载**：
 
-**① 打包（本机，一条命令）**
+| 云盘 | 链接 | 提取码 |
+|---|---|---|
+| 百度网盘 | https://pan.baidu.com/s/1sc4xGtKd8gpPJPzhxZzO8Q?pwd=hce6 | `hce6` |
+| 迅雷云盘 | https://pan.xunlei.com/s/VP5ae6D82ZBPuGJxz5JyEQqpA1?pwd=ptb5 | `ptb5` |
+| 夸克网盘 | https://pan.quark.cn/s/a7419932b2f8 | `yjQE0` |
 
-```powershell
-.\.venv\Scripts\python.exe tools\make_weights_package.py
-# 产物：release\voiceguard_weights_v1.0.zip（约 120 MB）
-# 内含 weights/（checkpoints 全量）+ registry/（registry*.npz/asv_probe.npz）
-#      + samples/（平台样例）+ README-weights.txt
-# 同时打印 SHA256，记下来贴到分享说明里
-```
+**文件**：`voiceguard_weights_v1.0.zip`（119.7 MB，解压后 128.8 MB）
 
-**② 上传到云盘（二选一）**
-
-- **百度网盘**：网页 https://pan.baidu.com → 登录 → 「上传」→ 选择 zip（大文件建议装客户端）→
-  上传完成后右键文件 → **分享** → 选「有提取码」或「永久有效」→ 复制**链接 + 提取码**
-- **阿里云盘**：网页 https://www.alipan.com → 「上传文件」→ 上传完成后右键 → **分享** →
-  设置「有效期」（建议长期）→ 复制链接（阿里云盘通常无提取码）
-- 其他（夸克/天翼云盘）同理：上传 → 分享 → 复制链接
-
-**③ 把链接填回仓库（两处）**
-
-```markdown
-- 权重包（约 120 MB）：<粘贴云盘链接>  提取码：<XXXX>
-- 校验 SHA256：065d4e89f6b098902fa3395054ec28b5eb953956caaa3d7fdfbee9d2a1874bbb
-```
-
-并把同一行同步到 `docs/07_部署操作手册.md` 的「权重下载」说明与本文「待完成事项」第 3 条。
-
-**④ 数据（VCTK22，10.69 GB）不入包**，两种方式：
-- 用脚本下载（带校验）：`.venv\Scripts\python.exe tools\download_models.py vctk --extract`；
-- 或云盘只放**演示子集**（每说话人 1 句，约 4 MB）：`python platform/../tools/make_cloud_bundle.py` 已生成精简目录，可单独打成 zip 上传。
-
-**⑤ 解压放置**：解压后把 `weights/` 内容放进 `checkpoints/`、`registry/` 内容放进 `outputs/`，
-按 `README-weights.txt` 说明操作；核对 SHA256：
+**SHA256 校验**：`065d4e89f6b098902fa3395054ec28b5eb953956caaa3d7fdfbee9d2a1874bbb`
 
 ```powershell
-certutil -hashfile release\voiceguard_weights_v1.0.zip SHA256   # Windows
-sha256sum release/voiceguard_weights_v1.0.zip                   # Linux/macOS
+certutil -hashfile voiceguard_weights_v1.0.zip SHA256   # Windows
+sha256sum voiceguard_weights_v1.0.zip                   # Linux/macOS
 ```
 
-> 备选下载渠道：也可把该 zip 作为 **GitHub Release 附件**（单文件上限 2 GB）上传，
-> 在 README 同时给出 Release 与云盘两个链接。
+**包内容**（21 个条目）：
+- `weights/`（14 个文件）：AdaIN-VC 官方权重 + 配置、ECAPA-TDNN（+hyperparams/label encoder）、MOSNet（safetensors）
+- `registry/`（3 个文件）：`registry.npz`（ECAPA 192 维）、`registry_vc.npz`（Es 128 维）、`asv_probe.npz`
+- `samples/`（3 个文件）：平台接入样例音频
+- `README-weights.txt`：放置说明
+
+**放置方式**：解压后 `weights/` 内容放进仓库 `checkpoints/`，`registry/` 内容放进 `outputs/`，
+见包内 `README-weights.txt`。
+
+**重新打包**（权重或注册库更新时）：
+
+```powershell
+.\.venv\Scripts\python.exe tools\make_weights_package.py --version v1.1
+# 新 zip 上传云盘后可替换旧文件，分享链接通常保持不变
+```
+
+**数据（VCTK22，10.69 GB）不入包**：用脚本下载（带校验）
+`.venv\Scripts\python.exe tools\download_models.py vctk --extract`；
+或向本组索取演示子集（每说话人 1 句，约 4 MB）。
 
 ## 分阶段实验
 
@@ -217,7 +211,7 @@ VG w/o P 75%（3/4）、**VG 75%**（3/4）——时域 + 掩蔽显著优于频�
 | 0 | 课程平台 PR | 任一成员 | 替换真实组号 → `npm test && npm run build` → 发 PR（标题 `第XX组-音频主动防御`，暂缓） |
 | 1 | 华为云部署与云端实验 | 任一成员 | 500 元代金券可用；按 `docs/07_部署操作手册.md` 建 GPU ECS，跑 `scripts/reproduce.py` 云端主表/ε 扫描，补云端显存/耗时证据 |
 | 2 | 组员姓名与分工 | 两位成员 | 报告 `docs/04_报告.md` §6 与 PPT 封面（现为「成员 A/B」占位） |
-| 3 | 权重/数据分发链接 | 任一成员 | `checkpoints/` 与注册库打包上传云盘，链接替换部署手册中的占位 |
+| 3 | 权重/数据分发链接 | 任一成员 | ✅ **已完成**：权重包（119.7 MB）已上传百度/迅雷/夸克三个云盘，链接与 SHA256 见「权重分发」章节 |
 | 4 | 验收 PPT 更新 | 任一成员 | 以修复后的管线重跑结果更新 `docs/验收PPT_v2.pptx` 数据页 |
 | 5 | 最终校对 | 任一成员 | 报告/README 过一遍（数字与 `docs/06_结果表.md` 一致） |
 
@@ -226,4 +220,5 @@ VG w/o P 75%（3/4）、**VG 75%**（3/4）——时域 + 掩蔽显著优于频�
 - [x] 复现审计分支合并：重采样/续跑/种子/筛选分母/WER 参考等修复 + ECS 工具 + 预检/回归测试
 - [x] 本机实验：ε 扫描（75/75/50/50）、基线对比（筛选后 emb 0/fb 25/e2e 0/vg-nop 75/VG 75）、严格指标（MCD/WER/MOS）、信道分析 + EOT 对照
 - [x] 系统：Gradio 前端（双语/昼夜）+ 课程平台适配服务 + Docker/ECS 部署物料
-- [~] 待用户侧：真实组号、组员姓名、云端部署与云端实验、云盘链接、PPT 最终更新
+- [x] 权重包（119.7 MB）已上传百度/迅雷/夸克云盘并写入 README（含 SHA256）
+- [~] 待用户侧：真实组号、组员姓名、云端部署与云端实验、PPT 最终更新
