@@ -1,0 +1,15 @@
+/root/voiceguard/vguard/vc/adainvc.py:66: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(ckpt_path, map_location=device)
+/root/voiceguard/.venv/lib/python3.10/site-packages/torch/functional.py:704: UserWarning: stft with return_complex=False is deprecated. In a future pytorch release, stft will return complex tensors for all inputs, and return_complex=False will raise an error.
+Note: you can still call torch.view_as_real on the complex output to recover the old return format. (Triggered internally at ../aten/src/ATen/native/SpectralOps.cpp:873.)
+  return _VF.stft(  # type: ignore[attr-defined]
+{'step': 100, 'surrogate_loss': 1.4658584594726562}
+{'step': 200, 'surrogate_loss': 1.4083716869354248}
+{'step': 300, 'surrogate_loss': 1.372360348701477}
+{'step': 400, 'surrogate_loss': 1.3449831008911133}
+{'step': 500, 'surrogate_loss': 1.3287606239318848}
+{'step': 600, 'surrogate_loss': 1.3106775283813477}
+{'step': 700, 'surrogate_loss': 1.2949764728546143}
+{'step': 800, 'surrogate_loss': 1.2824785709381104}
+{'step': 900, 'surrogate_loss': 1.273711919784546}
+{'step': 1000, 'surrogate_loss': 1.2656084299087524}

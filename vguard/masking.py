@@ -120,6 +120,39 @@ def perturbation_psd(delta: np.ndarray, n_fft: int, hop_length: int, win_length:
     return ref + psd  # (n_freq, n_frames)
 
 
+def project_masked_delta(delta: np.ndarray, theta: np.ndarray, psd_max: float,
+                         n_fft: int, hop_length: int, win_length: int,
+                         iterations: int = 20, margin_db: float = 3.0) -> np.ndarray:
+    """Experimental STFT projection; separate from the paper's soft hinge optimization.
+
+    Alternate spectral magnitude limiting and waveform reconstruction. STFT
+    consistency means the final PSD still needs measurement, not an assumption
+    that every bin meets the threshold. Keep the input perturbation's L-inf cap.
+    """
+    delta = np.asarray(delta, dtype=np.float32)
+    theta = np.asarray(theta, dtype=np.float64)
+    if (delta.ndim != 1 or not delta.size or not np.isfinite(delta).all()
+            or not np.isfinite(theta).all() or not np.isfinite(psd_max) or psd_max <= 0
+            or iterations < 1 or not np.isfinite(margin_db) or margin_db < 0):
+        raise ValueError("Need finite mono delta, finite thresholds, positive PSD/iterations and nonnegative margin")
+    def stft(wave):
+        return librosa.stft(wave, n_fft=n_fft, hop_length=hop_length,
+                            win_length=win_length, center=True, pad_mode="reflect")
+    spectrum = stft(delta)
+    if theta.T.shape != spectrum.shape:
+        raise ValueError("Mask shape does not match perturbation STFT")
+    limit = win_length / math.sqrt(8 / 3) * math.sqrt(psd_max) * np.power(10.0, (theta.T - 96 - margin_db) / 20)
+    cap = float(np.max(np.abs(delta)))
+    wave = delta.copy()
+    for _ in range(iterations):
+        spectrum = stft(wave)
+        gain = np.minimum(1, limit / np.maximum(np.abs(spectrum), 1e-20))
+        wave = librosa.istft(spectrum * gain, hop_length=hop_length,
+                             win_length=win_length, center=True, length=len(delta))
+        wave = np.clip(wave, -cap, cap).astype(np.float32)
+    return wave
+
+
 def generate_th(audio: np.ndarray, sample_rate: int, n_fft: int, hop_length: int, win_length: int):
     """返回 (theta_xs, psd_max)。theta_xs 形状 (n_frames, n_freq)。"""
     PSD, psd_max = compute_PSD_matrix(
@@ -194,3 +227,28 @@ class Transform(nn.Module):
         ref = 96 - 10 * math.log10(float(psd_max) + 1e-19)
         PSD = ref + psd                    # (n_freq, n_frames)
         return PSD.T                       # (n_frames, n_freq) 与 theta_xs 对齐
+
+
+class MaskingProjection(nn.Module):
+    """Experimental magnitude projection with the same STFT/PSD units as Transform."""
+    def __init__(self, theta, psd_max, n_fft, hop_length, win_length, margin_db=3.0):
+        super().__init__()
+        theta = torch.as_tensor(theta, dtype=torch.float32)
+        if not torch.isfinite(theta).all() or not math.isfinite(psd_max) or psd_max <= 0:
+            raise ValueError("Finite thresholds and positive PSD reference required")
+        if not math.isfinite(margin_db) or margin_db < 0:
+            raise ValueError("Nonnegative finite margin required")
+        self.n_fft, self.hop_length, self.win_length = n_fft, hop_length, win_length
+        self.register_buffer("window", torch.hann_window(win_length))
+        self.register_buffer("limit", (win_length / math.sqrt(8/3) * math.sqrt(psd_max)
+                                       * torch.pow(10.0, (theta.T - 96 - margin_db)/20)))
+
+    def forward(self, delta):
+        spectrum = torch.stft(delta, n_fft=self.n_fft, hop_length=self.hop_length,
+                              win_length=self.win_length, window=self.window,
+                              center=True, pad_mode="reflect", return_complex=True)
+        if spectrum.shape != self.limit.shape:
+            raise ValueError("Mask shape does not match perturbation STFT")
+        gain = (self.limit / spectrum.abs().clamp_min(1e-20)).clamp(max=1)
+        return torch.istft(spectrum * gain, n_fft=self.n_fft, hop_length=self.hop_length,
+                           win_length=self.win_length, window=self.window, center=True, length=delta.numel())
