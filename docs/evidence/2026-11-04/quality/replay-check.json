@@ -1,0 +1,15 @@
+{
+  "protocol": "same parameters and seed; independent regeneration; no deterministic-CUDA requirement",
+  "original_sha256": "e73f42c6449a0a0059fedce50cbc0cbd29981e5440c3c94fa658b62b560e90a4",
+  "replay_sha256": "c65f12ed06c3f2b364959896f2356c1d64a33b1675a71ba988b5b41909b70adb",
+  "identical_bytes": false,
+  "waveform_abs_difference_max": 0.013671670109033585,
+  "waveform_difference_rms": 0.0012788906529190432,
+  "replay_pcm16": {
+    "mos_defended": 3.2802839279174805,
+    "wer_defended": 0.0,
+    "asv_defended": "p225",
+    "asv_converted": "p246",
+    "screened_quality_identity_ok": true
+  }
+}

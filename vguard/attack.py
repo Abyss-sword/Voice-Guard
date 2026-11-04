@@ -30,6 +30,50 @@ from .masking import Transform
 from .speaker import SpeakerRegistry
 
 
+def refine_masked(model, original, initial_delta, adv_target, theta, psd_max, attr,
+                  feature_kwargs, steps=1000, learning_rate=0.0003, margin_db=3.0,
+                  eps=0.05, checkpoint_fn=None):
+    """Experimental projected optimization. The original Voice Guard stays unchanged.
+
+    Refine the same speaker-encoder surrogate inside a masking constraint. The
+    independent ECAPA evaluator, MOS model and Whisper are not part of this loss.
+    """
+    from .masking import MaskingProjection
+    if steps < 1 or learning_rate <= 0 or eps <= 0:
+        raise ValueError("Positive optimization settings required")
+    device = next(model.parameters()).device
+    original = torch.as_tensor(original, dtype=torch.float32, device=device)
+    adv_target = torch.as_tensor(adv_target, dtype=torch.float32, device=device)
+    projector = MaskingProjection(theta, psd_max, **{key: feature_kwargs[key]
+        for key in ("n_fft", "hop_length", "win_length")}, margin_db=margin_db).to(device)
+    delta = torch.as_tensor(initial_delta, dtype=torch.float32, device=device).clone()
+    with torch.no_grad():
+        for _ in range(30):
+            delta = projector(delta).clamp(-2*eps, 2*eps)
+        original_embedding = model.speaker_encoder(wav2mel_tensor(original, attr=attr, **feature_kwargs))
+        target_embedding = model.speaker_encoder(wav2mel_tensor(adv_target, attr=attr, **feature_kwargs))
+    delta = delta.detach().requires_grad_(True)
+    optimizer = torch.optim.Adam([delta], lr=learning_rate)
+    trace = []
+    for step in range(1, steps+1):
+        embedding = model.speaker_encoder(wav2mel_tensor(original+delta, attr=attr, **feature_kwargs))
+        loss = torch.nn.functional.mse_loss(embedding, target_embedding) - .1*torch.nn.functional.mse_loss(embedding, original_embedding)
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        with torch.no_grad():
+            delta.copy_(projector(delta).clamp(-2*eps, 2*eps))
+        if step % 100 == 0 or step == steps:
+            trace.append({"step": step, "surrogate_loss": float(loss.detach())})
+            print(trace[-1], flush=True)
+            if checkpoint_fn is not None:
+                checkpoint_fn(step, (original+delta).detach().cpu().numpy())
+    with torch.no_grad():
+        for _ in range(30):
+            delta.copy_(projector(delta).clamp(-2*eps, 2*eps))
+    return (original+delta).detach().cpu().numpy(), trace
+
+
 def get_att_dis(target: Tensor, behaviored: Tensor) -> Tensor:
     """target 与注册库每条嵌入的余弦相似度分布（official get_att_dis）。"""
     attention_distribution = []

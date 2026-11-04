@@ -1,7 +1,7 @@
 """MOS 评估：MOSNet（HF 移植版，1NEYRON1/mosnet）。
 
-论文用 MOSNet 评主观质量；此处用 HuggingFace 上的等价移植（原始权重在 Google
-Drive 不可达）。模型文件已 curl 到 checkpoints/mosnet-hf/。
+使用第三方 HuggingFace 移植，不承诺与论文权重或人工 MOS 等价。
+先用 tools/download_models.py mosnet 下载固定提交至 checkpoints/mosnet-hf/。
 """
 from __future__ import annotations
 

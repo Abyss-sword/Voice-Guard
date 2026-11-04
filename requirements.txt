@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------
 # Voice Guard 复现依赖
 # torch / torchaudio 需按 CUDA 版本单独安装，见 deploy/ecs_bootstrap.sh，
-# 不要直接用 `pip install -r requirements.txt` 装 torch（会装成 CPU 版）。
+# Linux PyPI 镜像通常提供 CUDA 版；使用其他平台/源时显式选择合适的 wheel。
 # ---------------------------------------------------------------------------
 -r deploy/requirements.txt
 

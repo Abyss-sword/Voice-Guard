@@ -10,9 +10,11 @@ nvidia-smi
 sudo apt-get update
 sudo apt-get install -y python3-venv python3-pip ffmpeg libsndfile1 curl tmux
 python3 -m venv .venv
-.venv/bin/python -m pip install --upgrade pip
-.venv/bin/python -m pip install --index-url https://download.pytorch.org/whl/cu124 torch==2.5.1 torchaudio==2.5.1
-.venv/bin/python -m pip install --index-url https://repo.huaweicloud.com/repository/pypi/simple/ -r deploy/requirements.txt
+# This mirror serves CUDA-enabled Linux torch wheels and their pinned CUDA dependencies.
+# Override for another region or an approved package mirror without editing this script.
+package_index="${VOICEGUARD_PIP_INDEX_URL:-https://mirrors.huaweicloud.com/repository/pypi/simple/}"
+.venv/bin/python -m pip install --index-url "$package_index" --upgrade pip
+.venv/bin/python -m pip install --index-url "$package_index" -r deploy/requirements.txt
 .venv/bin/python -m pip check
 .venv/bin/python tools/preflight.py --device cuda --out outputs/cloud/runtime.json
 echo 'Runtime ready. Next: .venv/bin/python scripts/reproduce.py models'

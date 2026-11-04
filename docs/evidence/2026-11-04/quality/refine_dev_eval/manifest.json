@@ -1,0 +1,30 @@
+{
+  "source_manifest_sha256": "34d88b7027578dbce280fa2f4f23e314b51b1e2993ab110f4aae89d6a6db3dfd",
+  "scales": [
+    0.0,
+    1.0
+  ],
+  "mask_project_iterations": 0,
+  "mask_margin_db": 3.0,
+  "code_sha256": "dd1133a25568edba637e73df5838b393952349c401ffb07b8a804084a92ed0c9",
+  "masking_sha256": "d3b5000cef4b9bc1d56b40f9f8f5af5d08742bd7e4b9e780bf78c817b62d04e8",
+  "quality_model_sha256": {
+    "/root/voiceguard/checkpoints/mosnet-hf/pytorch_model.bin": "a71a45618d77d652ffa77117e9188729c76d214c858d0c29bdf71da4954b9544",
+    "/root/voiceguard/checkpoints/mosnet-hf/config.json": "71e85350b2efa56cfddb25e0a17ed06e151c1cc62376aff4871c2474065d4307",
+    "/root/voiceguard/checkpoints/mosnet-hf/modeling_mosnet.py": "862ea1b0a8353454023ecf208a5419f860fdd98d6f1f077531930f3313398b79",
+    "/root/voiceguard/checkpoints/mosnet-hf/configuration_mosnet.py": "486001bc64145b5c6ec17548502e58106ca06ff6e602306d7948e382071fcda5",
+    "/root/.cache/whisper/base.pt": "ed3a0b6b1c0edf879ad9b11b1af5a0e6ab5db9205f891f668f8b0e6c6326e34e"
+  },
+  "speakers": [
+    "p225",
+    "p226"
+  ],
+  "device": "cuda",
+  "gate": "MOS>=3, target WER<=0.10, ECAPA protected identity; not the exact paper ASR metric",
+  "inputs": {
+    "outputs/quality/refine_dev/p225_040/original_trimmed.wav": "2cd414a49fe9ac6e8b7b65ef47c508045c1703c86f4cad5c7773ff055ef5ee6d",
+    "outputs/quality/refine_dev/p225_040/defended.wav": "e73f42c6449a0a0059fedce50cbc0cbd29981e5440c3c94fa658b62b560e90a4",
+    "outputs/quality/refine_dev/p226_039/original_trimmed.wav": "0aa2e96ce5dc114e1c3b2d953dd300155533f041487e401d7a24d17c7c9926d2",
+    "outputs/quality/refine_dev/p226_039/defended.wav": "1421fd6490510bd72d1205b45974c5bf1ad8d967a92f18ad540293d201f9ebd5"
+  }
+}

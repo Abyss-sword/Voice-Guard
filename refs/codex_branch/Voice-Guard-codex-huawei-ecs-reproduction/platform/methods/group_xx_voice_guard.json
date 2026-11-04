@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "id": "group_xx_voice_guard",
+  "title": "Voice Guard 语音隐私主动防御",
+  "english": "Voice Guard: Proactive Voice Privacy Defense",
+  "category": "主动防御",
+  "summary": "给目标说话人的音频注入人耳不可感知的时域对抗扰动，使零样本语音转换（AdaIN-VC）无法再伪造其声纹。",
+  "description": "复现 IJCAI 2023 论文《Voice Guard: Protecting Voice Privacy with Strong and Imperceptible Adversarial Perturbation in the Time Domain》（Li et al., pp.4812-4820）。方法在时域直接优化扰动 δ=2ε·tanh(w)，用可微 mel 提取器 H 把梯度反传回波形；扰动被心理声学掩蔽阈值 θx 约束（hinge 损失），配合两阶段训练（纯攻击项求强 + 加掩蔽项求隐）与 c 二分搜索。防御有效性按 Eq.9-11 判定：F_imp（被保护音频仍被识别为本人）∧ F_str（被保护后经 VC 转换不再被识别为本人）。适用范围：单声道 16/22/24kHz 语音，1-8 秒片段；效果随扰动强度 ε 与音频长度变化，CPU 处理较慢，建议 GPU。已知限制：转换端使用官方 AdaIN-VC（24kHz），不同 VC 模型的效果会有差异；ε 过大时被保护音频自身身份也会受损。",
+  "team": "第XX组（Voice Guard 复现）",
+  "version": "1.0.0",
+  "runtime": "算法服务 · GPU（CPU 可用但较慢）",
+  "inputs": [
+    {
+      "name": "defend_audio",
+      "label": "要保护的音频（说话人 X）",
+      "kind": "audio",
+      "accept": ["audio/wav", "audio/x-wav", "audio/mpeg", "audio/flac", "audio/ogg"],
+      "required": true,
+      "max_mb": 30
+    },
+    {
+      "name": "adv_audio",
+      "label": "扰动方向音频（可选：least-likely 说话人 Y，留空自动选取）",
+      "kind": "audio",
+      "accept": ["audio/wav", "audio/x-wav", "audio/mpeg", "audio/flac", "audio/ogg"],
+      "required": false,
+      "max_mb": 30
+    }
+  ],
+  "parameters": [
+    {
+      "name": "eps",
+      "label": "扰动强度 ε",
+      "type": "number",
+      "default": 0.05,
+      "min": 0.02,
+      "max": 0.3,
+      "step": 0.01,
+      "required": true,
+      "help": "ε=0.05 为实验中防御率与感知质量的最佳折中；越大防御越强但越容易被听出。"
+    },
+    {
+      "name": "fast_mode",
+      "label": "快速模式（300/200 步）",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "help": "开启约 30–90 秒完成（GPU）；关闭则用完整 1500/750 步，质量更稳但更慢。"
+    },
+    {
+      "name": "target_speaker",
+      "label": "被保护说话人（留空自动识别）",
+      "type": "text",
+      "default": "",
+      "required": false,
+      "max_length": 16,
+      "help": "注册库说话人编号，如 p225、p226；留空时用 ECAPA 自动识别上传音频的说话人。"
+    }
+  ],
+  "examples": [
+    {
+      "title": "VCTK p225 单句保护（快速模式）",
+      "description": "对比保护前后的音频，并下载报告查看判定：保护后仍识别为 p225（F_imp 通过），但经 AdaIN-VC 转换后不再被识别为 p225（F_str 通过），即防御成功。",
+      "input": {
+        "src": "samples/group_xx_voice_guard/input.wav",
+        "kind": "audio",
+        "label": "原始音频（p225，2.2 秒）"
+      },
+      "output": {
+        "src": "samples/group_xx_voice_guard/output_defended.wav",
+        "kind": "audio",
+        "label": "保护后音频（ε=0.05）"
+      },
+      "parameters": { "eps": 0.05, "fast_mode": true, "target_speaker": "p225" }
+    }
+  ],
+  "adapter": {
+    "type": "http",
+    "endpoint": "https://REPLACE-WITH-YOUR-DOMAIN/process"
+  }
+}

@@ -1,0 +1,4 @@
+# Optional quality evaluation; install after deploy/requirements.txt.
+transformers==4.44.2
+einops==0.8.0
+openai-whisper==20240930

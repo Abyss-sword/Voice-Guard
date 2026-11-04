@@ -8,12 +8,16 @@ Perturbation in the Time Domain*，IJCAI 2023，4812–4820。
 
 ## 当前状态（2026-11-04）
 
-- 主仓库 `master` 与审计分支 `codex/huawei-ecs-reproduction` 已合并；本文件综合两台机器的记录。
+- 主仓库 `master` 已两次合并审计分支（第二次：华为云实测 + 质量改进）；本文件综合两台机器记录。
 - 审计修复重采样、批量断点续跑、随机种子、筛选分母和 WER 参考文本错误，补齐模型下载与 ECS 部署工具。
-- 用户尚未创建华为云实例，有 500 元代金券；尚无云端部署地址或新一轮云端实验结果。
-- 本机（4060 8GB）留有实验 `outputs/` 逐句 CSV：ε 扫描与基线表可按 `docs/06_结果表.md` 复核；
-  审计机快照没有这些产物，故其 README 曾标注"待重新验证"——逐句记录本机存在，见下文「主要结果」。
+- **华为云 T4 已部署并验证**：Ubuntu 22.04、Tesla T4（15GB 可用显存）、32GB 内存、100GB 系统盘；
+  `voiceguard.service`（systemd）+ SSH 隧道访问 `http://127.0.0.1:7860` HTTP 200，
+  真实调用 `/on_protect` 生成 5 份音频；benchmark 3000/1500 步单句 194.67s、CUDA 峰值 175.8 MiB。
+- 本机（4060 8GB）留有实验 `outputs/` 逐句 CSV：ε 扫描与基线表可按 `docs/06_结果表.md` 复核。
+
 - 本轮验证记录见 [复现审计](docs/10_复现审计.md)，实际部署见 [华为云操作手册](docs/07_部署操作手册.md)。
+- 云端服务与真实语音首句已验证；完整步数首句身份维通过，但质量指标未达预期。主表/ε 扫描仍在后台运行，见 [华为云实测](docs/11_华为云实测.md)。
+- 新增投影后优化实验：同 5 句平均 MOS 1.397→3.192、平均逐句 WER 62.76%→5.71%；PCM16 导出后有 2 个样例同时通过质量与身份防护门槛。固定参数验证仅 1/2（筛选后），尚不能宣称达到论文质量，见 [质量改进实验](docs/12_质量改进实验.md)。
 
 ## 华为云 GPU ECS
 
@@ -26,6 +30,8 @@ Perturbation in the Time Domain*，IJCAI 2023，4812–4820。
 bash deploy/ecs_bootstrap.sh
 .venv/bin/python scripts/reproduce.py models
 .venv/bin/python scripts/reproduce.py data --max-hours 2
+# 也可只取本项目抽样协议需要的原始 WAV，节省下载流量：
+# .venv/bin/python scripts/reproduce.py data-subset --max-hours 2
 .venv/bin/python scripts/reproduce.py registry
 .venv/bin/python tools/preflight.py --scope experiment --out outputs/cloud/preflight.json
 .venv/bin/python scripts/reproduce.py smoke --max-hours 1
@@ -56,8 +62,12 @@ python -m venv .venv
 
 `models` 下载 NTU AdaIN-VC（自动生成 24kHz 配置）和固定提交的 SpeechBrain ECAPA；
 下载记录包含 URL/文件大小/SHA256。VCTK22 压缩包约 10.69GB，按发布摘要校验，解压到 `data/VCTK22/pXXX/`。
+`data-subset` 通过 HTTP Range 提取同一 ZIP 中的原始 WAV：5 位测试人各 80 句，其余 15 人各 31 句。
+保留完整语料排序后的前 30 句注册集；逐文件校验 ZIP CRC32 并记录 SHA256，**不声称验证完整压缩包摘要**。
 `requirements.txt` 另含 Whisper/报告工具；部署与身份维实验用固定版本 `deploy/requirements.txt`。
 Whisper/MOSNet 和完整数据需额外准备，不能因命令存在就标记评测完成。
+可选质量评测依赖见 `deploy/evaluation-requirements.txt`，MOS 模型下载命令为
+`python tools/download_models.py mosnet`；该第三方 MOSNet 移植的分数不等同于人工 MOS。
 
 ## 权重分发（✅ 已发布：GitHub Release + 三个云盘）
 

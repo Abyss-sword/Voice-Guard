@@ -6,7 +6,7 @@ New-Item -ItemType Directory -Force (Split-Path -Parent $Bundle) | Out-Null
 Push-Location $ProjectRoot
 try {
     & tar -czf $Bundle --exclude=__pycache__ --exclude=*.pyc `
-        vguard scripts tools frontend deploy tests third_party docs platform README.md requirements.txt .dockerignore .gitignore
+        vguard scripts tools frontend deploy tests third_party docs platform README.md requirements.txt .dockerignore .gitignore .gitattributes
     if ($LASTEXITCODE -ne 0) { throw 'Packaging failed' }
     Get-FileHash -LiteralPath $Bundle -Algorithm SHA256 | Format-List
     Write-Output $Bundle

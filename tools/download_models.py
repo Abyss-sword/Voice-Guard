@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT))
 from vguard.run_state import file_sha256, write_json
 
 ECAPA_REV = "0f99f2d0ebe89ac095bcc5903c4dd8f72b367286"
+MOSNET_REV = "4162a3e63ac725ecf7dce8dee3aa71e7afd9c65d"
 VCTK_SHA = "a758d8e3e7ccf4e744508d431420a6f434c9369b1311c4fa0673c1839e000411"
 PREPROCESS = dict(sample_rate=24000, preemph=0.97, n_fft=2048, hop_length=300,
                   win_length=1200, n_mels=512, ref_db=20, max_db=100, top_db=15, n_iter=100)
@@ -69,6 +70,19 @@ def ecapa(endpoint):
         "upstream_sha256": file_sha256(pristine), "local_sha256": file_sha256(local)})
 
 
+def mosnet(endpoint):
+    out = ROOT / "checkpoints/mosnet-hf"
+    for filename in ("config.json", "configuration_mosnet.py", "modeling_mosnet.py", "pytorch_model.bin"):
+        target = out / ("config.upstream.json" if filename == "config.json" else filename)
+        download(f"{endpoint}/1NEYRON1/mosnet/resolve/{MOSNET_REV}/{filename}", target)
+    pristine = out / "config.upstream.json"
+    config = json.loads(pristine.read_text(encoding="utf-8"))
+    config["auto_map"] = {key: value.split("--")[-1] for key, value in config.get("auto_map", {}).items()}
+    write_json(out / "config.json", config)
+    write_json(out / "local_config.json", {"revision": MOSNET_REV,
+        "upstream_sha256": file_sha256(pristine), "local_sha256": file_sha256(out / "config.json")})
+
+
 def extract_vctk(archive, output):
     output = Path(output).resolve()
     output.mkdir(parents=True, exist_ok=True)
@@ -98,7 +112,7 @@ def extract_vctk(archive, output):
 def main():
     global CURL
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("what", choices=["adainvc", "ecapa", "vctk", "models"])
+    ap.add_argument("what", choices=["adainvc", "ecapa", "mosnet", "vctk", "models"])
     ap.add_argument("--endpoint", default=os.getenv("HF_ENDPOINT", "https://hf-mirror.com"))
     ap.add_argument("--extract", action="store_true", help="extract VCTK to data/VCTK22/pXXX")
     ap.add_argument("--curl", default=CURL, help="curl executable; Windows may use Git's OpenSSL curl")
@@ -108,6 +122,8 @@ def main():
         adainvc()
     if args.what in ("ecapa", "models"):
         ecapa(args.endpoint.rstrip("/"))
+    if args.what == "mosnet":
+        mosnet(args.endpoint.rstrip("/"))
     if args.what == "vctk":
         dst = ROOT / "data/VCTK_22kHz_raw.zip"
         download(f"{args.endpoint.rstrip('/')}/datasets/arampacha/vctk_22kHz/resolve/main/raw_data.zip", dst, VCTK_SHA)
