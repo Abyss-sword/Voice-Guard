@@ -25,6 +25,7 @@ outputs/
 *.wav
 *.mp3
 *.flac
+!platform/samples/**
 
 # Downloads / caches / wheels
 refs/wheels/
