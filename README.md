@@ -59,10 +59,20 @@ python -m venv .venv
 `requirements.txt` 另含 Whisper/报告工具；部署与身份维实验用固定版本 `deploy/requirements.txt`。
 Whisper/MOSNet 和完整数据需额外准备，不能因命令存在就标记评测完成。
 
-## 权重分发（云盘下载，✅ 已上传）
+## 权重分发（✅ 已发布：GitHub Release + 三个云盘）
 
-代码仓库不含权重/数据（GitHub 单文件 100 MB 限制 + 仓库体积要求）。权重包已打包并上传三个云盘，
-**任选一个下载**：
+代码仓库不含权重/数据（GitHub 单文件 100 MB 限制 + 仓库体积要求）。权重包（119.7 MB）
+提供 **4 个下载渠道，任选其一**：
+
+**① GitHub Release（推荐，免登录提取码，国内外均可）**
+
+```powershell
+# Release 页面：https://github.com/Abyss-sword/Voice-Guard/releases/tag/v1.0-weights
+curl.exe -L -C - -o voiceguard_weights_v1.0.zip `
+  "https://github.com/Abyss-sword/Voice-Guard/releases/download/v1.0-weights/voiceguard_weights_v1.0.zip"
+```
+
+**② 云盘（百度 / 迅雷 / 夸克，国内下载更快）**
 
 | 云盘 | 链接 | 提取码 |
 |---|---|---|
