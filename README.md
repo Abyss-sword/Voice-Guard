@@ -59,6 +59,52 @@ python -m venv .venv
 `requirements.txt` 另含 Whisper/报告工具；部署与身份维实验用固定版本 `deploy/requirements.txt`。
 Whisper/MOSNet 和完整数据需额外准备，不能因命令存在就标记评测完成。
 
+## 权重分发（云盘操作指南）
+
+代码仓库不含权重/数据（GitHub 单文件 100 MB 限制 + 仓库体积要求）。权重约 120 MB，走云盘分发：
+
+**① 打包（本机，一条命令）**
+
+```powershell
+.\.venv\Scripts\python.exe tools\make_weights_package.py
+# 产物：release\voiceguard_weights_v1.0.zip（约 120 MB）
+# 内含 weights/（checkpoints 全量）+ registry/（registry*.npz/asv_probe.npz）
+#      + samples/（平台样例）+ README-weights.txt
+# 同时打印 SHA256，记下来贴到分享说明里
+```
+
+**② 上传到云盘（二选一）**
+
+- **百度网盘**：网页 https://pan.baidu.com → 登录 → 「上传」→ 选择 zip（大文件建议装客户端）→
+  上传完成后右键文件 → **分享** → 选「有提取码」或「永久有效」→ 复制**链接 + 提取码**
+- **阿里云盘**：网页 https://www.alipan.com → 「上传文件」→ 上传完成后右键 → **分享** →
+  设置「有效期」（建议长期）→ 复制链接（阿里云盘通常无提取码）
+- 其他（夸克/天翼云盘）同理：上传 → 分享 → 复制链接
+
+**③ 把链接填回仓库（两处）**
+
+```markdown
+- 权重包（约 120 MB）：<粘贴云盘链接>  提取码：<XXXX>
+- 校验 SHA256：065d4e89f6b098902fa3395054ec28b5eb953956caaa3d7fdfbee9d2a1874bbb
+```
+
+并把同一行同步到 `docs/07_部署操作手册.md` 的「权重下载」说明与本文「待完成事项」第 3 条。
+
+**④ 数据（VCTK22，10.69 GB）不入包**，两种方式：
+- 用脚本下载（带校验）：`.venv\Scripts\python.exe tools\download_models.py vctk --extract`；
+- 或云盘只放**演示子集**（每说话人 1 句，约 4 MB）：`python platform/../tools/make_cloud_bundle.py` 已生成精简目录，可单独打成 zip 上传。
+
+**⑤ 解压放置**：解压后把 `weights/` 内容放进 `checkpoints/`、`registry/` 内容放进 `outputs/`，
+按 `README-weights.txt` 说明操作；核对 SHA256：
+
+```powershell
+certutil -hashfile release\voiceguard_weights_v1.0.zip SHA256   # Windows
+sha256sum release/voiceguard_weights_v1.0.zip                   # Linux/macOS
+```
+
+> 备选下载渠道：也可把该 zip 作为 **GitHub Release 附件**（单文件上限 2 GB）上传，
+> 在 README 同时给出 Release 与云盘两个链接。
+
 ## 分阶段实验
 
 ```bash
