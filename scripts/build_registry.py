@@ -33,6 +33,13 @@ def main():
     args = ap.parse_args()
 
     names = [s.strip() for s in args.speakers.split(",") if s.strip()]
+    if len(set(names)) != len(names) or len(names) < 2 or args.per_speaker < 1:
+        ap.error("need >=2 unique speakers and positive per-speaker")
+    os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
+    for name in names:
+        files = list(__import__("pathlib").Path(args.vctk, name).glob("*.wav"))
+        if len(files) < args.per_speaker:
+            ap.error(f"{name}: need {args.per_speaker} enrollment WAVs, found {len(files)}")
 
     if args.mode == "vc":
         model, config, attr = load_adainvc(args.model_dir, device=args.device)
@@ -51,6 +58,7 @@ def main():
             embs.append(np.mean(vs, axis=0))
             print(f"{n}: {len(vs)} utterances -> emb {embs[-1].shape}")
         embs_np = np.stack(embs).astype(np.float32)
+        embs = embs_np
         np.savez(args.out, names=np.asarray(names), embeddings=embs_np)
         print(f"saved {args.out}: {names} {embs_np.shape}")
     else:

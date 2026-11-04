@@ -44,7 +44,7 @@ def main():
 
     reg = np.load(args.registry, allow_pickle=True)
     names = list(reg["names"])
-    ecapa = load_ecapa(savedir="checkpoints/ecapa-local")
+    ecapa = load_ecapa(device=args.device, savedir="checkpoints/ecapa-local")
 
     probe = None
     if args.probe and os.path.exists(args.probe):
@@ -87,7 +87,8 @@ def main():
             row[f"ec_{key}"] = pred
             row[f"ec_simX_{key}"] = round(float(sims[names.index(target)]), 3)
         row["ec_screen_ok"] = row.get("ec_conv_clean") == target
-        row["ec_defense_ok"] = (row.get("ec_defended") == target) and (row.get("ec_conv_def") != target)
+        row["ec_defense_ok"] = ((row.get("ec_defended") == target) and
+                                bool(row.get("ec_conv_def")) and (row.get("ec_conv_def") != target))
 
         # 探头
         if probe is not None:
@@ -101,7 +102,8 @@ def main():
                 row[f"pr_{key}"] = pred
                 row[f"pr_score_{key}"] = round(score, 2)
             row["pr_screen_ok"] = row.get("pr_conv_clean") == target
-            row["pr_defense_ok"] = (row.get("pr_defended") == target) and (row.get("pr_conv_def") != target)
+            row["pr_defense_ok"] = ((row.get("pr_defended") == target) and
+                                    bool(row.get("pr_conv_def")) and (row.get("pr_conv_def") != target))
 
         rows.append(row)
         print(row)

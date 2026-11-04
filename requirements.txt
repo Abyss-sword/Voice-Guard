@@ -1,8 +1,9 @@
 # ---------------------------------------------------------------------------
 # Voice Guard 复现依赖
-# torch / torchaudio 需按 CUDA 版本单独安装，见 tools/install_env.ps1，
+# torch / torchaudio 需按 CUDA 版本单独安装，见 deploy/ecs_bootstrap.sh，
 # 不要直接用 `pip install -r requirements.txt` 装 torch（会装成 CPU 版）。
 # ---------------------------------------------------------------------------
+-r deploy/requirements.txt
 
 # ---- 音频处理 ----
 numpy>=1.24
@@ -18,10 +19,7 @@ openai-whisper
 speechbrain  # ASV：ECAPA-TDNN 说话人判别（GE2E 的现代替代，零训练）
 
 # ---- 前端 / 部署 ----
-gradio>=4.0
-fastapi
-uvicorn[standard]
-python-multipart
+# 前端版本由 deploy/requirements.txt 固定。
 
 # ---- 下载 ----
 gdown

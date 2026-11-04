@@ -1,47 +1,21 @@
-# Voice Guard 部署镜像（华为云 ModelArts 自定义镜像 / ECS 通用）
-# 构建（在仓库根目录）：
-#   docker build -f deploy/Dockerfile -t voiceguard:latest .
-# 本地运行：
-#   docker run --gpus all -p 7860:7860 voiceguard:latest
-# 说明：模型权重与注册库打进镜像（checkpoints/ + outputs/*.npz 需先就绪）。
-
 FROM pytorch/pytorch:2.5.1-cuda12.4-cudnn9-runtime
-
-ENV PYTHONUNBUFFERED=1 \
-    PIP_NO_CACHE_DIR=1 \
-    MPLCONFIGDIR=/tmp/mpl \
-    HF_ENDPOINT=https://hf-mirror.com \
-    HF_HOME=/tmp/hf
-
+ENV PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1 MPLCONFIGDIR=/tmp/mpl \
+    HF_ENDPOINT=https://hf-mirror.com HF_HOME=/tmp/hf GRADIO_ANALYTICS_ENABLED=False
 WORKDIR /app
-
-# 1) Python 依赖（华为云镜像源，境内构建快）
-#    关键版本链（与本地验证一致）：fastapi/starlette 必须配 gradio 4.44（新版签名不兼容），
-#    jinja2 3.1.2、gradio-client==1.3.0（frontend/app.py 内含 schema 补丁）
-COPY requirements.txt .
-RUN pip install --no-cache-dir -i https://repo.huaweicloud.com/repository/pypi/simple/ \
-    numpy scipy librosa soundfile pyyaml tqdm matplotlib \
-    "gradio==4.44.1" "gradio-client==1.3.0" "fastapi==0.112.4" "starlette==0.37.2" \
-    "jinja2==3.1.2" uvicorn python-multipart gdown pypdf python-docx python-pptx openpyxl \
-    speechbrain "huggingface-hub<0.30" \
-    "transformers==4.57.6" "tokenizers==0.23.0rc0" safetensors einops && \
-    pip install --no-cache-dir -i https://repo.huaweicloud.com/repository/pypi/simple/ \
-    openai-whisper
-
-# 2) 代码与权重
+RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg libsndfile1 curl \
+    && rm -rf /var/lib/apt/lists/*
+COPY deploy/requirements.txt /app/deploy/requirements.txt
+RUN pip install --index-url https://repo.huaweicloud.com/repository/pypi/simple/ \
+    torchaudio==2.5.1 -r deploy/requirements.txt && pip check
 COPY vguard/ ./vguard/
 COPY scripts/ ./scripts/
 COPY tools/ ./tools/
 COPY frontend/ ./frontend/
-COPY checkpoints/ ./checkpoints/
-COPY outputs/registry.npz outputs/registry_vc.npz ./outputs/
-COPY data/ ./data/   # 可选：VCTK 演示音频（体积大时可去掉）
-
+COPY third_party/ada_in_vc/ ./third_party/ada_in_vc/
+COPY docs/fig_eps_curve.png ./docs/fig_eps_curve.png
+COPY deploy/entrypoint.py ./deploy/entrypoint.py
+# Weights, registries and VCTK are mounted at runtime.
 EXPOSE 7860
-
-CMD ["python", "frontend/app.py", \
-     "--model-dir", "checkpoints/adain-vc-official", \
-     "--registry", "outputs/registry.npz", \
-     "--attack-registry", "outputs/registry_vc.npz", \
-     "--vctk", "data/VCTK22", \
-     "--server-name", "0.0.0.0", "--server-port", "7860"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=120s --retries=5 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:7860/', timeout=4)"
+ENTRYPOINT ["python", "deploy/entrypoint.py"]

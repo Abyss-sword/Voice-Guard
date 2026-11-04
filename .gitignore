@@ -42,9 +42,16 @@ gradio/
 .vscode/
 .DS_Store
 Thumbs.db
+~$*
 deploy/cloud_bundle/
 deploy/cloud_bundle.zip
 refs/ar_frontend/
 refs/ar_frontend.zip
 refs/_gh_page.html
 refs/ar_fork/
+
+# Local cloud credentials and partial downloads
+*.pem
+*.key
+.env
+*.part

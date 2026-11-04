@@ -68,6 +68,8 @@ def load_adainvc(model_dir: str, device: str = "cuda"):
         ckpt = {k[7:]: v for k, v in ckpt.items()}
     model.load_state_dict(ckpt)
     model.eval()
+    # Attacks differentiate through the model into the waveform, not model weights.
+    model.requires_grad_(False)
     return model, config, attr
 
 

@@ -14,6 +14,7 @@ import json
 import os
 import sys
 import time
+import uuid
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
@@ -31,9 +32,9 @@ from vguard.pipeline import Pipeline  # noqa: E402
 T = {
     "zh": {
         "hero_title": "🛡️ Voice Guard · 语音隐私主动防御",
-        "hero_sub": "复现 IJCAI 2023《Voice Guard》：发布前给声音注入<b>人耳不可感知</b>的时域对抗扰动，"
-                    "使零样本语音转换（AdaIN-VC）无法再伪造你的声纹。",
-        "badges": ["⏱ 时域扰动", "👂 心理声学掩蔽", "🧪 身份+质量+内容 三维判定"],
+        "hero_sub": "探索 IJCAI 2023《Voice Guard》：用时域对抗扰动与心理声学掩蔽，"
+                    "尝试降低 AdaIN-VC 复制目标声纹的能力。请试听并核查每次结果。",
+        "badges": ["⏱ 时域扰动", "👂 心理声学掩蔽", "🧪 ECAPA 身份维评估"],
         "dark_label": "🌙 夜间模式",
         "theme_dark": "🌙 黑夜",
         "theme_light": "☀️ 白昼",
@@ -44,7 +45,7 @@ T = {
         "steps": [
             ("① 输入", "上传要保护的声音，选择说话人"),
             ("② 参数", "扰动强度 ε（推荐 0.05），演示模式更快"),
-            ("③ 执行", "点击「一键保护」，GPU 优化 2–5 分钟"),
+            ("③ 执行", "点击「一键保护」，等待优化完成"),
             ("④ 验证", "试听并查看 VC 转换是否失效"),
         ],
         "g1": "① 输入",
@@ -53,7 +54,7 @@ T = {
         "speaker_label": "被保护说话人（注册库内）",
         "g2": "② 参数",
         "eps_label": "ε（扰动强度）",
-        "eps_info": "0.05 为本实验最优工作点；越小越不可闻，越大防御越强",
+        "eps_info": "0.05 为历史抽样的起点；更大扰动也可能损害音质与身份保真",
         "demo_label": "⚡ 演示快速模式（300/200 步）",
         "demo_info": "关闭则用完整 3000/1500 步（更慢更稳）",
         "g3": "③ 执行",
@@ -73,17 +74,17 @@ T = {
         "detail_th": ["说话人", "相似度"],
         "metric_items": [("ε", "{:.2f}"), ("c（掩蔽权重）", "{}"), ("MCD", "{:.1f}"),
                          ("音频时长", "{:.1f}s"), ("耗时", "{:.0f}s"), ("迭代", "{}")],
-        "ok_head": "✅ 防御成功",
+        "ok_head": "✅ 身份维判定通过（请同时试听音质）",
         "part_head": "⚠️ 部分成功：转换后仍可能被识别为 ",
         "fail_head": "❌ 防御未达标：被保护音频被判为 ",
         "st_def": "被保护音频判定",
         "st_conv": "被保护→VC 转换判定",
         "st_eq": "判定式",
-        "st_eq_v": "F_imp ∧ F_str（Eq.9-11，ECAPA 口径）",
+        "st_eq_v": "ECAPA：保护后身份保留，转换后身份改变；未联合 MOS/WER 阈值",
         "err_no_defend": "请先上传要保护的声音",
         "err_need_adv": "请提供 least-likely 目标音频",
         "info_auto_adv": "已自动选取 least-likely 说话人 {} 的音频",
-        "info_start": "开始对抗优化（{}+{} 步，约 2–5 分钟）…",
+        "info_start": "开始对抗优化（{}+{} 步，耗时取决于设备与音频长度）…",
         "examples_label": "💡 试试 VCTK 样例（点击载入）",
         "sample_btn": "💡 载入 VCTK 样例音频（p225）",
         "conv_md": "零样本语音转换演示：**内容**来自一段音频、**声纹**来自另一段——"
@@ -96,25 +97,24 @@ T = {
         "about_md": "## 方法\n"
                     "1. 给说话人 X 的音频注入时域扰动 δ = 2ε·tanh(w)；\n"
                     "2. 优化目标：让 X 的音频经 VC 转换后不再被判为 X（攻击项），"
-                    "同时把扰动压在心理声学掩蔽阈值 θx 之下（掩蔽项，人耳不可闻）；\n"
-                    "3. 判定（Eq.9-11）：**F_imp**（被保护音频仍被识别为 X）∧ "
+                    "同时尝试降低扰动超过心理声学掩蔽阈值 θx 的能量；\n"
+                    "3. 身份维判定：**F_imp**（被保护音频仍被识别为 X）∧ "
                     "**F_str**（被保护后 VC 转换不再被识别为 X）⇒ 防御成功。\n\n"
-                    "## 我们的复现结论\n"
-                    "- ε 权衡曲线：防御率 0.02→75%、0.05→75%、0.08→50%、0.10→50%；\n"
-                    "- 方法对比：时域 VG 75% ≫ 频域基线 25%；\n"
-                    "- 真实信道（mp3/8k/G.711）分析：F_imp 是最薄弱一环。\n\n"
+                    "## 历史抽样记录（待重新验证）\n"
+                    "- ε 曲线来自历史报告，当前缺原始逐句产物；\n"
+                    "- 旧逐句表筛选后：emb 0/4、fb 1/4、e2e 0/4、无掩蔽消融 3/4；\n"
+                    "- 本页面只评估身份维，不代表论文联合质量指标或不可感知性已达标。\n\n"
                     "论文：Li et al., *Voice Guard: Protecting Voice Privacy with Strong and "
                     "Imperceptible Adversarial Perturbation in the Time Domain*, IJCAI 2023, "
                     "pp.4812–4820。\n"
                     "仓库：[github.com/Abyss-sword/Voice-Guard](https://github.com/Abyss-sword/Voice-Guard)",
-        "curve_label": "ε 权衡曲线（复现结果）",
+        "curve_label": "ε 权衡曲线（历史记录，待复核）",
     },
     "en": {
         "hero_title": "🛡️ Voice Guard · Proactive Voice Privacy Defense",
-        "hero_sub": "Reproduction of IJCAI 2023 *Voice Guard*: inject <b>imperceptible</b> time-domain "
-                    "adversarial perturbations before publishing, so zero-shot voice conversion "
-                    "(AdaIN-VC) can no longer forge your voiceprint.",
-        "badges": ["⏱ Time-domain", "👂 Psychoacoustic masking", "🧪 Identity+Quality+Content"],
+        "hero_sub": "Explore IJCAI 2023 Voice Guard: time-domain perturbations and psychoacoustic "
+                    "masking aim to reduce AdaIN-VC voice imitation. Listen to and verify each result.",
+        "badges": ["⏱ Time-domain", "👂 Psychoacoustic masking", "🧪 ECAPA identity evaluation"],
         "dark_label": "🌙 Dark mode",
         "theme_dark": "🌙 Dark",
         "theme_light": "☀️ Light",
@@ -125,7 +125,7 @@ T = {
         "steps": [
             ("① Input", "Upload the voice to protect, pick the speaker"),
             ("② Params", "Perturbation strength ε (0.05 recommended); demo mode is faster"),
-            ("③ Run", "Click Protect — GPU optimization takes 2–5 min"),
+            ("③ Run", "Click Protect and wait for optimization"),
             ("④ Verify", "Listen and check whether VC fails to forge"),
         ],
         "g1": "① Input",
@@ -134,7 +134,7 @@ T = {
         "speaker_label": "Protected speaker (in registry)",
         "g2": "② Parameters",
         "eps_label": "ε (perturbation strength)",
-        "eps_info": "0.05 is our best operating point; smaller = less audible, larger = stronger",
+        "eps_info": "0.05 is a historical starting point; stronger perturbations can harm quality and identity",
         "demo_label": "⚡ Demo fast mode (300/200 iters)",
         "demo_info": "Uncheck for full 3000/1500 iters (slower, more stable)",
         "g3": "③ Run",
@@ -154,17 +154,17 @@ T = {
         "detail_th": ["Speaker", "Similarity"],
         "metric_items": [("ε", "{:.2f}"), ("c (mask weight)", "{}"), ("MCD", "{:.1f}"),
                          ("Duration", "{:.1f}s"), ("Elapsed", "{:.0f}s"), ("Iters", "{}")],
-        "ok_head": "✅ Defense succeeded",
+        "ok_head": "✅ Identity criterion passed; also check audio quality",
         "part_head": "⚠️ Partial: conversion may still be recognized as ",
         "fail_head": "❌ Failed: defended audio classified as ",
         "st_def": "Defended audio verdict",
         "st_conv": "Defended→VC verdict",
         "st_eq": "Criterion",
-        "st_eq_v": "F_imp ∧ F_str (Eq.9-11, ECAPA)",
+        "st_eq_v": "ECAPA identity only; MOS/WER thresholds are not included",
         "err_no_defend": "Please upload the voice to protect first",
         "err_need_adv": "Please provide a least-likely target audio",
         "info_auto_adv": "Auto-selected least-likely speaker {} audio",
-        "info_start": "Starting adversarial optimization ({}+{} iters, ~2–5 min)…",
+        "info_start": "Starting optimization ({}+{} iters; time depends on hardware and clip length)…",
         "examples_label": "💡 Try a VCTK sample (click to load)",
         "sample_btn": "💡 Load VCTK sample audio (p225)",
         "conv_md": "Zero-shot voice conversion demo: **content** from one clip, **voice** from another — "
@@ -178,16 +178,16 @@ T = {
                     "1. Inject time-domain perturbation δ = 2ε·tanh(w) into speaker X's audio;\n"
                     "2. Objective: VC conversion of the defended audio is no longer recognized as X "
                     "(attack term), while the perturbation stays under the psychoacoustic masking "
-                    "threshold θx (masking term, inaudible);\n"
-                    "3. Criterion (Eq.9-11): **F_imp** (defended still recognized as X) ∧ "
+                    "threshold θx (a training objective);\n"
+                    "3. Identity criterion: **F_imp** (defended still recognized as X) ∧ "
                     "**F_str** (defended→VC no longer recognized as X) ⇒ defense succeeds.\n\n"
-                    "## Our reproduction results\n"
-                    "- ε sweep: defense rate 0.02→75%, 0.05→75%, 0.08→50%, 0.10→50%;\n"
-                    "- Method comparison: time-domain VG 75% ≫ frequency-domain 25%;\n"
-                    "- Real-channel analysis (mp3/8k/G.711): F_imp is the weakest link.\n\n"
+                    "## Historical sample records (pending verification)\n"
+                    "- The old epsilon curve lacks original per-sample artifacts;\n"
+                    "- Screened baseline counts: emb 0/4, fb 1/4, e2e 0/4, no-masking ablation 3/4;\n"
+                    "- Identity-only results do not establish joint quality or imperceptibility.\n\n"
                     "Paper: Li et al., *Voice Guard*, IJCAI 2023, pp.4812–4820.\n"
                     "Repo: [github.com/Abyss-sword/Voice-Guard](https://github.com/Abyss-sword/Voice-Guard)",
-        "curve_label": "ε trade-off curve (reproduction)",
+        "curve_label": "ε trade-off curve (historical, unverified)",
     },
 }
 
@@ -424,7 +424,7 @@ def _status_html(report: dict, lang: str) -> str:
     pred_conv = asv.get("conv_def", {}).get("pred", "-")
 
     imp = pred_def == tgt
-    str_ = pred_conv != tgt
+    str_ = pred_conv != "-" and pred_conv != tgt
     if imp and str_:
         head = L["ok_head"]
     elif imp:
@@ -593,7 +593,7 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
                     else:
                         raise gr.Error(CL["err_need_adv"])
                 it1, it2 = (300, 200) if demo_mode else (args.iters1, args.iters2)
-                out_dir = os.path.join(args.out_dir, f"{speaker}_{int(time.time())}")
+                out_dir = os.path.join(args.out_dir, f"{speaker}_{uuid.uuid4().hex}")
                 gr.Info(CL["info_start"].format(it1, it2))
                 rep = pipe.protect(defend, speaker, adv, eps=eps, iters1=it1, iters2=it2,
                                    out_dir=out_dir, progress=False)
@@ -618,13 +618,15 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
             run_btn.click(on_protect,
                           [defend_in, speaker_dd, adv_in, eps_sl, demo_cb, last_state],
                           [status_html, aud_orig, aud_def, aud_delta, aud_conv_clean,
-                           aud_conv_def, plot_out, metrics_html, detail_html, last_state])
+                           aud_conv_def, plot_out, metrics_html, detail_html, last_state],
+                          concurrency_id="gpu", concurrency_limit=1)
 
+            sample_btn = gr.Button(L["sample_btn"], size="sm", visible=bool(speaker_first))
             if speaker_first:
-                sample_btn = gr.Button(L["sample_btn"], size="sm")
 
                 def on_sample():
-                    return gr.update(value=speaker_first[pipe.speakers[0]]), pipe.speakers[0]
+                    name = next(s for s in pipe.speakers if s in speaker_first)
+                    return gr.update(value=speaker_first[name]), name
 
                 sample_btn.click(on_sample, None, [defend_in, speaker_dd])
 
@@ -640,12 +642,13 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
                 CL = T[state.get("lang", "zh")]
                 if not src or not tgt:
                     raise gr.Error(CL["err_conv"])
-                out = os.path.join(args.out_dir, f"conv_{int(time.time())}.wav")
+                out = os.path.join(args.out_dir, f"conv_{uuid.uuid4().hex}.wav")
                 from vguard.vc.adainvc import convert as vc_convert
                 vc_convert(pipe.model, pipe.config, pipe.attr, src, tgt, out, pipe.device)
                 return out, state
 
-            conv_btn.click(on_convert, [src_in, tgt_in, last_state], [conv_out, last_state])
+            conv_btn.click(on_convert, [src_in, tgt_in, last_state], [conv_out, last_state],
+                           concurrency_id="gpu", concurrency_limit=1)
 
         with gr.Tab(L["tab_about"]) as tab3:
             about_md = gr.Markdown(L["about_md"])
@@ -786,6 +789,7 @@ def main():
     pipe = Pipeline(args.model_dir, args.registry, args.attack_registry,
                     ecapa_dir=args.ecapa_dir, device=args.device)
     demo = build_app(args, pipe, "zh")
+    demo.queue(max_size=8, default_concurrency_limit=1)
     demo.launch(server_name=args.server_name, server_port=args.server_port)
 
 

@@ -12,7 +12,7 @@ For each (speaker X, utterance i):
     y_hat  = least-likely speaker Y's first utterance (perturbation direction)
     t_hat  = content source (--source-speaker / --source-utt)
     outputs: defended; conversions F(t,x) and F(t,x'); ASV + MCD; defense flag.
-Resume: utterance dirs that already contain defended.wav are skipped.
+Resume: only complete result.json records with all five WAV artifacts are skipped.
 """
 from __future__ import annotations
 
@@ -20,7 +20,9 @@ import argparse
 import csv
 import json
 import os
+import random
 import sys
+from pathlib import Path
 
 import numpy as np
 import soundfile as sf
@@ -29,12 +31,15 @@ import torch
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from vguard.attack import voice_guard_attack
+from vguard.audio import load_audio
 from vguard.asv import embed_wav, load_ecapa
 from vguard.masking import file2wav_mask
 from vguard.metrics.mcd import mcd_mel
 from vguard.speaker import SpeakerRegistry
 from vguard.vc.adainvc import convert as vc_convert
 from vguard.vc.adainvc import load_adainvc
+from vguard.run_state import (completed_row, file_sha256, summarize, utterance_seed,
+                              write_csv, write_json)
 
 
 def main():
@@ -60,11 +65,36 @@ def main():
     ap.add_argument("--out-dir", required=True)
     ap.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     ap.add_argument("--no-progress", action="store_true")
+    ap.add_argument("--seed", type=int, default=2026)
     args = ap.parse_args()
 
     speakers = [s.strip() for s in args.speakers.split(",") if s.strip()]
     os.makedirs(args.out_dir, exist_ok=True)
     device = args.device
+    if args.per_speaker < 1 or args.utt_offset < 30 or min(args.iters1, args.iters2) < 1:
+        ap.error("per-speaker/iterations must be positive and utt-offset >= 30 (no enrollment leakage)")
+    if not 0 < args.eps <= 0.5:
+        ap.error("eps must be in (0, 0.5]")
+    if device.startswith("cuda") and not torch.cuda.is_available():
+        ap.error("CUDA requested but unavailable; use a GPU host or explicitly select --device cpu")
+    checkpoint = Path(args.model_dir) / "vctk_model.ckpt"
+    if not checkpoint.exists():
+        checkpoint = Path(args.model_dir) / "model.ckpt"
+    signature = {k: v for k, v in vars(args).items() if k not in ("no_progress", "out_dir")}
+    signature["input_sha256"] = {str(p): file_sha256(p) for p in
+        (checkpoint, Path(args.model_dir) / "config.yaml", Path(args.model_dir) / "attr.pkl",
+         Path(args.registry), Path(args.attack_registry))}
+    manifest_path = Path(args.out_dir) / "manifest.json"
+    if manifest_path.exists():
+        old = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if old["parameters"] != signature:
+            ap.error("Existing experiment parameters/assets differ; choose a new --out-dir")
+    else:
+        if list(Path(args.out_dir).glob("*/defended.wav")):
+            ap.error("Legacy artifacts have no manifest; use a new --out-dir or reevaluate them separately")
+        write_json(manifest_path, {"parameters": signature, "python": sys.version,
+                   "torch": torch.__version__, "cuda": torch.version.cuda,
+                   "gpu": torch.cuda.get_device_name() if torch.cuda.is_available() else None})
 
     model, config, attr = load_adainvc(args.model_dir, device=device)
     pp = config["preprocess"]
@@ -109,8 +139,8 @@ def main():
     src_path = os.path.join(args.vctk, args.source_speaker,
                             f"{args.source_speaker}_{args.source_utt:03d}.wav")
     assert os.path.exists(src_path), src_path
-    src_wav, _ = sf.read(src_path)
-    src_wav = src_wav.astype(np.float32)
+    src_wav = load_audio(src_path, sr)
+    source_sha = file_sha256(src_path)
 
     def first_wav(d):
         files = sorted(f for f in os.listdir(d) if f.endswith(".wav"))
@@ -125,7 +155,17 @@ def main():
         print(f"least-likely: {x} -> {y}")
 
     ecapa = None
+    result_csv = os.path.join(args.out_dir, "results.csv")
     rows = []
+    if os.path.exists(result_csv):
+        with open(result_csv, encoding="utf-8") as f:
+            rows = list(csv.DictReader(f))
+    def save_row(row):
+        nonlocal rows
+        rows = [r for r in rows if r["utterance"] != row["utterance"]] + [row]
+        rows.sort(key=lambda r: r["utterance"])
+        write_csv(result_csv, rows)
+        write_json(Path(args.out_dir) / "summary.json", summarize(rows))
     for x in speakers:
         y = ll_map[x]
         adv_path = first_wav(os.path.join(args.vctk, y))
@@ -139,6 +179,8 @@ def main():
             test_files.append(f)
             if len(test_files) >= args.per_speaker:
                 break
+        if len(test_files) < args.per_speaker:
+            raise ValueError(f"{x}: requested {args.per_speaker} test files but found {len(test_files)}")
         for fn in test_files:
             utt = os.path.splitext(fn)[0]
             out_sub = os.path.join(args.out_dir, utt)
@@ -146,9 +188,21 @@ def main():
             if not os.path.exists(defend_path):
                 print(f"skip {utt}: missing")
                 continue
-            if os.path.exists(os.path.join(out_sub, "defended.wav")):
+            previous = completed_row(out_sub)
+            input_hashes = {"source_sha256": source_sha, "target_sha256": file_sha256(defend_path),
+                            "adv_sha256": file_sha256(adv_path)}
+            if previous is not None:
+                if any(previous.get(k) != v for k, v in input_hashes.items()):
+                    raise ValueError(f"{utt}: input audio changed; choose a new --out-dir")
+                save_row(previous)
                 print(f"skip {utt}: done")
                 continue
+            seed = utterance_seed(args.seed, utt)
+            random.seed(seed)
+            np.random.seed(seed)
+            torch.manual_seed(seed)
+            if torch.cuda.is_available():
+                torch.cuda.manual_seed_all(seed)
             os.makedirs(out_sub, exist_ok=True)
             # 保存内容源，供后续信道扫描复用
             sf.write(os.path.join(out_sub, "source.wav"), src_wav, sr)
@@ -156,8 +210,7 @@ def main():
             wav, theta, psd_max = file2wav_mask(
                 defend_path, sample_rate=sr, n_fft=pp["n_fft"], hop_length=pp["hop_length"],
                 win_length=pp["win_length"], top_db=pp["top_db"])
-            adv_wav, _ = sf.read(adv_path)
-            adv_wav = adv_wav.astype(np.float32)
+            adv_wav = load_audio(adv_path, sr)
 
             if args.method == "vg":
                 flag_fn = make_probe_flag(x) if probe_asv is not None else None
@@ -196,17 +249,19 @@ def main():
             vc_convert(model, config, attr, src_path,
                        os.path.join(out_sub, "defended.wav"), conv_def, device)
 
-            row = {"utterance": utt, "eps": args.eps, "flag": res["flag"], "c": res["c"]}
+            row = {"utterance": utt, "method": args.method, "seed": seed,
+                   "eps": args.eps, "flag": res["flag"], "c": res["c"]}
+            row.update(input_hashes)
             row["mcd"] = round(mcd_mel(wav.astype(np.float32), adv_np, feature_kwargs,
                                        attr=None, device=device), 3)
 
             try:
                 if ecapa is None:
-                    ecapa = load_ecapa(savedir="checkpoints/ecapa-local")
+                    ecapa = load_ecapa(device=device, savedir="checkpoints/ecapa-local")
                 for key, p in [("defended", os.path.join(out_sub, "defended.wav")),
                                ("conv_clean", conv_clean), ("conv_def", conv_def)]:
-                    a, _ = sf.read(p)
-                    e = embed_wav(ecapa, a.astype(np.float32), sr)
+                    a, audio_sr = sf.read(p)
+                    e = embed_wav(ecapa, a.astype(np.float32), audio_sr)
                     sims = np.asarray([
                         float(np.dot(e, re_) / (np.linalg.norm(e) * np.linalg.norm(re_) + 1e-9))
                         for re_ in reg_npz["embeddings"]])
@@ -218,20 +273,16 @@ def main():
             except Exception as e:  # noqa: BLE001
                 row["asv_error"] = str(e)[:200]
 
-            rows.append(row)
+            write_json(Path(out_sub) / "result.json", row)
+            save_row(row)
             print(json.dumps(row, ensure_ascii=False))
-
-            with open(os.path.join(args.out_dir, "results.csv"), "w", newline="", encoding="utf-8") as f:
-                if rows:
-                    w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
-                    w.writeheader()
-                    w.writerows(rows)
 
     if rows:
         n = len(rows)
-        ok = sum(1 for r in rows if r.get("defense_ok"))
-        print(f"SUMMARY: {n} utterances, defense_ok {ok} ({100 * ok / max(n, 1):.1f}%)")
+        print("SUMMARY:", json.dumps(summarize(rows), ensure_ascii=False))
         print("csv:", os.path.join(args.out_dir, "results.csv"))
+        if summarize(rows)["asv_missing"]:
+            raise SystemExit("ASV evaluation incomplete; artifacts saved for retry. This run is not complete.")
 
 
 if __name__ == "__main__":

@@ -11,6 +11,7 @@ import soundfile as sf
 import torch
 
 from .attack import voice_guard_attack
+from .audio import load_audio
 from .masking import file2wav_mask
 from .speaker import SpeakerRegistry
 from .vc.adainvc import convert as vc_convert
@@ -49,7 +50,7 @@ class Pipeline:
     def _ecapa_asv(self, wav: np.ndarray) -> Dict:
         from .asv import embed_wav, load_ecapa
         if self._ecapa is None:
-            self._ecapa = load_ecapa(savedir=self._ecapa_dir)
+            self._ecapa = load_ecapa(device=self.device, savedir=self._ecapa_dir)
         e = embed_wav(self._ecapa, wav, self.pp["sample_rate"])
         sims = np.asarray([
             float(np.dot(e, x) / (np.linalg.norm(e) * np.linalg.norm(x) + 1e-9))
@@ -74,8 +75,7 @@ class Pipeline:
             defend_path, sample_rate=self.pp["sample_rate"], n_fft=self.pp["n_fft"],
             hop_length=self.pp["hop_length"], win_length=self.pp["win_length"],
             top_db=self.pp["top_db"])
-        adv_wav, _ = sf.read(adv_path)
-        adv_wav = adv_wav.astype(np.float32)
+        adv_wav = load_audio(adv_path, self.pp["sample_rate"])
 
         res = voice_guard_attack(
             self.model, torch.from_numpy(wav), vc_tgt_mask=theta,
