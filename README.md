@@ -70,6 +70,44 @@ tar -xf data\VCTK_22kHz_raw.zip -C data\VCTK22
 # 放到 C:\Users\<you>\.cache\whisper\base.pt（或首次使用自动下载）
 ```
 
+## 🚀 本地启动交互界面（Gradio 前端）
+
+前置：已完成上面的环境搭建、权重与数据下载，且 `outputs\registry*.npz` 已生成（见「使用」第 1 步）。
+
+```powershell
+cd "D:\Voice Guard"
+$env:MPLCONFIGDIR="D:\Voice Guard\.mplcache"     # 避免写 C:\Users\<you>\AppData 失败
+.\.venv\Scripts\python.exe frontend\app.py `
+  --model-dir checkpoints\adain-vc-official `
+  --registry outputs\registry.npz `
+  --attack-registry outputs\registry_vc.npz `
+  --vctk data\VCTK22 `
+  --device cuda
+```
+
+- 启动后终端出现 `Running on local URL: http://127.0.0.1:7860` → 浏览器打开 **http://127.0.0.1:7860**
+- 页面功能：① 上传音频 → 一键保护（勾选「⚡ 演示快速模式」约 30–60s/句，关闭则用完整 3000/1500 步）
+  ② 试听原始/被保护/扰动 + 干净转换/防御后转换 ③ 判定卡与指标卡 ④ 转换演示 ⑤ 中英文 + 黑夜/白昼切换
+- 停止服务：在运行窗口按 `Ctrl+C`
+
+**常用参数**
+
+| 参数 | 说明 |
+|---|---|
+| `--server-port 7861` | 7860 被占用时换端口 |
+| `--server-name 0.0.0.0` | 允许局域网/远程访问（需放行防火墙端口） |
+| `--device cpu` | 没有 NVIDIA 显卡时用 CPU（保护会慢很多） |
+| `--iters1 3000 --iters2 1500` | 完整攻击步数（质量更稳、单句 20–60 分钟） |
+
+**常见问题**
+
+| 现象 | 处理 |
+|---|---|
+| 页面一直转圈 | 模型加载需约 20–40 秒，稍等后刷新 |
+| `Address already in use` | 换端口 `--server-port 7861` |
+| 上传后报音频读取错误 | 确认音频为 16-bit PCM wav；采样率任意（内部统一重采样） |
+| `CUDA out of memory` | 换 `--device cpu`，或关闭其它占显存程序 |
+
 ## 自检
 
 ```powershell
