@@ -149,7 +149,7 @@ $env:MPLCONFIGDIR="D:\Voice Guard\.mplcache"
   --vctk data\VCTK22 --device cuda
 ```
 
-浏览器打开 **http://127.0.0.1:7860**（中英双语 / 昼夜双模；演示快速模式约 30–90 秒/句）。
+浏览器打开 **http://127.0.0.1:7860** （中英双语 / 昼夜双模；演示快速模式约 30–90 秒/句）。
 端口占用加 `--server-port 7861`；无 GPU 用 `--device cpu`。
 
 ## 主要结果（本机实验记录，逐句 CSV 在 outputs/）
