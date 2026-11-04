@@ -41,3 +41,5 @@ gradio/
 .vscode/
 .DS_Store
 Thumbs.db
+deploy/cloud_bundle/
+deploy/cloud_bundle.zip
