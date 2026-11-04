@@ -43,3 +43,6 @@ gradio/
 Thumbs.db
 deploy/cloud_bundle/
 deploy/cloud_bundle.zip
+refs/ar_frontend/
+refs/ar_frontend.zip
+refs/_gh_page.html
