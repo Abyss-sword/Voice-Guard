@@ -2,7 +2,7 @@
 
 官方仓库的 asr_model/（GE2E 判别器 + 嵌入库）未发布，这里用 speechbrain 的
 ECAPA-TDNN（VoxCeleb 预训练）替代：对 VCTK 的 20 位说话人做注册（均值嵌入），
-用 argmax 余弦相似度做身份判定。攻击与评测共用同一注册库，与官方机制一致。
+用 argmax 余弦相似度做身份判定。攻击用 AdaIN-VC Es 注册库，评测用独立 ECAPA 注册库。
 """
 from __future__ import annotations
 

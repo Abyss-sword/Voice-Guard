@@ -13,6 +13,7 @@ import sys
 from collections import defaultdict
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+from vguard.run_state import summarize
 
 
 def load_csv(p):
@@ -42,11 +43,14 @@ def main():
             lines.append("| " + " | ".join(str(r.get(k, "")) for k in keys) + " |")
         lines.append("")
         # 汇总
-        n = len(rows)
-        ok = sum(1 for r in rows if str(r.get("defense_ok")).lower() == "true")
-        screen = sum(1 for r in rows if str(r.get("conv_clean_hits_X")).lower() == "true")
-        lines.append(f"- 样本数 {n}；defense_ok {ok}（{100 * ok / max(n, 1):.0f}%）；"
-                     f"clean-VC 筛选通过 {screen}（{100 * screen / max(n, 1):.0f}%）")
+        stats = summarize(rows)
+        def percent(rate):
+            return "N/A" if rate is None else f"{100 * rate:.1f}%"
+        lines.append(f"- 样本数 {stats['total']}；ASV 有效 {stats['evaluated']}；"
+                     f"未筛选成功 {stats['unfiltered_successes']}/{stats['evaluated']}（{percent(stats['unfiltered_rate'])}）；"
+                     f"clean-VC 筛选通过 {stats['screened']}/{stats['evaluated']}（{percent(stats['screen_pass_rate'])}）；"
+                     f"筛选后成功 {stats['screened_successes']}/{stats['screened']}（{percent(stats['screened_rate'])}）。")
+        lines.append("- 以上为身份维判定；未联合 MOS / 内容完整性阈值。")
         lines.append("")
 
     with open(args.out, "w", encoding="utf-8") as f:
