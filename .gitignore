@@ -55,3 +55,5 @@ refs/ar_fork/
 *.key
 .env
 *.part
+refs/_my_manual.md
+refs/_their_readme.txt
