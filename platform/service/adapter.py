@@ -189,14 +189,32 @@ def main():
     ap.add_argument("--iters2", type=int, default=750)
     ap.add_argument("--host", default="0.0.0.0")
     ap.add_argument("--port", type=int, default=8020)
+    ap.add_argument("--keep-jobs", type=int, default=100,
+                    help="最多保留的任务目录数（启动时清理更旧的，防止磁盘堆积）")
     ARGS = ap.parse_args()
 
     os.makedirs(ARGS.out_dir, exist_ok=True)
+    _prune_jobs(ARGS.out_dir, ARGS.keep_jobs)
     PIPE = _build_pipeline(ARGS)
     app.mount("/files", StaticFiles(directory=ARGS.out_dir), name="files")
 
     import uvicorn
     uvicorn.run(app, host=ARGS.host, port=ARGS.port)
+
+
+def _prune_jobs(out_dir: str, keep: int):
+    """按 mtime 保留最近 `keep` 个任务目录，删除更旧的。"""
+    if keep <= 0:
+        return
+    dirs = sorted(
+        (d for d in os.scandir(out_dir) if d.is_dir() and d.name[0].isdigit()),
+        key=lambda d: d.stat().st_mtime,
+        reverse=True,
+    )
+    for stale in dirs[keep:]:
+        shutil.rmtree(stale.path, ignore_errors=True)
+    if len(dirs) > keep:
+        print(f"[adapter] pruned {len(dirs) - keep} old job dirs under {out_dir}")
 
 
 if __name__ == "__main__":
