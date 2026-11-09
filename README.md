@@ -351,7 +351,7 @@ $env:MPLCONFIGDIR="D:\Voice Guard\.mplcache"
 | # | 事项 | 内容 | 预计 | 状态 |
 |---|---|---|---|---|
 | **L15** | **报告/PPT 补探索章节** | 把 L2 严格掩蔽（不可感知↔防御冲突量化）、L3 频带分配（MCD -14%）、L7 并行（2.17×）、L10 CI 写进 `docs/04` 附录与 `docs/05` 讲稿，重新生成 PDF | 1–2h | ⬜ |
-| **L16** | **人工听测落地** | 用 `tools/listening_app.py` 从现有产物生成真实 `listening_items.json`（15 段：原始/防御/转换），本地起页收评分 JSONL | 1h+收集 | ⬜ |
+| **L16** | **人工听测落地** | ✅ **工具链完成**：已生成 15 段材料（5 句 × 原始 / VG ε=0.02 / VG ε=0.05）+ 随机 A/B/C 评分页 + 统计脚本，已用模拟记录验证链路；**待 5–10 人真实打分**（[docs/22](docs/22_人工听测操作手册.md)） | 1h+收集 | ✅ 工具就绪，待收集 |
 | **L17** | **本地 11 种信道扩展评估** | `exp03_eps005` 只跑过 6 种信道，补 opus/denoise/loudnorm/resample16k/loudness，更新信道结论 | 20min | ⬜ |
 | **L18** | **本地正式步数小批次** | 5 句 × 3000/1500（4060 约 2–3h），与云端数字互校 | 2–3h | ⬜ |
 | **L19** | **代码质量** | 加 ruff/pyflakes 配置 + pre-commit，清理明显坏味道 | 1h | ⬜ |
@@ -407,7 +407,7 @@ $env:MPLCONFIGDIR="D:\Voice Guard\.mplcache"
 |---|---|---|---|
 | U1 | 真实组号 + 成员姓名 | 报告 §6、`deliverables/提交信息模板.md`、PPT 封面 | ⬜ |
 | U2 | 课程平台 PR | 换组号 → 推 Fork → `npm test && npm run build` → PR（标题 `第XX组-音频主动防御`） | ⬜ |
-| U3 | 人工听测 | 5–10 人 ABX（材料已打包 `VoiceGuard-listening-participant.zip`） | ⬜ |
+| U3 | 人工听测 | 5–10 人打分：材料已生成（`outputs/listening/`，15 段），页面 `tools/listening_app.py`（端口 7861），统计 `tools/summarize_listening.py`；流程见 [docs/22](docs/22_人工听测操作手册.md) | ⬜ 待收集 |
 | U4 | 问卷与最终课程提交 | 配合本人完成 | ⬜ |
 | U5 | （如做 C3）VQMIVC 权重下载 | 浏览器下载后上传云盘 | ⬜ |
 

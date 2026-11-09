@@ -1,14 +1,16 @@
-"""C17 监听网页：把匿名试听材料部署成网页，收集同学评分（人工听测落地）。
+"""人工听测页面（② 主观 MOS 听测）。
 
-用法（在 ECS 或本机）：
-    python tools/listening_app.py --items outputs/listening_items.json --out outputs/listening/results.jsonl
+数据驱动：读取 tools/build_listening_items.py 生成的 items.json，
+每句的音频在页面上随机映射为 A/B/C…（避免位置/标签偏差），
+听众对每段打 1–5 分并选择"最愿意接受"的一段；提交追加写入 JSONL。
 
-items JSON 格式（无则先在 --items 指向的路径生成示例）：
-    [{"id": "p225_040", "original": "a.wav", "defended": "b.wav",
-      "conv_clean": "c.wav", "conv_def": "d.wav"}, ...]
+用法：
+    python tools/listening_app.py --items outputs/listening/items.json \
+        --out outputs/listening/results.jsonl --port 7861
+    # 局域网分享：--host 0.0.0.0（需自行确保网络/权限）
 
-页面：每个条目随机化 A/B/C/D 顺序（避免位置偏差），用户对每段打 1–5 分并给整体偏好，
-提交后追加写入 JSONL（含匿名会话 id 与随机化映射，便于事后还原）。
+提交记录字段：ts / session / preferred / items[{id, order[{letter,kind}], ratings{letter:score}}]
+统计：python tools/summarize_listening.py --results outputs/listening/results.jsonl
 """
 from __future__ import annotations
 
@@ -18,84 +20,80 @@ import os
 import random
 import time
 import uuid
+from pathlib import Path
 
-import gradio as gr
-
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = Path(__file__).resolve().parents[1]
 
 
-def load_items(path: str):
-    if not os.path.exists(path):
-        os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
-        example = os.path.join(ROOT, "platform", "samples", "group_xx_voice_guard")
-        items = [{
-            "id": "sample",
-            "original": os.path.join(example, "input.wav"),
-            "defended": os.path.join(example, "output_defended.wav"),
-            "conv_clean": os.path.join(example, "output_converted.wav"),
-            "conv_def": os.path.join(example, "output_defended.wav"),
-        }]
-        json.dump(items, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-        print(f"[listening] 未找到 {path}，已生成示例（请替换为真实试听材料）")
-        return items
-    return json.load(open(path, encoding="utf-8"))
+def make_order(clips, rng):
+    order = list(clips)
+    rng.shuffle(order)
+    letters = ["ABCDEFGH"[:i + 1][-1] for i in range(len(order))]
+    return [{"letter": letters[i], "kind": c["kind"], "path": c["path"]} for i, c in enumerate(order)]
+
+
+def record_submission(path: str, session: str, preferred: str, items: list, orders: dict, ratings: dict):
+    rec = {"ts": time.time(), "session": session, "preferred": preferred,
+           "items": [{"id": it_id,
+                      "order": [{"letter": o["letter"], "kind": o["kind"]} for o in orders[it_id]],
+                      "ratings": {o["letter"]: int(ratings[(it_id, o["letter"])]) for o in orders[it_id]}}
+                     for it_id in orders]}
+    os.makedirs(os.path.dirname(os.path.abspath(path)) or ".", exist_ok=True)
+    with open(path, "a", encoding="utf-8") as f:
+        f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    return rec
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--items", default="outputs/listening_items.json")
+    ap.add_argument("--items", default="outputs/listening/items.json")
     ap.add_argument("--out", default="outputs/listening/results.jsonl")
+    ap.add_argument("--host", default="127.0.0.1")
     ap.add_argument("--port", type=int, default=7861)
+    ap.add_argument("--title", default="Voice Guard 匿名听测")
     args = ap.parse_args()
 
-    items = load_items(args.items)
-    os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
+    items_path = ROOT / args.items if not os.path.isabs(args.items) else Path(args.items)
+    if not items_path.exists():
+        raise SystemExit(f"缺少 {items_path}，先运行 tools/build_listening_items.py")
+    items = json.loads(items_path.read_text(encoding="utf-8"))["items"]
 
-    def build():
-        rnd = random.Random()
-        slots = {}
-        for it in items:
-            order = [("original", it["original"]), ("defended", it["defended"]),
-                     ("conv_clean", it["conv_clean"]), ("conv_def", it["conv_def"])]
-            rnd.shuffle(order)
-            slots[it["id"]] = order
-        return slots
+    import gradio as gr
 
-    def make_ui(slots):
-        comps = []
-        with gr.Blocks(title="Voice Guard 匿名试听") as demo:
-            gr.Markdown("# Voice Guard 匿名试听\n\n每段音频 1–5 分（5=音质最好），"
-                        "最后选择你更愿意接受的一段。顺序已随机化，请勿猜测。")
-            sid = gr.State(uuid.uuid4().hex[:10])
-            ratings = {}
+    rng = random.Random()
+    orders = {it["id"]: make_order(it["clips"], rng) for it in items}
+
+    with gr.Blocks(title=args.title) as demo:
+        gr.Markdown(f"# {args.title}\n\n每段音频请按 **1–5 分**评分（5 = 听起来最自然、最像真人原声）。"
+                    "顺序与标签已随机化，请勿猜测。全部打分后选择你**最愿意接受**的一段并提交。")
+        sid = gr.State(uuid.uuid4().hex[:10])
+        ratings = {}
+        with gr.Column():
             for it in items:
-                slots_ = slots[it["id"]]
-                with gr.Group():
-                    gr.Markdown(f"**条目 {it['id']}**")
-                    for idx, (kind, path) in enumerate(slots_):
-                        letter = "ABCD"[idx]
-                        gr.Audio(value=path, interactive=False, label=f"{letter}")
-                        ratings[it["id"], letter] = gr.Slider(1, 5, value=3, step=1,
-                                                             label=f"{letter} 评分")
-            pref = gr.Radio(choices=["A", "B", "C", "D"], value="A", label="整体更愿意接受哪一段")
+                gr.Markdown(f"**句子 {it['id']}**")
+                for o in orders[it["id"]]:
+                    gr.Audio(value=o["path"], interactive=False,
+                             label=f"{o['letter']}（句子 {it['id']}）")
+                    ratings[(it["id"], o["letter"])] = gr.Slider(
+                        1, 5, value=3, step=1, label=f"{o['letter']} 评分")
+        pref = gr.Radio(choices=["A", "B", "C", "D"], value="A",
+                        label="最愿意接受哪一段（跨所有句子给你的整体偏好）")
+        out = gr.Markdown()
 
-            def submit(state, pref_val, *vals):
-                rec = {"ts": time.time(), "session": state, "preferred": pref_val,
-                       "items": [{"id": it["id"],
-                                  "order": [{"letter": "ABCD"[i], "kind": k}
-                                            for i, (k, _) in enumerate(slots[it["id"]])],
-                                  "ratings": {f"ABCD"[i]: int(vals[4 * j + i])
-                                              for i in range(4)}}
-                                 for j, it in enumerate(items)]}
-                with open(args.out, "a", encoding="utf-8") as f:
-                    f.write(json.dumps(rec, ensure_ascii=False) + "\n")
-                return "已记录，感谢！"
-            out = gr.Markdown()
-            gr.Button("提交").click(submit, [sid, pref, *ratings.values()], out)
-        return demo
+        def submit(state, pref_val, *vals):
+            flat = list(vals)
+            idx = 0
+            got = {}
+            for it in items:
+                for o in orders[it["id"]]:
+                    got[(it["id"], o["letter"])] = flat[idx]
+                    idx += 1
+            record_submission(args.out, state, pref_val, items, orders, got)
+            return "✅ 已记录，感谢参与！"
 
-    demo = make_ui(build())
-    demo.launch(server_name="127.0.0.1", server_port=args.port)
+        gr.Button("提交评分", variant="primary").click(submit, [sid, pref, *ratings.values()], out)
+
+    demo.launch(server_name=args.host, server_port=args.port, show_api=False)
 
 
 if __name__ == "__main__":
