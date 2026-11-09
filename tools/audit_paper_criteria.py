@@ -1,5 +1,7 @@
 """Additional paper-structure audit of archived audio, without rewriting old scores."""
-import argparse,json,sys
+import argparse
+import json
+import sys
 from pathlib import Path
 import soundfile as sf
 import torch

@@ -1,5 +1,8 @@
 """Prepare GE2E enrollment and declare secondary evaluators before validation."""
-import importlib.metadata,json,sys,time
+import importlib.metadata
+import json
+import sys
+import time
 from datetime import datetime,timezone
 from pathlib import Path
 import numpy as np
@@ -10,7 +13,8 @@ from vguard.audio import load_audio
 
 
 def main():
-    import resemblyzer,whisper
+    import resemblyzer
+    import whisper
     from resemblyzer import VoiceEncoder,preprocess_wav
     directory=Path('docs/evidence/2026-11-09-quality')
     declaration=directory/'supplemental-protocol.json'

@@ -1,5 +1,7 @@
 """Compare original MOSNet inference in separate Torch and TensorFlow environments."""
-import argparse,hashlib,json
+import argparse
+import hashlib
+import json
 from pathlib import Path
 import sys
 import numpy as np

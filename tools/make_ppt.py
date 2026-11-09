@@ -1,5 +1,4 @@
 """生成验收 PPT 草稿（9 分钟 / 7 页），结果数字后续用脚本填充更新。"""
-import sys
 
 from pptx import Presentation
 from pptx.util import Inches, Pt

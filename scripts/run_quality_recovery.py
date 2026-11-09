@@ -4,7 +4,11 @@ New protocol, original MOSNet and fixed greedy Whisper decoding. Historical scor
 are never overwritten. No independent evaluator participates in the attack loss.
 """
 from __future__ import annotations
-import argparse,json,random,sys,time
+import argparse
+import json
+import random
+import sys
+import time
 from datetime import datetime,timezone
 from pathlib import Path
 import librosa
@@ -14,7 +18,6 @@ import torch
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from vguard.audio import load_audio,restore_protected_crop
 from vguard.asv import embed_wav,load_ecapa
-from vguard.features import wav2mel_tensor
 from vguard.masking import generate_th,perturbation_psd
 from vguard.metrics.mos import load_mosnet,mos
 from vguard.metrics.mos_original import OriginalMOSNet

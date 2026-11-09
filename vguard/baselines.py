@@ -15,7 +15,7 @@ import torch
 
 from .attack import attack_flag_of, get_att_dis  # noqa: F401
 from .features import wav2mel_tensor
-from .vc.adainvc import denormalize, get_spectrograms, load_adainvc, melspectrogram2wav, normalize
+from .vc.adainvc import denormalize, melspectrogram2wav, normalize
 
 THIRD_PARTY = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..", "third_party", "attack-vc")

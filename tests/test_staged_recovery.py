@@ -2,7 +2,6 @@ import tempfile
 from pathlib import Path
 import unittest
 from unittest.mock import patch
-import librosa
 import numpy as np
 import soundfile as sf
 import torch

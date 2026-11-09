@@ -1,5 +1,7 @@
 """Choose one global recovery profile using only completed development results."""
-import argparse,json,sys
+import argparse
+import json
+import sys
 from collections import defaultdict
 from datetime import datetime,timezone
 from pathlib import Path

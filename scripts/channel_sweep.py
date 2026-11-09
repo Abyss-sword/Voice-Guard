@@ -20,7 +20,6 @@ import sys
 
 import numpy as np
 import soundfile as sf
-import torch
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 

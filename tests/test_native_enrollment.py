@@ -4,7 +4,6 @@ import tempfile
 import unittest
 import numpy as np
 import soundfile as sf
-import torch
 from torch import nn
 from scripts.build_registry import vc_file_embedding
 from vguard.vc.adainvc import get_spectrograms, normalize

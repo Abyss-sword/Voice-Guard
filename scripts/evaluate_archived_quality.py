@@ -7,7 +7,6 @@ import argparse
 from datetime import datetime,timezone
 import importlib.metadata
 import json
-import os
 from pathlib import Path
 import sys
 import time

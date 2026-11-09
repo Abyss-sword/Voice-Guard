@@ -10,7 +10,6 @@
 from __future__ import annotations
 
 import argparse
-import json
 import os
 import sys
 import time
@@ -370,6 +369,12 @@ LOAD_JS = ("()=>{const saved=localStorage.getItem('vg-dark');"
            "document.documentElement.classList.toggle('vg-dark',dark);"
            "return dark?'🌙 黑夜':'☀️ 白昼';}")
 
+# 语言选择记忆（localStorage 'vg-lang'）：切换时保存、加载时恢复
+LANG_SAVE_JS = ("(v)=>{try{localStorage.setItem('vg-lang',"
+                "(String(v).indexOf('English')>=0)?'en':'zh');}catch(e){};return v;}")
+LANG_RESTORE_JS = ("()=>{try{if(localStorage.getItem('vg-lang')==='en')return 'English';}"
+                   "catch(e){};return '中文';}")
+
 # 切换语言时同步翻译 gradio 内置文案（4.44 无 i18n 接口，只能 DOM 文本替换；
 # 多次延时重试以覆盖组件重渲染）
 LANG_JS = r"""(v)=>{
@@ -423,7 +428,6 @@ def _status_html(report: dict, lang: str) -> str:
     pred_conv = asv.get("conv_def", {}).get("pred", "-")
 
     imp = pred_def == tgt
-    str_ = pred_conv != "-" and pred_conv != tgt
     screened_ok = identity_verdict(asv, tgt)["screened_identity_ok"]
     if not identity_verdict(asv, tgt)["clean_vc_identity_ok"]:
         head = ("⚠️ 干净转换未通过身份筛选，不能归因于防护" if lang == "zh" else
@@ -679,9 +683,8 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
 
         with gr.Tab(L["tab_about"]) as tab3:
             about_md = gr.Markdown(L["about_md"])
-            curve_out = None
             if os.path.exists(curve_img):
-                curve_out = gr.Image(value=curve_img, label=L["curve_label"], height=420)
+                gr.Image(value=curve_img, label=L["curve_label"], height=420)
 
         # ---- 语言切换：重写全部文案 ----
         def on_lang(choice, speaker, theme_val, state):
@@ -740,6 +743,19 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
                         plot_out, conv_md, src_in, tgt_in, conv_btn, conv_out, about_md,
                         metrics_html, detail_html, last_state, tab1, tab2, tab3,
                         tt1, tt2, tt3, sample_btn])
+
+        # 语言选择持久化：切换时写 localStorage
+        lang_dd.change(None, [lang_dd], None, js=LANG_SAVE_JS)
+
+        # 加载时恢复上次语言：先由 JS 读出选择，再跑一次 on_lang 翻译页面
+        demo.load(None, [], [lang_dd], js=LANG_RESTORE_JS).then(
+            on_lang, [lang_dd, speaker_dd, theme_radio, last_state],
+            [hero_html, steps_html, theme_radio, lang_dd, g1_md, defend_in, adv_in,
+             speaker_dd, g2_md, eps_sl, demo_cb, g3_md, run_btn, g4_md,
+             status_html, aud_orig, aud_def, aud_delta, aud_conv_clean, aud_conv_def,
+             plot_out, conv_md, src_in, tgt_in, conv_btn, conv_out, about_md,
+             metrics_html, detail_html, last_state, tab1, tab2, tab3,
+             tt1, tt2, tt3, sample_btn])
 
         # 同步翻译 gradio 内置文案（音频拖放提示等）
         lang_dd.change(None, [lang_dd], None, js=LANG_JS)

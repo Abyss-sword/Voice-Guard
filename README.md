@@ -351,12 +351,12 @@ $env:MPLCONFIGDIR="D:\Voice Guard\.mplcache"
 |---|---|---|---|---|
 | **L15** | **报告/PPT 补探索章节** | 把 L2 严格掩蔽（不可感知↔防御冲突量化）、L3 频带分配（MCD -14%）、L7 并行（2.17×）、L10 CI 写进 `docs/04` 附录与 `docs/05` 讲稿，重新生成 PDF | 1–2h | ⬜ |
 | **L16** | **人工听测落地** | ✅ **工具链完成**：已生成 15 段材料（5 句 × 原始 / VG ε=0.02 / VG ε=0.05）+ 随机 A/B/C 评分页 + 统计脚本，已用模拟记录验证链路；**待 5–10 人真实打分**（[docs/22](docs/22_人工听测操作手册.md)） | 1h+收集 | ✅ 工具就绪，待收集 |
-| **L17** | **本地 11 种信道扩展评估** | `exp03_eps005` 只跑过 6 种信道，补 opus/denoise/loudnorm/resample16k/loudness，更新信道结论 | 20min | ⬜ |
+| **L17** | **本地 11 种信道扩展评估** | ✅ 已完成（12 种信道 × 5 句）：ECAPA 防御率 none/pcm16/loudness/mp3-32k/g711/resample8k/resample16k/denoise/loudnorm = 60%，mp3-128k 80%，**aac-64k 与 opus-24k 仅 40%**（有损编码削弱防御）；probe 全 0（严格口径）。产物 `outputs/exp03_eps005/channel_results_11.csv` | 20min | ✅ 已完成 |
 | **L18** | **本地正式步数小批次** | 5 句 × 3000/1500（4060 约 2–3h），与云端数字互校 | 2–3h | ⬜ |
-| **L19** | **代码质量** | 加 ruff/pyflakes 配置 + pre-commit，清理明显坏味道 | 1h | ⬜ |
-| **L20** | **前端小优化** | 主题/语言 localStorage 持久化；样例切换更完整 | 1h | ⬜ |
-| **L21** | **提交前材料** | `deliverables/` 校验、LICENSE、docs 索引、临时产物归档 | 1h | ⬜ |
-| **L22** | **平台 PR 预演** | 准备好 PR 正文与文件清单（组号一到即发） | 30min | ⬜ |
+| **L19** | **代码质量** | ✅ 已完成：新增 `pyproject.toml`（ruff 基线 E4/E7/E9/F）+ `.pre-commit-config.yaml`；修复 38 处未使用导入、10 处多导入同行、3 处未使用变量；`ruff check` **All checks passed** | 1h | ✅ 已完成 |
+| **L20** | **前端小优化** | ✅ 已完成：主题已有 `localStorage('vg-dark')` 记忆；新增**语言记忆** `localStorage('vg-lang')`（切换保存 + 加载时 JS 恢复并自动重跑翻译），前端 56 组件构建通过 | 1h | ✅ 已完成 |
+| **L21** | **提交前材料** | ✅ 已完成：新增 `LICENSE`（MIT + 第三方许可说明）、[docs/README.md](docs/README.md) 文档索引（22 篇） | 1h | ✅ 已完成 |
+| **L22** | **平台 PR 预演** | ✅ 已完成：[docs/10](docs/10_课程平台接入说明.md) 内含第 0–4 步完整清单（占位替换、`npm test`/`npm run build`、联调、PR 正文、收尾） | 30min | ✅ 已完成 |
 
 > **建议顺序**：L15 → L16 → L17（20 分钟顺手做）→ L21/L22 收尾；L18/L19/L20 按余力。
 

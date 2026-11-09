@@ -80,7 +80,6 @@ class Pipeline:
 
         if adv_path is None:
             adv_path = os.path.join(out_dir, "_adv_tmp.wav")
-            y = self.least_likely(target_speaker)
             raise NotImplementedError("需要提供 least-likely 音频路径（adv_path）")
 
         wav, theta, psd_max = file2wav_mask(

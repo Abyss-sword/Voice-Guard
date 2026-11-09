@@ -1,6 +1,7 @@
 """Download one declared supplementary ASR model without changing old evaluation."""
 from pathlib import Path
-import json,hashlib
+import json
+import hashlib
 import whisper
 model='small.en'
 whisper.load_model(model,device='cpu')

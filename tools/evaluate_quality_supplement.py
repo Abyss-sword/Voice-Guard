@@ -1,9 +1,10 @@
 """Evaluate frozen validation WAVs with declared GE2E and small.en models."""
-import argparse,json,sys
+import argparse
+import json
+import sys
 from pathlib import Path
 import numpy as np
 import soundfile as sf
-import torch
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from vguard.run_state import file_sha256,write_json
 from vguard.metrics.wer import load_whisper,wer,cer

@@ -10,7 +10,6 @@ import argparse
 import csv
 import os
 import sys
-from collections import defaultdict
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from vguard.run_state import summarize

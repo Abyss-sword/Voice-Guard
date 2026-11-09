@@ -66,12 +66,10 @@ def _stft_shim(y, *a, **k):
 
 librosa.stft = _stft_shim
 
-import os
 sys.path.insert(0, r"D:\Voice Guard\third_party\ada_in_vc")
 sys.path.insert(0, r"D:\Voice Guard\third_party\ada_in_vc\preprocess")
 
 from preprocess.tacotron.utils import get_spectrograms, melspectrogram2wav  # noqa: E402
-import numpy as np  # noqa: E402
 import pickle  # noqa: E402
 import torch  # noqa: E402
 from model import AE  # noqa: E402

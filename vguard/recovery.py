@@ -5,7 +5,6 @@ The feedback loss acts on decoded mel features, not a differentiable waveform vo
 """
 from __future__ import annotations
 import math
-import numpy as np
 import torch
 from torch.nn import functional as F
 from .features import wav2mel_tensor

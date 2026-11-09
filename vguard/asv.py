@@ -59,8 +59,6 @@ def load_ecapa(device: Optional[str] = None, savedir: str = "checkpoints/ecapa-l
 
 def embed_wav(classifier, wav: np.ndarray, sample_rate: int = 16000) -> np.ndarray:
     """单条波形 -> (D,) 嵌入。ECAPA 内部重采样到 16k。"""
-    from speechbrain.inference.speaker import EncoderClassifier
-    from speechbrain.dataio.dataio import read_audio
 
     # 写入临时或直接构造 tensor：用 torch 转 16k 后 encode_batch
     x = torch.from_numpy(wav.astype(np.float32)).unsqueeze(0)

@@ -1,5 +1,4 @@
 """Regression checks for interrupted runs, denominator errors, and audio sample rates."""
-import json
 from pathlib import Path
 import tempfile
 import unittest

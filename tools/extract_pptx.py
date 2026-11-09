@@ -1,6 +1,5 @@
 import sys
 from pptx import Presentation
-from pptx.util import Emu
 
 path = sys.argv[1]
 p = Presentation(path)

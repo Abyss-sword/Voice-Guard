@@ -1,0 +1,10 @@
+# pre-commit：提交前自动跑 ruff 基线检查（需 pip install pre-commit && pre-commit install）
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.6
+    hooks:
+      - id: ruff
+        args: ["--fix", "--exit-non-zero-on-fix"]
+      - id: ruff-format
+        # 仅对显式加入的文件生效；团队若不想引入格式化，可删除此 hook
+        stages: [manual]

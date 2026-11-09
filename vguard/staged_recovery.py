@@ -4,7 +4,6 @@ The VC model alone supplies gradients. External ASV is used only to select a tar
 identity from enrollment, never to differentiate through evaluation waveforms.
 """
 from __future__ import annotations
-import numpy as np
 import torch
 from torch import nn
 from torch.nn import functional as F
