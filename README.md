@@ -330,7 +330,7 @@ $env:MPLCONFIGDIR="D:\Voice Guard\.mplcache"
 | L7 | batch 并行攻击 | `scripts/run_parallel.py`：3 句串行 79.8s → 3 worker **36.7s（2.17×）**；云端可直接用 `--workers 2–4`（[docs/17](docs/17_并行与多种子.md)） | 2h | ✅ 已完成 |
 | L8 | 前端接入 refine/质量模式 + 实时进度 | 质量模式（`vg-projected`）已存在；新增实时进度条：attack/pipeline `progress_cb` → Gradio `gr.Progress`（实测 100 次回调 0.03→1.00，[docs/17](docs/17_并行与多种子.md)） | 2–3h | ✅ 已完成 |
 | L9 | 适配服务治理 | 已加：任务目录清理（`--keep-jobs`）、请求体积上限 20MB（413）、GPU 忙时 429、结构化 JSON 日志 + 请求 ID | 1–2h | ✅ 已完成 |
-| L10 | CI（GitHub Actions） | 39 项测试已有；轻量 CI（编译 + 纯 numpy 测试）。工作流模板已备 deploy/ci.workflow.yml.template；**需 PAT 带 workflow scope 或网页手动添加**才能启用 | 1h | ⏸ 待启用 |
+| L10 | CI（GitHub Actions） | 工作流模板 `deploy/ci.workflow.yml.template` **已在本地逐步验证通过**（compileall / test_features / test_masking / acceptance_check 全过）；启用需 PAT 带 `workflow` scope 或网页手动添加 | 1h | ✅ 内容验证通过，⏸ 待启用 |
 | L11 | 一键验收自检脚本 | 起服务→冒烟→查交付物→打印 checklist；`tools/acceptance_check.py` 已跑通（必需项全过） | 1h | ✅ 已完成 |
 | L12 | 攻击循环性能剖析 | `tools/profile_pipeline.py` 已备（分阶段耗时：Pipeline/特征/编码器/mask/protect） | 2h | ✅ 工具完成 |
 | L13 | 结构化日志/请求 ID | 适配服务输出 JSON 日志（ts/request_id/method/path/status/elapsed_ms），响应头透传 X-Request-ID | 1h | ✅ 已完成 |
