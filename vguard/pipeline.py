@@ -63,8 +63,12 @@ class Pipeline:
     def protect(self, defend_path: str, target_speaker: str, adv_path: Optional[str],
                 eps: float = 0.1, iters1: int = 3000, iters2: int = 1500,
                 out_dir: str = "outputs/web", progress: bool = True,
-                refine_steps: int = 0, preserve_context: bool = False) -> Dict:
-        """执行保护并保存产物，返回报告 dict。"""
+                refine_steps: int = 0, preserve_context: bool = False,
+                progress_cb=None) -> Dict:
+        """执行保护并保存产物，返回报告 dict。
+
+        progress_cb: 可选 fn(frac 0..1, desc)，供前端/CLI 实时进度。
+        """
         os.makedirs(out_dir, exist_ok=True)
         t0 = time.time()
         if target_speaker not in self.speakers:
@@ -90,7 +94,7 @@ class Pipeline:
             vc_tgt_psd_max=float(psd_max), adv_tgt=torch.from_numpy(adv_wav),
             registry=self.attack_registry, vc_tgt_speaker=target_speaker, eps=eps,
             n_iters1=iters1, n_iters2=iters2, c_init=1.0, attr=self.attr,
-            progress=progress, **self.feature_kwargs)
+            progress=progress, progress_cb=progress_cb, **self.feature_kwargs)
         adv_np = res["adv_wav"].numpy().astype(np.float32)
         sr = self.pp["sample_rate"]
         refinement_trace = []

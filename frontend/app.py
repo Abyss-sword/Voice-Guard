@@ -589,7 +589,8 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
 
             last_state = gr.State({"lang": lang, "report": None, "mcd": None})
 
-            def on_protect(defend, speaker, adv, eps, demo_mode, state, method, preserve_context):
+            def on_protect(defend, speaker, adv, eps, demo_mode, state, method, preserve_context,
+                           progress=gr.Progress(track_tqdm=False)):
                 CL = T[state.get("lang", "zh")]
                 if not defend:
                     raise gr.Error(CL["err_no_defend"])
@@ -603,10 +604,26 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
                 it1, it2 = (300, 200) if demo_mode else (args.iters1, args.iters2)
                 out_dir = os.path.join(args.out_dir, f"{speaker}_{uuid.uuid4().hex}")
                 gr.Info(CL["info_start"].format(it1, it2))
-                rep = pipe.protect(defend, speaker, adv, eps=eps, iters1=it1, iters2=it2,
-                                   out_dir=out_dir, progress=False,
-                                   refine_steps=1000 if method == "vg-projected" else 0,
-                                   preserve_context=preserve_context)
+
+                # 实时进度：保护在独立线程执行，主线程轮询进度回调更新进度条
+                box = {"frac": 0.0, "desc": ""}
+
+                def _cb(frac, desc=""):
+                    box["frac"] = max(box["frac"], float(frac))
+                    if desc:
+                        box["desc"] = desc
+
+                import concurrent.futures
+                with concurrent.futures.ThreadPoolExecutor(max_workers=1) as _ex:
+                    fut = _ex.submit(pipe.protect, defend, speaker, adv, eps=eps,
+                                     iters1=it1, iters2=it2, out_dir=out_dir, progress=False,
+                                     refine_steps=1000 if method == "vg-projected" else 0,
+                                     preserve_context=preserve_context, progress_cb=_cb)
+                    while not fut.done():
+                        progress(min(0.99, box["frac"]), desc=box["desc"] or "protect")
+                        time.sleep(0.4)
+                    rep = fut.result()
+                progress(1.0, desc="done")
 
                 mcd_val = None
                 try:

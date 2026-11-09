@@ -103,6 +103,7 @@ def _stage1(
     feature_kwargs: Dict,
     progress: bool = True,
     flag_fn=None,
+    progress_cb=None,
 ) -> Tuple[Tensor, bool]:
     """阶段1：只求破坏力。返回 (ptb, 最终是否防御成功)。"""
     ptb = torch.zeros_like(vc_tgt).normal_(0, 1).requires_grad_(True)
@@ -125,6 +126,10 @@ def _stage1(
 
         if i % 100 == 0:
             rng.set_postfix(loss=float(loss), flag=attack_flag)
+        if progress_cb is not None:
+            _stride = max(1, min(50, n_iters // 20))
+            if i % _stride == 0 or i == n_iters:
+                progress_cb(0.5 * i / max(n_iters, 1), "stage1")
 
         opt.zero_grad()
         loss.backward()
@@ -154,6 +159,7 @@ def _stage2(
     flag_fn=None,
     imp_channel_fn=None,
     imp_weight: float = 0.0,
+    progress_cb=None,
 ) -> Tuple[bool, Tensor, int]:
     """阶段2：加掩蔽约束。官方语义：迭代中一旦防御失败立即返回。
 
@@ -196,6 +202,10 @@ def _stage2(
 
         if i % 100 == 0:
             rng.set_postfix(loss=float(loss), th=float(loss_th), flag=attack_flag)
+        if progress_cb is not None:
+            _stride = max(1, min(50, n_iters // 20))
+            if i % _stride == 0 or i == n_iters:
+                progress_cb(0.5 + 0.5 * min(1.0, i / max(n_iters, 1)), f"stage2(c={c:.2g})")
 
         if attack_flag is False:  # 官方语义：一旦不防御成功即返回
             return attack_flag, adv_inp, i
@@ -225,6 +235,7 @@ def voice_guard_attack(
     flag_fn=None,
     imp_channel_fn=None,
     imp_weight: float = 0.0,
+    progress_cb=None,
     **feature_kwargs,
 ) -> Dict:
     """Voice Guard 完整攻击。返回 dict：{"adv_wav", "c", "flag", "steps"}。
@@ -233,6 +244,7 @@ def voice_guard_attack(
     flag_fn（可选）：自定义防御成功判定 adv_emb -> bool（如 Es 线性探头）。
     imp_channel_fn / imp_weight（防御侧 EOT，可选）：阶段2 增加"信道后仍保留原身份"
     的正则项（F_imp 信道稳健），默认关闭。
+    progress_cb（可选）：fn(fraction 0..1, desc)，供前端实时进度条。
     """
     attr = attr or {"mean": np.float32(0.0), "std": np.float32(1.0)}
     device = next(model.parameters()).device
@@ -253,7 +265,7 @@ def voice_guard_attack(
     # ---- 阶段1 ----
     stage1_ptb, stage1_flag = _stage1(
         model, vc_tgt, org_emb, tgt_emb, registry, vc_tgt_speaker,
-        eps, n_iters1, attr, feature_kwargs, progress, flag_fn,
+        eps, n_iters1, attr, feature_kwargs, progress, flag_fn, progress_cb,
     )
 
     if stage1_flag is False:
@@ -272,7 +284,7 @@ def voice_guard_attack(
             model, vc_tgt, vc_tgt_mask, vc_tgt_psd_max, org_emb, tgt_emb,
             registry, vc_tgt_speaker, eps, n_iters2, c, stage1_ptb,
             psd_transformer, attr, feature_kwargs, progress, channel_fn, flag_fn,
-            imp_channel_fn, imp_weight,
+            imp_channel_fn, imp_weight, progress_cb,
         )
         if flag and false_c == 0:
             attack_step_2_c = c
