@@ -67,6 +67,9 @@ def main():
                     help="防御侧 EOT 正则权重（默认 0.5）")
     ap.add_argument("--band-alloc", action="store_true",
                     help="L3：按掩蔽阈 θx 分配频带扰动能量（阈值高的频带更多）")
+    ap.add_argument("--target-strategy", choices=["least_likely", "nearest", "random"],
+                    default="least_likely",
+                    help="C14：扰动目标说话人选择策略（默认官方语义 least_likely）")
     ap.add_argument("--iters1", type=int, default=3000)
     ap.add_argument("--iters2", type=int, default=1500)
     ap.add_argument("--out-dir", required=True)
@@ -160,6 +163,28 @@ def main():
         y, _ = atk_reg.least_likely(x, e)
         ll_map[x] = y
         print(f"least-likely: {x} -> {y}")
+
+    # C14：target 选择策略消融（least_likely / nearest / random）
+    strategy = getattr(args, "target_strategy", "least_likely")
+    if strategy != "least_likely":
+        def _pick(x):
+            def _np(t):
+                return np.asarray(t.detach().cpu() if hasattr(t, "detach") else t, dtype=np.float64)
+            e = _np(atk_reg.embeddings[atk_reg.names.index(x)])
+            E = _np(atk_reg.embeddings)
+            sims = (E @ e) / ((np.linalg.norm(E, axis=1) * np.linalg.norm(e)) + 1e-9)
+            order = np.argsort(sims)
+            if strategy == "nearest":
+                return atk_reg.names[int(order[-1])]
+            if strategy == "random":
+                rng = np.random.default_rng(abs(hash((args.seed, x))) % (2 ** 32))
+                cands = [n for n in atk_reg.names if n != x]
+                return cands[int(rng.integers(0, len(cands)))]
+            raise ValueError(strategy)
+
+        ll_map = {x: _pick(x) for x in speakers}
+        for x, y in ll_map.items():
+            print(f"[target-strategy={strategy}] {x} -> {y}")
 
     ecapa = None
     result_csv = os.path.join(args.out_dir, "results.csv")
