@@ -324,14 +324,14 @@ $env:MPLCONFIGDIR="D:\Voice Guard\.mplcache"
 | L1 | 防御侧 EOT（真正的改进） | 损失中加"信道化后仍保持 F_imp"约束（`vguard/channel.py` 已有可微通道），对比现有攻击侧 EOT 负结果 | 2–3h | ⬜ |
 | L2 | 硬掩蔽投影（严格不可感知） | 逐时频格钳位到 θx 以下 + 迭代，量化 MOS↔防御权衡（现为软投影，~0.7% 超阈） | 1–2h | ⬜ |
 | L3 | 频带能量分配 | 按 θx 高的频带分配扰动，同防御下争取更高 MOS | 2–4h | ⬜ |
-| L4 | ASR 阈值论文映射 | Whisper WER 分布 vs 人工文本，给 Eq.10 的 10% 阈值可解释定义 | 1h | ⬜ |
+| L4 | ASR 阈值论文映射 | Whisper WER 分布 vs 人工文本，给 Eq.10 的 10% 阈值可解释定义；	ools/asr_threshold_map.py 已完成本地 5 句样本（云端可扩） | 1h | ✅ 工具完成 |
 | L5 | 完整 Attack-VC 基线 | 用 `third_party/attack-vc` 官方超参补齐 emb/fb/e2e | 1–2h | ⬜ |
 | L6 | 多种子本地小表 | 2 seed × 3–5 句，先验证方差量级 | 2–3h | ⬜ |
 | L7 | batch 并行攻击 | 显存峰值仅 175MB，`run_experiment` 主循环 batch 4–8（为云端提速 3–5×） | 2h | ⬜ |
 | L8 | 前端接入 refine/质量模式 + 实时进度 | 需 pipeline 写 manifest；长任务不再"假死" | 2–3h | ⬜ |
 | L9 | 适配服务治理 | 任务超时、GPU 并发锁、请求大小限制、错误码规范 | 1–2h | ⬜ |
-| L10 | CI（GitHub Actions） | 39 项测试已有；轻量 CI（编译 + 纯 numpy 测试） | 1h | ⬜ |
-| L11 | 一键验收自检脚本 | 起服务→冒烟→查交付物→打印 checklist | 1h | ⬜ |
+| L10 | CI（GitHub Actions） | 39 项测试已有；轻量 CI（编译 + 纯 numpy 测试）。工作流模板已备 deploy/ci.workflow.yml.template；**需 PAT 带 workflow scope 或网页手动添加**才能启用 | 1h | ⏸ 待启用 |
+| L11 | 一键验收自检脚本 | 起服务→冒烟→查交付物→打印 checklist；	ools/acceptance_check.py 已跑通（必需项全过） | 1h | ✅ 已完成 |
 | L12 | 攻击循环性能剖析 | 可微 H 的 STFT/mel 预计算缓存，预计 10–20% 提速 | 2h | ⬜ |
 | L13 | 结构化日志/请求 ID | 云上排障用 | 1h | ⬜ |
 | L14 | 本地资源清理 | `refs/` 2.7GB、cloud_bundle zip、临时目录整理 | 0.5h | ⬜ |
