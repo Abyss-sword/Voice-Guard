@@ -138,6 +138,32 @@ def _stage1(
     return ptb, attack_flag
 
 
+def band_gain_from_theta(theta: torch.Tensor, tau_db: float = 6.0) -> torch.Tensor:
+    """由掩蔽阈 θx 导出频带增益 m(f)∈(0,1]：阈值高的频带允许更多扰动能量。
+
+    theta: (n_frames, n_freq) 的掩蔽阈（dB，与 PSD 同尺度）。
+    返回 (n_freq,) 的频率增益，归一化到最大值 1。
+    """
+    mean_db = theta.mean(dim=0)                    # (n_freq,)
+    z = (mean_db - mean_db.median()) / max(tau_db, 1e-6)
+    g = torch.sigmoid(z)
+    return g / g.max().clamp_min(1e-6)
+
+
+def apply_band_gain(pe: torch.Tensor, gain: torch.Tensor, n_fft: int,
+                    hop_length: int, win_length: int) -> torch.Tensor:
+    """把频率增益作用到时域扰动上（STFT 域逐频带缩放后重建）。"""
+    win = torch.hann_window(win_length, device=pe.device)
+    squeezed = pe.dim() == 1
+    spec = torch.stft(pe, n_fft=n_fft, hop_length=hop_length, win_length=win_length,
+                      window=win, center=True, pad_mode="reflect", return_complex=True)
+    # spec: 1-D 输入 -> (freq, frames)；多维输入 -> (..., freq, frames)
+    spec = spec * gain.reshape((-1,) + (1,) * (spec.dim() - 1))
+    out = torch.istft(spec, n_fft=n_fft, hop_length=hop_length, win_length=win_length,
+                      window=win, center=True, length=pe.numel())
+    return out.reshape(pe.shape) if squeezed else out
+
+
 def _stage2(
     model: nn.Module,
     vc_tgt: Tensor,
@@ -160,6 +186,7 @@ def _stage2(
     imp_channel_fn=None,
     imp_weight: float = 0.0,
     progress_cb=None,
+    band_gain: Tensor = None,
 ) -> Tuple[bool, Tensor, int]:
     """阶段2：加掩蔽约束。官方语义：迭代中一旦防御失败立即返回。
 
@@ -180,7 +207,10 @@ def _stage2(
     adv_inp = vc_tgt
     rng = trange(1, int(n_iters) + 1, desc=f"stage2(c={c:.3g})", disable=not progress)
     for i in rng:
-        adv_inp = vc_tgt + 2.0 * eps * ptb.tanh()
+        adv_inp = vc_tgt + 2.0 * eps * (apply_band_gain(ptb.tanh(), band_gain, feature_kwargs["n_fft"],
+                                                         feature_kwargs["hop_length"],
+                                                         feature_kwargs["win_length"])
+                                        if band_gain is not None else ptb.tanh())
         adv_inp_eval = channel_fn(adv_inp) if channel_fn is not None else adv_inp
         adv_emb = model.speaker_encoder(wav2mel_tensor(adv_inp_eval, attr=attr, **feature_kwargs))
 
@@ -236,6 +266,7 @@ def voice_guard_attack(
     imp_channel_fn=None,
     imp_weight: float = 0.0,
     progress_cb=None,
+    band_alloc: bool = False,
     **feature_kwargs,
 ) -> Dict:
     """Voice Guard 完整攻击。返回 dict：{"adv_wav", "c", "flag", "steps"}。
@@ -262,6 +293,9 @@ def voice_guard_attack(
         win_length=feature_kwargs["win_length"],
     ).to(device)
 
+    # L3：按掩蔽阈分配频带能量（阈值高的频带允许更多扰动）
+    band_gain = band_gain_from_theta(vc_tgt_mask.to(device)) if band_alloc else None
+
     # ---- 阶段1 ----
     stage1_ptb, stage1_flag = _stage1(
         model, vc_tgt, org_emb, tgt_emb, registry, vc_tgt_speaker,
@@ -284,7 +318,7 @@ def voice_guard_attack(
             model, vc_tgt, vc_tgt_mask, vc_tgt_psd_max, org_emb, tgt_emb,
             registry, vc_tgt_speaker, eps, n_iters2, c, stage1_ptb,
             psd_transformer, attr, feature_kwargs, progress, channel_fn, flag_fn,
-            imp_channel_fn, imp_weight, progress_cb,
+            imp_channel_fn, imp_weight, progress_cb, band_gain,
         )
         if flag and false_c == 0:
             attack_step_2_c = c

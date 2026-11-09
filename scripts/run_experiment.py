@@ -65,6 +65,8 @@ def main():
                     help="防御侧 EOT：阶段2 增加「信道后身份仍保持 (F_imp)」正则项")
     ap.add_argument("--imp-eot-weight", type=float, default=0.5,
                     help="防御侧 EOT 正则权重（默认 0.5）")
+    ap.add_argument("--band-alloc", action="store_true",
+                    help="L3：按掩蔽阈 θx 分配频带扰动能量（阈值高的频带更多）")
     ap.add_argument("--iters1", type=int, default=3000)
     ap.add_argument("--iters2", type=int, default=1500)
     ap.add_argument("--out-dir", required=True)
@@ -240,6 +242,7 @@ def main():
                     channel_fn=channel_fn,
                     imp_channel_fn=imp_channel_fn,
                     imp_weight=float(getattr(args, "imp_eot_weight", 0.0)),
+                    band_alloc=bool(getattr(args, "band_alloc", False)),
                     **feature_kwargs)
                 adv_np = res["adv_wav"].numpy().astype(np.float32)
             elif args.method == "vg-nop":
