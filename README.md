@@ -363,7 +363,7 @@ $env:MPLCONFIGDIR="D:\Voice Guard\.mplcache"
 | **C9** | **评估器扩展 ⭐推荐** | 中文 ASV（ModelScope `3D-Speaker/ERes2Net`）+ Whisper `large-v3` 交叉验证 | 1–2h（含下载） | ✅ 工具就绪（`tools/asv_modelscope.py`，需 `pip install modelscope`） |
 | **C10** | **staged 方法扩样本** | 现有 15/31，再跑 20–40 句把统计效力提上去 | 2–4h | ⬜ 云端跑（`deploy/run_staged_recovery.sh`） |
 | **C11** | **内容源扩展** | 同一保护句 × 多内容源，报告方差而非单点 | 2–3h | ✅ 工具就绪（`scripts/run_content_sweep.py`） |
-| **C12** | **长音频/真实朗读** | 5–10s 句子或整段朗读（`--max-dur 0` 支持），验证工程可用性 | 1–2h | ⬜ 需更长音频数据 |
+| **C12** | **长音频/真实朗读** | 已本地验证：10.88s 拼接音频完整跑通（300/200 步 40.3s，显存正常；该预算下防御失败属预期）；更长数据未测 | 1–2h | ✅ 工程验证通过 |
 | **C13** | **跨数据集泛化** | LibriTTS / Common Voice 中文，验证不是 VCTK 特例 | 数小时（含下载） | ⬜ 需数据 |
 | **C14** | **target 选择策略消融** | `--target-strategy least_likely/nearest/random` 已实现并冒烟通过 | 1–2h | ✅ 工具就绪（待云端跑） |
 | **C15** | 48kHz 原版 VCTK | 与论文数据对齐（可选） | 数小时 | ⬜ 需数据 |
