@@ -325,14 +325,14 @@ $env:MPLCONFIGDIR="D:\Voice Guard\.mplcache"
 
 | # | 事项 | 内容 | 预计 | 状态 |
 |---|---|---|---|---|
-| L1 | 防御侧 EOT（真正的改进） | 已实现 `--imp-eot`（阶段2 加"信道化后身份保持"正则）+ 驱动 `scripts/run_defense_eot.py`；试点 n=3 无明确改善（6 信道均值 0.667→0.556，方差大），结论如实记录，云端大样本复验见 C 系列（[docs/16](docs/16_严格掩蔽与防御侧EOT.md)） | 2–3h | ✅ 试点完成（假设待验证） |
-| L2 | 硬掩蔽投影（严格不可感知） | 已完成：超阈率 88.7%→6.1%（迭代）防御保持 3/5；严格到每格不超阈需缩放 ~1e-4（SNR 76dB）、防御降到 1/5——**不可感知与防御强度直接冲突**（[docs/16](docs/16_严格掩蔽与防御侧EOT.md)） | 1–2h | ✅ 已完成 |
-| L3 | 频带能量分配 | 已完成试点：`--band-alloc` 按 θx 分配扰动能量；3 句试点防御不变（2/3）而 MCD 38.5→33.0（-14%），方向符合"同防御更低失真"假设，样本小待云端复验（[docs/18](docs/18_频带能量分配试点.md)） | 2–4h | ✅ 试点完成 |
+| L1 | 防御侧 EOT（真正的改进） | 已实现 `--imp-eot`（阶段2 加"信道化后身份保持"正则）+ 驱动 `scripts/run_defense_eot.py`；试点 n=3 无明确改善（6 信道均值 0.667→0.556，方差大），结论如实记录，云端大样本复验见 C 系列（[docs/16](docs/19_严格掩蔽与防御侧EOT.md)） | 2–3h | ✅ 试点完成（假设待验证） |
+| L2 | 硬掩蔽投影（严格不可感知） | 已完成：超阈率 88.7%→6.1%（迭代）防御保持 3/5；严格到每格不超阈需缩放 ~1e-4（SNR 76dB）、防御降到 1/5——**不可感知与防御强度直接冲突**（[docs/16](docs/19_严格掩蔽与防御侧EOT.md)） | 1–2h | ✅ 已完成 |
+| L3 | 频带能量分配 | 已完成试点：`--band-alloc` 按 θx 分配扰动能量；3 句试点防御不变（2/3）而 MCD 38.5→33.0（-14%），方向符合"同防御更低失真"假设，样本小待云端复验（[docs/18](docs/21_频带能量分配试点.md)） | 2–4h | ✅ 试点完成 |
 | L4 | ASR 阈值论文映射 | Whisper WER 分布 vs 人工文本，给 Eq.10 的 10% 阈值可解释定义；`tools/asr_threshold_map.py` 已完成本地 5 句样本（云端可扩） | 1h | ✅ 工具完成 |
 | L5 | 完整 Attack-VC 基线 | 用 `third_party/attack-vc` 官方超参补齐 emb/fb/e2e | 1–2h | ⬜ |
-| L6 | 多种子本地小表 | 2 seed × 3 句试点：判定完全相同（2/3 vs 2/3）、MCD 38.5±3.5；种子敏感度低，更大规模留云端（[docs/17](docs/17_并行与多种子.md)） | 2–3h | ✅ 试点完成 |
-| L7 | batch 并行攻击 | `scripts/run_parallel.py`：3 句串行 79.8s → 3 worker **36.7s（2.17×）**；云端可直接用 `--workers 2–4`（[docs/17](docs/17_并行与多种子.md)） | 2h | ✅ 已完成 |
-| L8 | 前端接入 refine/质量模式 + 实时进度 | 质量模式（`vg-projected`）已存在；新增实时进度条：attack/pipeline `progress_cb` → Gradio `gr.Progress`（实测 100 次回调 0.03→1.00，[docs/17](docs/17_并行与多种子.md)） | 2–3h | ✅ 已完成 |
+| L6 | 多种子本地小表 | 2 seed × 3 句试点：判定完全相同（2/3 vs 2/3）、MCD 38.5±3.5；种子敏感度低，更大规模留云端（[docs/17](docs/20_并行与多种子.md)） | 2–3h | ✅ 试点完成 |
+| L7 | batch 并行攻击 | `scripts/run_parallel.py`：3 句串行 79.8s → 3 worker **36.7s（2.17×）**；云端可直接用 `--workers 2–4`（[docs/17](docs/20_并行与多种子.md)） | 2h | ✅ 已完成 |
+| L8 | 前端接入 refine/质量模式 + 实时进度 | 质量模式（`vg-projected`）已存在；新增实时进度条：attack/pipeline `progress_cb` → Gradio `gr.Progress`（实测 100 次回调 0.03→1.00，[docs/17](docs/20_并行与多种子.md)） | 2–3h | ✅ 已完成 |
 | L9 | 适配服务治理 | 已加：任务目录清理（`--keep-jobs`）、请求体积上限 20MB（413）、GPU 忙时 429、结构化 JSON 日志 + 请求 ID | 1–2h | ✅ 已完成 |
 | L10 | CI（GitHub Actions） | 工作流模板 `deploy/ci.workflow.yml.template` **已在本地逐步验证通过**（compileall / test_features / test_masking / acceptance_check 全过）；一键启用脚本 `tools/enable_ci.py --token ghp_...`（需 PAT 带 `workflow` scope） | 1h | ✅ 内容验证通过，⏸ 待 token 启用 |
 | L11 | 一键验收自检脚本 | 起服务→冒烟→查交付物→打印 checklist；`tools/acceptance_check.py` 已跑通（必需项全过） | 1h | ✅ 已完成 |
@@ -368,7 +368,7 @@ $env:MPLCONFIGDIR="D:\Voice Guard\.mplcache"
 | **C10** | **staged 方法扩样本** | 现有 15/31，再跑 20–40 句把统计效力提上去 | 2–4h | ⬜ 云端跑（`deploy/run_staged_recovery.sh`） |
 | **C11** | **内容源扩展** | 同一保护句 × 多内容源，报告方差而非单点 | 2–3h | ✅ 工具就绪（`scripts/run_content_sweep.py`） |
 | **C12** | **长音频/真实朗读** | 已本地验证：10.88s 拼接音频完整跑通（300/200 步 40.3s，显存正常；该预算下防御失败属预期）；更长数据未测 | 1–2h | ✅ 工程验证通过 |
-| **C13** | **跨数据集泛化** | 工程验证：LibriSpeech 16kHz 样本（5.86s）跑通完整保护（19.5s，重采样/trim 正常）；身份维判定不适用（说话人不在注册库），正式跨数据集评估需建新注册库（[docs/17](docs/17_并行与多种子.md)） | 数小时（含下载） | ✅ 工程验证通过 |
+| **C13** | **跨数据集泛化** | 工程验证：LibriSpeech 16kHz 样本（5.86s）跑通完整保护（19.5s，重采样/trim 正常）；身份维判定不适用（说话人不在注册库），正式跨数据集评估需建新注册库（[docs/17](docs/20_并行与多种子.md)） | 数小时（含下载） | ✅ 工程验证通过 |
 | **C14** | **target 选择策略消融** | `--target-strategy least_likely/nearest/random` 已实现并冒烟通过 | 1–2h | ✅ 工具就绪（待云端跑） |
 | **C15** | 48kHz 原版 VCTK | 与论文数据对齐（可选） | 数小时 | ⬜ 需数据 |
 | **C16** | **云端压测** | `tools/load_test.py` 实测 2×200（并发/延迟/429 行为） | 1h | ✅ 工具就绪 |
