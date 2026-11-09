@@ -1,0 +1,5 @@
+# Additional inference dependencies; keep the existing deployment environment.
+h5py==3.10.0
+Resemblyzer==0.1.4
+# TensorFlow CPU 2.15.1 was used only in an isolated parity-check environment.
+# It is not needed to run OriginalMOSNet inference or waveform recovery.

@@ -1,0 +1,166 @@
+{
+  "frozen_utc": "2026-11-09T06:45:01.918420+00:00",
+  "type": "New recovery protocol after earlier negative results",
+  "output": "outputs/paper_quality/2026-11-09-recovery",
+  "seed": 20261109,
+  "model_dir": "checkpoints/adain-vc-official",
+  "vctk": "data/VCTK22",
+  "eval_registry": "outputs/registry.npz",
+  "attack_registry": "outputs/registry_vc.npz",
+  "development": [
+    "p225_040",
+    "p226_039",
+    "p227_033"
+  ],
+  "validation": [
+    "p225_062",
+    "p225_063",
+    "p226_053",
+    "p226_054",
+    "p227_052",
+    "p227_053",
+    "p228_052",
+    "p228_053",
+    "p229_052",
+    "p229_053",
+    "p230_035",
+    "p231_032",
+    "p232_031",
+    "p233_033",
+    "p234_032"
+  ],
+  "profiles": [
+    {
+      "name": "embedding_snr25",
+      "objective": "embedding",
+      "snr_db": 25.0,
+      "margin_db": 3.0,
+      "learning_rate": 0.0003
+    },
+    {
+      "name": "feedback_snr25",
+      "objective": "feedback",
+      "snr_db": 25.0,
+      "margin_db": 3.0,
+      "learning_rate": 0.0003
+    },
+    {
+      "name": "feedback_snr20",
+      "objective": "feedback",
+      "snr_db": 20.0,
+      "margin_db": 3.0,
+      "learning_rate": 0.0003
+    }
+  ],
+  "checkpoints": [
+    500,
+    1500
+  ],
+  "optimization_contents": [
+    "p226_002",
+    "p225_002"
+  ],
+  "evaluation_contents": {
+    "development": [
+      "p226_002"
+    ],
+    "validation": [
+      "p226_002",
+      "p227_002"
+    ]
+  },
+  "selection_rule": "Global profile/checkpoint maximizing strict identity joint count, full-control paper-structure joint count, protected quality count, then lower macro WER, higher mean original MOSNet, higher SNR budget, fewer steps, profile name. Development only. No per-utterance or validation selection.",
+  "mos_evaluators": {
+    "primary": "Original lochenchou/MOSNet CNN-BLSTM, cross-framework parity verified",
+    "secondary": "Historical HF model; retain separately"
+  },
+  "decoder": {
+    "whisper": "base",
+    "temperature": 0,
+    "fp16": false,
+    "language": "en"
+  },
+  "whisper_base_sha256": "ed3a0b6b1c0edf879ad9b11b1af5a0e6ab5db9205f891f668f8b0e6c6326e34e",
+  "gates": {
+    "mos_min": 3.0,
+    "wer_max": 0.1,
+    "strict": "Protected identity preserved and converted identity changed, clean identity correct",
+    "paper_structure": "Protected identity and quality retained; converted identity OR MOS OR content fails. WER<=10% is an explicit operational interpretation of ambiguous ASR threshold.",
+    "full_clean_screen": "Additionally require clean conversion MOS>=3 and WER<=10%, guaranteeing no quality disruption at zero noise"
+  },
+  "validation_note": "15 new utterances; p230-p234 not used in attack development but present in enrollment and potentially VC pretraining. Not a claim of unseen-pretraining-speaker generalization.",
+  "audio": "Preserve full original context; perturb original top_db=15 crop only; PCM16 export; evaluate decoded export; no loudness normalization",
+  "limits": {
+    "development_hours": 1,
+    "validation_hours": 1,
+    "no_automatic_shutdown": true
+  },
+  "assets": {
+    "data/VCTK22/p225/p225_040.wav": "f2607c18552b6dda69306206b415b9af1187ccf4f43e32d26302eb2fe63010a6",
+    "data/VCTK22/p225/p225_040.txt": "ace2ad269cc173884c76d0d5416e0c8abb06eb70149483765ae8d67daa6c348a",
+    "data/VCTK22/p226/p226_039.wav": "38f94f7b55ea16efc89bef867fad9bf509124ad2fa724061bde224eb3988a934",
+    "data/VCTK22/p226/p226_039.txt": "64c42afb0fb1fcccfc250acc483c15cb53b4e04560918726a73b9019cb6adc7a",
+    "data/VCTK22/p227/p227_033.wav": "959f72e0cbc8df100fdf243667990f45f9d726da66c6e23fcb6afa4aac68ffb6",
+    "data/VCTK22/p227/p227_033.txt": "1c8dcf83b5b9e0892a48d49aeb6effd108ad7b613180cf9f65b2a017e426b462",
+    "data/VCTK22/p225/p225_062.wav": "5348263ead3e39674744a17fe5c4b4b06bf253e5be8c2bd96f4ae256ec514e86",
+    "data/VCTK22/p225/p225_062.txt": "0237ff6a516bc4659f4e39d50e6658ea66117818cc8551a2958162ebab0bbd2a",
+    "data/VCTK22/p225/p225_063.wav": "6fe3b4ef32990d4049c048bd0d2d2d283a0a5d60af0187d0305a267b48f01adc",
+    "data/VCTK22/p225/p225_063.txt": "4d78e8a655334124555874b512cdeba267354f654eca4e2c6372e3598a30014b",
+    "data/VCTK22/p226/p226_053.wav": "4572c4e9a57b9d26d6065eb5c7408303ac7ef9706137ff15055499fd654cf1a3",
+    "data/VCTK22/p226/p226_053.txt": "0acece6e140e7002b59aa665f566089152fb6772cbfbc8708b5eddecafea5cd9",
+    "data/VCTK22/p226/p226_054.wav": "bd887e1ad5af1b816dcc7555f4f1136d7c92680fc29eb10a8f02e89354e2b879",
+    "data/VCTK22/p226/p226_054.txt": "a7897cf0ccf0cf031df214039940460d2185331db2d03fc663eaaefece5de498",
+    "data/VCTK22/p227/p227_052.wav": "47f27a61cb46876e149c20451e74ca1641234b8e0fe3a45bcebb4629b440c8a4",
+    "data/VCTK22/p227/p227_052.txt": "3ffaaa575dce52a5ddfff7dd40fa97d6d5bc020bcf7ad868f43f2931b9752579",
+    "data/VCTK22/p227/p227_053.wav": "c27261035e1e9a3ba9dd435ba2d4daa1cbea549bb2ecc21b8036e07349e078bc",
+    "data/VCTK22/p227/p227_053.txt": "05e679eed11fb304990458418ae54987798395abe9989a040e08e1a490c3f2a6",
+    "data/VCTK22/p228/p228_052.wav": "da60b0a348f5d04d9a88f57cc809d5c0bd0cdbb5a853fa053f16a9a6120bce6c",
+    "data/VCTK22/p228/p228_052.txt": "9a6258540da80c7128a096bd6267d5d7eb21f4db6fc6bbcbc3ec90d9ab19680f",
+    "data/VCTK22/p228/p228_053.wav": "85f5075f225cd91a98c0a0348dc6b02a763babe01d2923cb1e5591889a0a953d",
+    "data/VCTK22/p228/p228_053.txt": "f0bf1d130b753180bbd41bb633ac62fd53cdc1c4ef8fd504ebaee69ce8098d65",
+    "data/VCTK22/p229/p229_052.wav": "c4adf0bf6cffcbf6e4d3295aa983171c55eb52e6b7d07391039897ba08812b36",
+    "data/VCTK22/p229/p229_052.txt": "121e2700d62372f1c2e0de1809f757f7ac111f166fa3de6257f3cfffa6cbbb3f",
+    "data/VCTK22/p229/p229_053.wav": "a2e2d3ff693560040376c9c74f6fff51121721e9c9fa960298fd2804329f9917",
+    "data/VCTK22/p229/p229_053.txt": "396528b341b3f513b960278c5a902c2f8c7ef754446c36ea42090f7e0734e662",
+    "data/VCTK22/p230/p230_035.wav": "622a9fc612d6b632abeddd8108f5b99a4b169a8f273ba4e3d418ba5fa0f0548b",
+    "data/VCTK22/p230/p230_035.txt": "9f80647731c6847affb41e7b1952d94644c06536459778b42f72c04410259a16",
+    "data/VCTK22/p231/p231_032.wav": "43ecb0c61f7252bb86c0e6f74f23b8ecea7d4e59936f8ea7800a12c4560f4f58",
+    "data/VCTK22/p231/p231_032.txt": "fe264f3d3966fb657a004889c63ca286bfc8bd003ee793fcf88c500fa73ac715",
+    "data/VCTK22/p232/p232_031.wav": "2a5fe9343faaabadd39c84844eff8602403639c60fae49d2076fc24b5d8417cd",
+    "data/VCTK22/p232/p232_031.txt": "3620063d3a1d768f3d4977c66edbd968fb544f4812b182370652cee8e94ae077",
+    "data/VCTK22/p233/p233_033.wav": "967df74544af534751b53d867e079314e85b825c93671b60a97ecddd4fc21696",
+    "data/VCTK22/p233/p233_033.txt": "d429fb28d5c97aae236eb4fcde8dc2859f56532e1cd30dba0aabf5e3d1450f58",
+    "data/VCTK22/p234/p234_032.wav": "14d371b235540e7cc2549ac530c19ba32b46dd3571cd6655dabbdab9bbc2bdc7",
+    "data/VCTK22/p234/p234_032.txt": "6848d5afa53e1fc90211382f95261d094f7fd1db6ee87c0630d9e32c52aa9665",
+    "data/VCTK22/p226/p226_002.wav": "9be1622dd552d1b728ddb8754042ac4bb1cbe8b64ea04ed929d71c1fcc39d28c",
+    "data/VCTK22/p226/p226_002.txt": "cc089050d61d57f3e806b6cf2ffa31aee29b8d749aa3067ade1f45ec3773ca73",
+    "data/VCTK22/p225/p225_002.wav": "04d332b32fc529948d572604687a149d8609011ed0c527cbd975493e244b42ba",
+    "data/VCTK22/p225/p225_002.txt": "19481b97b98547fd2607a1065ed92b3fb6703d33c926becd8c3da61727e34d3c",
+    "data/VCTK22/p227/p227_002.wav": "f108e0bef0b2665a47f6c63906c952bbb4cb5ce218c085ad526a8717c20492ad",
+    "data/VCTK22/p227/p227_002.txt": "cc089050d61d57f3e806b6cf2ffa31aee29b8d749aa3067ade1f45ec3773ca73",
+    "outputs/registry.npz": "1ee10beb36fa35d58e164f457b56093315d9a8377c33e3ad6df5796ff3a034ae",
+    "outputs/registry_vc.npz": "7918fb8fdcb32418e67d567f2d6f1774dbae6f6ccc9adebb6d13bb3fd24ee09e",
+    "checkpoints/adain-vc-official/vctk_model.ckpt": "31d3a9361b756122e7f8aa2cfecbb7ee0ac3bc98d4fc656d92543e0ad4f0b3ca",
+    "checkpoints/adain-vc-official/attr.pkl": "c5ec695df8e84be2ee440fbc8816f36ef96ecc557af088026e22139e56c181e5",
+    "checkpoints/adain-vc-official/config.yaml": "3ef536aa57ee27d6a39ab5531e16de285a8859fa4565cdd13628963e1d7a571b",
+    "checkpoints/ecapa-local/embedding_model.ckpt": "0575cb64845e6b9a10db9bcb74d5ac32b326b8dc90352671d345e2ee3d0126a2",
+    "checkpoints/mosnet-original/cnn_blstm.h5": "78b75e7d76ee6074ea7d57dcffa56d0c90be9d3d8dedc2217e25e259423cb756",
+    "checkpoints/mosnet-hf/pytorch_model.bin": "a71a45618d77d652ffa77117e9188729c76d214c858d0c29bdf71da4954b9544",
+    "checkpoints/mosnet-hf/config.json": "71e85350b2efa56cfddb25e0a17ed06e151c1cc62376aff4871c2474065d4307",
+    "checkpoints/mosnet-hf/modeling_mosnet.py": "862ea1b0a8353454023ecf208a5419f860fdd98d6f1f077531930f3313398b79",
+    "checkpoints/mosnet-hf/configuration_mosnet.py": "486001bc64145b5c6ec17548502e58106ca06ff6e602306d7948e382071fcda5"
+  },
+  "code_sha256": {
+    "scripts/run_quality_recovery.py": "6bcb0e3c592d10a2f8f4500daeb0007b82942cf68dc9c397b47bd8b54d4c505b",
+    "vguard/recovery.py": "2b07cb39802570b88e4dd29c2aa5c666d5dc3823622ab1515ebc66492a507580",
+    "vguard/features.py": "16ec2985e8cf82358c14a319ab15613997652c009dbf10cdb30abd5f685bcf76",
+    "vguard/masking.py": "d3b5000cef4b9bc1d56b40f9f8f5af5d08742bd7e4b9e780bf78c817b62d04e8",
+    "vguard/audio.py": "5b025eb903d8c6dd9fe289f1bb1312d4ec718b3c63943a04cd12f2e7b7062d6f",
+    "vguard/asv.py": "27a969bf96f7a5e2abf2a823568ebd97c749506547dd7e7d1ef788685be99a25",
+    "vguard/vc/adainvc.py": "59aa141bd1b2f1738b033debf7725fce0aea9c125dc5aa92f06d1ca4b99c5878",
+    "vguard/metrics/mos_original.py": "58f3b43ee3d09e4e087355f66a1f9140ed281344cb00665d2bd2e83545441a80",
+    "vguard/metrics/mos.py": "b1cf797b1c0b99e825a04774922c07c2bf2de583a0b392464f9f72cafde2efa3",
+    "vguard/metrics/wer.py": "b2688c6629e5eacc1c786d6d9e9fd9d82f1e91703ee533d317754f3e5f87b814",
+    "third_party/ada_in_vc/model.py": "3f602da959517ad927ea0525797928559f0205325bdb25c8804f02685b316480"
+  }
+}

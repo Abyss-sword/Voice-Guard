@@ -37,7 +37,8 @@ def main():
     pdfmetrics.registerFont(TTFont('CourseCN',str(args.font),subfontIndex=0))
     pdfmetrics.registerFontFamily('CourseCN',normal='CourseCN',bold='CourseCN',italic='CourseCN',boldItalic='CourseCN')
     body=ParagraphStyle('body',fontName='CourseCN',fontSize=10.5,leading=17,
-                        spaceAfter=7,wordWrap='CJK',alignment=TA_JUSTIFY,textColor=colors.black)
+                        spaceAfter=7,wordWrap='CJK',alignment=TA_JUSTIFY,textColor=colors.black,
+                        allowWidows=0,allowOrphans=0)
     title=ParagraphStyle('title',parent=body,fontSize=21,leading=29,spaceAfter=14,keepWithNext=True)
     h1=ParagraphStyle('h1',parent=body,fontSize=15,leading=21,spaceBefore=14,spaceAfter=8,keepWithNext=True)
     h2=ParagraphStyle('h2',parent=body,fontSize=12,leading=18,spaceBefore=9,spaceAfter=6,keepWithNext=True)
@@ -48,7 +49,7 @@ def main():
     index=0
     while index<len(lines):
         line=lines[index].strip()
-        if not line:
+        if not line or line.startswith('<!--'):
             index+=1;continue
         if line.startswith('|'):
             table_rows=[]

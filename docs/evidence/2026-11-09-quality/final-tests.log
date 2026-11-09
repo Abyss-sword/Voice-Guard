@@ -1,0 +1,43 @@
+test_complete_transcript_scores_preserved_but_partial_or_pseudo_scores_rejected (test_campaign_quality_resume.CampaignQualityResumeTests.test_complete_transcript_scores_preserved_but_partial_or_pseudo_scores_rejected) ... ok
+test_nonquality_stage_never_skipped (test_campaign_quality_resume.CampaignQualityResumeTests.test_nonquality_stage_never_skipped) ... ok
+test_losing_clean_screen_is_not_retained_success_or_removed_from_quality_mean (test_channel_audit.ChannelAuditTests.test_losing_clean_screen_is_not_retained_success_or_removed_from_quality_mean) ... ok
+test_requires_all_artifacts_and_real_transcript_quality (test_cloud_report.CloudReportTests.test_requires_all_artifacts_and_real_transcript_quality) ... ok
+test_failed_encode_raises_and_removes_temporary_directory (test_codec_channels.CodecTests.test_failed_encode_raises_and_removes_temporary_directory) ... ok
+test_zero_channel_control_has_no_quantization_but_pcm16_does (test_codec_channels.CodecTests.test_zero_channel_control_has_no_quantization_but_pcm16_does) ... ok
+test_joint_quality_never_accepts_nonfinite_or_changed_protected_identity (test_evaluation.EvaluationTests.test_joint_quality_never_accepts_nonfinite_or_changed_protected_identity) ... ok
+test_missing_asv_and_already_failed_clean_conversion_are_not_successes (test_evaluation.EvaluationTests.test_missing_asv_and_already_failed_clean_conversion_are_not_successes) ... ok
+test_zero_denominator_and_small_sample_uncertainty (test_evaluation.EvaluationTests.test_zero_denominator_and_small_sample_uncertainty) ... ok
+test_auto_speaker_uses_upload_sample_rate_and_downmixes (test_platform_contract.PlatformContractTests.test_auto_speaker_uses_upload_sample_rate_and_downmixes) ... ok
+test_rejects_invalid_api_parameters_instead_of_clamping_or_truthy_strings (test_platform_contract.PlatformContractTests.test_rejects_invalid_api_parameters_instead_of_clamping_or_truthy_strings) ... ok
+test_preserves_quiet_prefix_and_suffix_and_rejects_wrong_crop (test_quality_constraints.QualityConstraintTests.test_preserves_quiet_prefix_and_suffix_and_rejects_wrong_crop) ... ok
+test_quality_gate_requires_identity_and_finite_metrics (test_quality_constraints.QualityConstraintTests.test_quality_gate_requires_identity_and_finite_metrics) ... ok
+test_reconstructed_projection_reduces_mask_violation_and_obeys_peak_cap (test_quality_constraints.QualityConstraintTests.test_reconstructed_projection_reduces_mask_violation_and_obeys_peak_cap) ... ok
+test_torch_projection_matches_numpy_stft_units (test_quality_constraints.QualityConstraintTests.test_torch_projection_matches_numpy_stft_units) ... ok
+test_constrained_noise_obeys_snr_peak_and_waveform_headroom (test_quality_recovery.QualityRecoveryTests.test_constrained_noise_obeys_snr_peak_and_waveform_headroom) ... ok
+test_feedback_propagates_to_waveform_without_model_weight_updates (test_quality_recovery.QualityRecoveryTests.test_feedback_propagates_to_waveform_without_model_weight_updates) ... Campaign complete: False
+Campaign complete: False
+Campaign complete: False
+Campaign complete: True
+Campaign complete: False
+{'step': 4, 'loss': 0.14011558890342712, 'direct': 0.4078923463821411, 'feedback': 0.038142502307891846, 'noise_rms': 0.00018149746756535023}
+ok
+test_complete_frozen_records_are_audited (test_recovery_analysis.RecoveryEvidenceTests.test_complete_frozen_records_are_audited) ... ok
+test_duplicate_pair_cannot_hide_missing_validation_pair (test_recovery_analysis.RecoveryEvidenceTests.test_duplicate_pair_cannot_hide_missing_validation_pair) ... ok
+test_supplement_must_score_identical_waveforms (test_recovery_analysis.RecoveryEvidenceTests.test_supplement_must_score_identical_waveforms) ... ok
+test_csv_keeps_optional_error_fields_and_records (test_reproduction.ReproductionTests.test_csv_keeps_optional_error_fields_and_records) ... ok
+test_partial_attack_is_not_complete (test_reproduction.ReproductionTests.test_partial_attack_is_not_complete) ... ok
+test_per_utterance_seed_independent_of_execution_order (test_reproduction.ReproductionTests.test_per_utterance_seed_independent_of_execution_order) ... ok
+test_screened_denominator_excludes_already_failed_clean_conversion (test_reproduction.ReproductionTests.test_screened_denominator_excludes_already_failed_clean_conversion) ... ok
+test_stereo_22050_reference_is_resampled_to_mono_24000 (test_reproduction.ReproductionTests.test_stereo_22050_reference_is_resampled_to_mono_24000) ... ok
+test_vctk_layout_flattens_audio_and_transcripts (test_reproduction.ReproductionTests.test_vctk_layout_flattens_audio_and_transcripts) ... ok
+test_wer_uses_target_reference_for_defended_and_source_for_converted (test_reproduction.ReproductionTests.test_wer_uses_target_reference_for_defended_and_source_for_converted) ... ok
+test_ignored_range_is_rejected (test_vctk_subset.RangeTests.test_ignored_range_is_rejected) ... ok
+test_prefetch_avoids_extra_download_for_contained_reads (test_vctk_subset.RangeTests.test_prefetch_avoids_extra_download_for_contained_reads) ... ok
+test_remote_zip_matches_original_members (test_vctk_subset.RangeTests.test_remote_zip_matches_original_members) ... ok
+
+----------------------------------------------------------------------
+Ran 30 tests in 17.064s
+
+OK
+{'utterance': 'p225_040', 'reference_mode': 'transcript', 'cer_original_trimmed': 0, 'wer_original_trimmed': 0, 'cer_defended': 0, 'wer_defended': 0, 'cer_conv_from_clean': 0, 'wer_conv_from_clean': 0, 'cer_conv_from_defended': 0, 'wer_conv_from_defended': 0}
+saved: C:\WINDOWS\TEMP\tmpfpwg0j5h\wer.csv

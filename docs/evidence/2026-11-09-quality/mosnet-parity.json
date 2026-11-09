@@ -1,0 +1,27 @@
+{
+  "checks": [
+    {
+      "input": "frames_17",
+      "torch_mean": 2.6454579830169678,
+      "tensorflow_mean": 2.6454579830169678,
+      "max_frame_abs_error": 4.76837158203125e-07
+    },
+    {
+      "input": "frames_33",
+      "torch_mean": 2.6838271617889404,
+      "tensorflow_mean": 2.6838269233703613,
+      "max_frame_abs_error": 1.430511474609375e-06
+    },
+    {
+      "input": "frames_84",
+      "torch_mean": 2.6056180000305176,
+      "tensorflow_mean": 2.6056180000305176,
+      "max_frame_abs_error": 9.5367431640625e-07
+    }
+  ],
+  "passed": true,
+  "tolerance": 0.0001,
+  "inputs_sha256": "8b45f918ee2688b61e0141f0723d0e6585f0d4eadc4869bda6363f54461aadc1",
+  "port_sha256": "58f3b43ee3d09e4e087355f66a1f9140ed281344cb00665d2bd2e83545441a80",
+  "claim_boundary": "Fixed magnitude inputs and original Keras H5; numerical parity is not proof of equivalence to Voice Guard authors unpublished evaluator."
+}
