@@ -1,0 +1,6 @@
+[OK] test_generate_th (63, 513)
+[OK] test_transform_shape (63, 513)
+ALL PASS
+F:\Voice-Guard-master\Voice-Guard-master\.venv\Lib\site-packages\torch\functional.py:704: UserWarning: stft with return_complex=False is deprecated. In a future pytorch release, stft will return complex tensors for all inputs, and return_complex=False will raise an error.
+Note: you can still call torch.view_as_real on the complex output to recover the old return format. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\SpectralOps.cpp:878.)
+  return _VF.stft(  # type: ignore[attr-defined]

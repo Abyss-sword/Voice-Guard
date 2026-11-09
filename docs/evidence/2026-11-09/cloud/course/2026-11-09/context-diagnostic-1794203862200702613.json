@@ -1,0 +1,25 @@
+{
+  "started_utc": "2026-11-09T05:57:42.200717+00:00",
+  "state": "complete",
+  "command": [
+    "/root/voiceguard/.venv/bin/python",
+    "-u",
+    "scripts/quality_sweep.py",
+    "--exp-dir",
+    "outputs/course/2026-11-09/new_utterances_projected",
+    "--out-dir",
+    "outputs/course/2026-11-09/quality_new_refined_context_posthoc",
+    "--speakers",
+    "p225,p226,p227,p228,p229",
+    "--scales",
+    "0,1",
+    "--wav-subtype",
+    "PCM_16",
+    "--restore-context"
+  ],
+  "protocol_sha256": "4e8ab90d0dd2cd2410b2f9000a29923fdbc1bf9711771752595435beae60b9b6",
+  "limit_seconds": 900,
+  "type": "Post-hoc context diagnostic; does not replace frozen validation",
+  "elapsed_s": 53.26,
+  "updated_utc": "2026-11-09T05:58:35.460691+00:00"
+}

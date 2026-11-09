@@ -1,0 +1,284 @@
+{
+  "complete": true,
+  "rows": [
+    {
+      "utterance": "p225_040",
+      "mode": "default",
+      "seed": 2026,
+      "hypothesis": "you better leave it.",
+      "reference": "You'd better believe it.",
+      "wer": 0.4,
+      "segment_temperatures": [
+        0.0
+      ]
+    },
+    {
+      "utterance": "p225_040",
+      "mode": "default",
+      "seed": 2027,
+      "hypothesis": "you better leave it.",
+      "reference": "You'd better believe it.",
+      "wer": 0.4,
+      "segment_temperatures": [
+        0.0
+      ]
+    },
+    {
+      "utterance": "p225_040",
+      "mode": "greedy",
+      "seed": 2026,
+      "hypothesis": "you better leave it.",
+      "reference": "You'd better believe it.",
+      "wer": 0.4,
+      "segment_temperatures": [
+        0
+      ]
+    },
+    {
+      "utterance": "p225_040",
+      "mode": "greedy",
+      "seed": 2027,
+      "hypothesis": "you better leave it.",
+      "reference": "You'd better believe it.",
+      "wer": 0.4,
+      "segment_temperatures": [
+        0
+      ]
+    },
+    {
+      "utterance": "p226_039",
+      "mode": "default",
+      "seed": 2026,
+      "hypothesis": "can become permanent.",
+      "reference": "It has failed.",
+      "wer": 1.0,
+      "segment_temperatures": [
+        1.0
+      ]
+    },
+    {
+      "utterance": "p226_039",
+      "mode": "default",
+      "seed": 2027,
+      "hypothesis": "I'm really trying to restart while I get to the top. Yeah, it's a pretty rude passage. Most of the time I would quietly undescribes,",
+      "reference": "It has failed.",
+      "wer": 8.666666666666666,
+      "segment_temperatures": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "utterance": "p226_039",
+      "mode": "greedy",
+      "seed": 2026,
+      "hypothesis": "Take this game.",
+      "reference": "It has failed.",
+      "wer": 1.0,
+      "segment_temperatures": [
+        0
+      ]
+    },
+    {
+      "utterance": "p226_039",
+      "mode": "greedy",
+      "seed": 2027,
+      "hypothesis": "Take this game.",
+      "reference": "It has failed.",
+      "wer": 1.0,
+      "segment_temperatures": [
+        0
+      ]
+    },
+    {
+      "utterance": "p227_033",
+      "mode": "default",
+      "seed": 2026,
+      "hypothesis": "for any other person.",
+      "reference": "It is not for any other purpose.",
+      "wer": 0.5714285714285714,
+      "segment_temperatures": [
+        0.0
+      ]
+    },
+    {
+      "utterance": "p227_033",
+      "mode": "default",
+      "seed": 2027,
+      "hypothesis": "for any other person.",
+      "reference": "It is not for any other purpose.",
+      "wer": 0.5714285714285714,
+      "segment_temperatures": [
+        0.0
+      ]
+    },
+    {
+      "utterance": "p227_033",
+      "mode": "greedy",
+      "seed": 2026,
+      "hypothesis": "for any other person.",
+      "reference": "It is not for any other purpose.",
+      "wer": 0.5714285714285714,
+      "segment_temperatures": [
+        0
+      ]
+    },
+    {
+      "utterance": "p227_033",
+      "mode": "greedy",
+      "seed": 2027,
+      "hypothesis": "for any other person.",
+      "reference": "It is not for any other purpose.",
+      "wer": 0.5714285714285714,
+      "segment_temperatures": [
+        0
+      ]
+    },
+    {
+      "utterance": "p228_035",
+      "mode": "default",
+      "seed": 2026,
+      "hypothesis": "It looks good.",
+      "reference": "It was clear.",
+      "wer": 0.6666666666666666,
+      "segment_temperatures": [
+        0.0
+      ]
+    },
+    {
+      "utterance": "p228_035",
+      "mode": "default",
+      "seed": 2027,
+      "hypothesis": "It looks good.",
+      "reference": "It was clear.",
+      "wer": 0.6666666666666666,
+      "segment_temperatures": [
+        0.0
+      ]
+    },
+    {
+      "utterance": "p228_035",
+      "mode": "greedy",
+      "seed": 2026,
+      "hypothesis": "It looks good.",
+      "reference": "It was clear.",
+      "wer": 0.6666666666666666,
+      "segment_temperatures": [
+        0
+      ]
+    },
+    {
+      "utterance": "p228_035",
+      "mode": "greedy",
+      "seed": 2027,
+      "hypothesis": "It looks good.",
+      "reference": "It was clear.",
+      "wer": 0.6666666666666666,
+      "segment_temperatures": [
+        0
+      ]
+    },
+    {
+      "utterance": "p229_032",
+      "mode": "default",
+      "seed": 2026,
+      "hypothesis": "as we do not move.",
+      "reference": "Because we do not need it.",
+      "wer": 0.5,
+      "segment_temperatures": [
+        0.0
+      ]
+    },
+    {
+      "utterance": "p229_032",
+      "mode": "default",
+      "seed": 2027,
+      "hypothesis": "as we do not move.",
+      "reference": "Because we do not need it.",
+      "wer": 0.5,
+      "segment_temperatures": [
+        0.0
+      ]
+    },
+    {
+      "utterance": "p229_032",
+      "mode": "greedy",
+      "seed": 2026,
+      "hypothesis": "as we do not move.",
+      "reference": "Because we do not need it.",
+      "wer": 0.5,
+      "segment_temperatures": [
+        0
+      ]
+    },
+    {
+      "utterance": "p229_032",
+      "mode": "greedy",
+      "seed": 2027,
+      "hypothesis": "as we do not move.",
+      "reference": "Because we do not need it.",
+      "wer": 0.5,
+      "segment_temperatures": [
+        0
+      ]
+    }
+  ],
+  "statistics": {
+    "default": {
+      "changed_transcript_count": 1,
+      "changed_utterances": [
+        "p226_039"
+      ],
+      "macro_wer_by_seed": {
+        "2026": 0.6276190476190476,
+        "2027": 2.1609523809523807
+      }
+    },
+    "greedy": {
+      "changed_transcript_count": 0,
+      "changed_utterances": [],
+      "macro_wer_by_seed": {
+        "2026": 0.6276190476190476,
+        "2027": 0.6276190476190476
+      }
+    }
+  },
+  "elapsed_s": 4.31,
+  "protocol": {
+    "created_utc": "2026-11-09T06:00:40.443228+00:00",
+    "type": "Post-hoc ASR decoding control",
+    "design_reason": "The same saved baseline WAVs have different WER across the main quality table and channel audit.",
+    "seeds": [
+      2026,
+      2027
+    ],
+    "modes": {
+      "default": {
+        "language": "en"
+      },
+      "greedy": {
+        "language": "en",
+        "temperature": 0
+      }
+    },
+    "script_sha256": "45868b6a3c1c6459a20c6d1de02b7e7c2f9182f12e6c46a3d580e1c3b9bf9820",
+    "model_sha256": "ed3a0b6b1c0edf879ad9b11b1af5a0e6ab5db9205f891f668f8b0e6c6326e34e",
+    "audio_sha256": {
+      "p225_040": "234662147696a4729f5a125b0763259d30346b0d2608d11e0be75f72bc7a8750",
+      "p226_039": "6ad0792566f802039b933a7f7b868324768c867b71f60e12d9566933be45522d",
+      "p227_033": "e11e61324ad9377d9be52543a106d084e389f34f69bf4ed348a128fdef6cdbc8",
+      "p228_035": "0f8b38c5bb8941c419286f2c4cd674090aee89fd20bc095cab8f30f9f6ddb2ca",
+      "p229_032": "ff0d23c2dd5af8d82ec3f71d92585567fbc609001b3b5f4c8580931edb35fb6a"
+    },
+    "reference_sha256": {
+      "p225_040": "ace2ad269cc173884c76d0d5416e0c8abb06eb70149483765ae8d67daa6c348a",
+      "p226_039": "64c42afb0fb1fcccfc250acc483c15cb53b4e04560918726a73b9019cb6adc7a",
+      "p227_033": "1c8dcf83b5b9e0892a48d49aeb6effd108ad7b613180cf9f65b2a017e426b462",
+      "p228_035": "c18a0b417b3bbc8da5e3e90a7376a0f681e41aa400467500debdeb14f0bbb79d",
+      "p229_032": "2723bc78187351d04a32d9a62c6529aad4d4113b7f52e05caa45cc748ece5b36"
+    },
+    "torch_version": "2.5.1+cu124",
+    "note": "Default Whisper includes temperature fallback; greedy is a separate diagnostic, not replacement scoring."
+  }
+}

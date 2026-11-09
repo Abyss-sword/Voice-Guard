@@ -1,0 +1,300 @@
+Wed Nov  4 01:39:05 PM UTC 2026
+Verified all 865 uploaded original WAVs
++ /root/voiceguard/.venv/bin/python scripts/build_registry.py --mode vc --model-dir checkpoints/adain-vc-official --out outputs/registry_vc.npz --vctk data/VCTK22 --speakers p225,p226,p227,p228,p229,p230,p231,p232,p233,p234,p236,p237,p238,p239,p240,p241,p243,p244,p245,p246 --per-speaker 30 --device cuda
+/root/voiceguard/scripts/../vguard/vc/adainvc.py:66: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(ckpt_path, map_location=device)
+/root/voiceguard/.venv/lib/python3.10/site-packages/torch/functional.py:704: UserWarning: stft with return_complex=False is deprecated. In a future pytorch release, stft will return complex tensors for all inputs, and return_complex=False will raise an error.
+Note: you can still call torch.view_as_real on the complex output to recover the old return format. (Triggered internally at ../aten/src/ATen/native/SpectralOps.cpp:873.)
+  return _VF.stft(  # type: ignore[attr-defined]
+p225: 30 utterances -> emb (128,)
+p226: 30 utterances -> emb (128,)
+p227: 30 utterances -> emb (128,)
+p228: 30 utterances -> emb (128,)
+p229: 30 utterances -> emb (128,)
+p230: 30 utterances -> emb (128,)
+p231: 30 utterances -> emb (128,)
+p232: 30 utterances -> emb (128,)
+p233: 30 utterances -> emb (128,)
+p234: 30 utterances -> emb (128,)
+p236: 30 utterances -> emb (128,)
+p237: 30 utterances -> emb (128,)
+p238: 30 utterances -> emb (128,)
+p239: 30 utterances -> emb (128,)
+p240: 30 utterances -> emb (128,)
+p241: 30 utterances -> emb (128,)
+p243: 30 utterances -> emb (128,)
+p244: 30 utterances -> emb (128,)
+p245: 30 utterances -> emb (128,)
+p246: 30 utterances -> emb (128,)
+saved outputs/registry_vc.npz: ['p225', 'p226', 'p227', 'p228', 'p229', 'p230', 'p231', 'p232', 'p233', 'p234', 'p236', 'p237', 'p238', 'p239', 'p240', 'p241', 'p243', 'p244', 'p245', 'p246'] (20, 128)
+saved outputs/registry_vc.npz: ['p225', 'p226', 'p227', 'p228', 'p229', 'p230', 'p231', 'p232', 'p233', 'p234', 'p236', 'p237', 'p238', 'p239', 'p240', 'p241', 'p243', 'p244', 'p245', 'p246'] (20, 128)
++ /root/voiceguard/.venv/bin/python scripts/build_registry.py --mode ecapa --out outputs/registry.npz --vctk data/VCTK22 --speakers p225,p226,p227,p228,p229,p230,p231,p232,p233,p234,p236,p237,p238,p239,p240,p241,p243,p244,p245,p246 --per-speaker 30 --device cuda
+INFO:speechbrain.utils.quirks:Applied quirks (see `speechbrain.utils.quirks`): [allow_tf32, disable_jit_profiling]
+INFO:speechbrain.utils.quirks:Excluded quirks specified by the `SB_DISABLE_QUIRKS` environment (comma-separated list): []
+INFO:speechbrain.utils.fetching:Fetch hyperparams.yaml: Using file found at '/root/voiceguard/checkpoints/ecapa-local/hyperparams.yaml'
+/root/voiceguard/.venv/lib/python3.10/site-packages/speechbrain/utils/autocast.py:68: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  wrapped_fwd = torch.cuda.amp.custom_fwd(fwd, cast_inputs=cast_inputs)
+INFO:speechbrain.utils.fetching:Fetch embedding_model.ckpt: Using file found at '/root/voiceguard/checkpoints/ecapa-local/embedding_model.ckpt'
+INFO:speechbrain.utils.fetching:Fetch mean_var_norm_emb.ckpt: Using file found at '/root/voiceguard/checkpoints/ecapa-local/mean_var_norm_emb.ckpt'
+INFO:speechbrain.utils.fetching:Fetch classifier.ckpt: Using file found at '/root/voiceguard/checkpoints/ecapa-local/classifier.ckpt'
+INFO:speechbrain.utils.fetching:Fetch label_encoder.txt: Using file found at '/root/voiceguard/checkpoints/ecapa-local/label_encoder.ckpt'
+INFO:speechbrain.utils.parameter_transfer:Loading pretrained files for: embedding_model, mean_var_norm_emb, classifier, label_encoder
+/root/voiceguard/.venv/lib/python3.10/site-packages/speechbrain/utils/checkpoints.py:200: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  state_dict = torch.load(path, map_location=device)
+/root/voiceguard/.venv/lib/python3.10/site-packages/speechbrain/processing/features.py:1311: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  stats = torch.load(path, map_location=device)
+p225: 30 utterances
+p226: 30 utterances
+p227: 30 utterances
+p228: 30 utterances
+p229: 30 utterances
+p230: 30 utterances
+p231: 30 utterances
+p232: 30 utterances
+p233: 30 utterances
+p234: 30 utterances
+p236: 30 utterances
+p237: 30 utterances
+p238: 30 utterances
+p239: 30 utterances
+p240: 30 utterances
+p241: 30 utterances
+p243: 30 utterances
+p244: 30 utterances
+p245: 30 utterances
+p246: 30 utterances
+saved outputs/registry.npz: ['p225', 'p226', 'p227', 'p228', 'p229', 'p230', 'p231', 'p232', 'p233', 'p234', 'p236', 'p237', 'p238', 'p239', 'p240', 'p241', 'p243', 'p244', 'p245', 'p246'] (20, 192)
+{
+  "ready": true,
+  "scope": "experiment",
+  "device": "cuda",
+  "gpu": "Tesla T4",
+  "free_gb": 76.41,
+  "versions": {
+    "torch": "2.5.1",
+    "torchaudio": "2.5.1",
+    "librosa": "0.10.2.post1",
+    "numpy": "1.26.4",
+    "soundfile": "0.12.1",
+    "PyYAML": "6.0.2",
+    "speechbrain": "1.0.2",
+    "gradio": "4.44.1"
+  },
+  "checks": [
+    {
+      "name": "python",
+      "ok": true,
+      "detail": "3.10.12"
+    },
+    {
+      "name": "third_party/ada_in_vc/model.py",
+      "ok": true,
+      "detail": "required upstream source"
+    },
+    {
+      "name": "third_party/ada_in_vc/config.yaml",
+      "ok": true,
+      "detail": "required upstream source"
+    },
+    {
+      "name": "torch",
+      "ok": true,
+      "detail": "2.5.1"
+    },
+    {
+      "name": "torchaudio",
+      "ok": true,
+      "detail": "2.5.1"
+    },
+    {
+      "name": "librosa",
+      "ok": true,
+      "detail": "0.10.2.post1"
+    },
+    {
+      "name": "numpy",
+      "ok": true,
+      "detail": "1.26.4"
+    },
+    {
+      "name": "soundfile",
+      "ok": true,
+      "detail": "0.12.1"
+    },
+    {
+      "name": "PyYAML",
+      "ok": true,
+      "detail": "6.0.2"
+    },
+    {
+      "name": "speechbrain",
+      "ok": true,
+      "detail": "1.0.2"
+    },
+    {
+      "name": "gradio",
+      "ok": true,
+      "detail": "4.44.1"
+    },
+    {
+      "name": "device",
+      "ok": true,
+      "detail": "Tesla T4"
+    },
+    {
+      "name": "torch/torchaudio import",
+      "ok": true,
+      "detail": "2.5.1+cu124"
+    },
+    {
+      "name": "checkpoints/adain-vc-official/config.yaml",
+      "ok": true,
+      "detail": "3ef536aa57ee27d6a39ab5531e16de285a8859fa4565cdd13628963e1d7a571b"
+    },
+    {
+      "name": "checkpoints/adain-vc-official/attr.pkl",
+      "ok": true,
+      "detail": "c5ec695df8e84be2ee440fbc8816f36ef96ecc557af088026e22139e56c181e5"
+    },
+    {
+      "name": "checkpoints/adain-vc-official/vctk_model.ckpt",
+      "ok": true,
+      "detail": "31d3a9361b756122e7f8aa2cfecbb7ee0ac3bc98d4fc656d92543e0ad4f0b3ca"
+    },
+    {
+      "name": "checkpoints/ecapa-local/hyperparams.yaml",
+      "ok": true,
+      "detail": "0c7279c122fe96fa50a6654643dde8759f605aac0be91c8e769dae0e5538f49f"
+    },
+    {
+      "name": "checkpoints/ecapa-local/embedding_model.ckpt",
+      "ok": true,
+      "detail": "0575cb64845e6b9a10db9bcb74d5ac32b326b8dc90352671d345e2ee3d0126a2"
+    },
+    {
+      "name": "checkpoints/ecapa-local/mean_var_norm_emb.ckpt",
+      "ok": true,
+      "detail": "cd70225b05b37be64fc5a95e24395d804231d43f74b2e1e5a513db7b69b34c33"
+    },
+    {
+      "name": "checkpoints/ecapa-local/classifier.ckpt",
+      "ok": true,
+      "detail": "fd9e3634fe68bd0a427c95e354c0c677374f62b3f434e45b78599950d860d535"
+    },
+    {
+      "name": "checkpoints/ecapa-local/label_encoder.txt",
+      "ok": true,
+      "detail": "e13c3a167bb4112685670ee896d20e2b565af16b3a4ceeaa8689fa4d22adb8b9"
+    },
+    {
+      "name": "p225",
+      "ok": true,
+      "detail": "80 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p226",
+      "ok": true,
+      "detail": "80 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p227",
+      "ok": true,
+      "detail": "80 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p228",
+      "ok": true,
+      "detail": "80 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p229",
+      "ok": true,
+      "detail": "80 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p230",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p231",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p232",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p233",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p234",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p236",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p237",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p238",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p239",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p240",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p241",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p243",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p244",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p245",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p246",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "registry.npz",
+      "ok": true,
+      "detail": "(20, 192); sha256=1ee10beb36fa35d58e164f457b56093315d9a8377c33e3ad6df5796ff3a034ae"
+    },
+    {
+      "name": "registry_vc.npz",
+      "ok": true,
+      "detail": "(20, 128); sha256=7918fb8fdcb32418e67d567f2d6f1774dbae6f6ccc9adebb6d13bb3fd24ee09e"
+    }
+  ]
+}

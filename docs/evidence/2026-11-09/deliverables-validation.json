@@ -1,0 +1,27 @@
+{
+  "checked_at_utc": "2026-11-09T06:14:51.161636+00:00",
+  "artifacts": [
+    {
+      "path": "deliverables/Voice_Guard_课程报告.pdf",
+      "sha256": "1ef09b4778c1b83a7cf153ea174decb046bdd2783cdb51432b3e00c35492d9b3",
+      "bytes": 1165624,
+      "pages_or_slides": 17,
+      "visual_review": "Every latest rendered page/slide inspected; no clipping or overlap observed",
+      "renderer": "pypdfium2",
+      "native_powerpoint_verified": null
+    },
+    {
+      "path": "deliverables/Voice_Guard_9分钟汇报.pptx",
+      "sha256": "d32b0acfc3f19d72c028409019a1f16d6c8dba46748eece7eed586602bc74344",
+      "bytes": 589788,
+      "pages_or_slides": 14,
+      "visual_review": "Every latest rendered page/slide inspected; no clipping or overlap observed",
+      "renderer": "Artifact Tool",
+      "native_powerpoint_verified": false
+    }
+  ],
+  "planned_talk_seconds": 540,
+  "human_identity_fields_complete": false,
+  "human_ratings_collected": 0,
+  "course_submission_completed": false
+}

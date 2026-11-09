@@ -1,0 +1,62 @@
+{
+  "verified_utc": "2026-11-09T05:02:40.822756+00:00",
+  "base": "http://127.0.0.1:8020",
+  "input_sha256": "f2607c18552b6dda69306206b415b9af1187ccf4f43e32d26302eb2fe63010a6",
+  "upload_sha256": "ed98609fed90c5cc9287b9afaba8c98921c564ef119007c3a3e36e15a7809f74",
+  "parameters": {
+    "eps": 0.05,
+    "fast_mode": true,
+    "target_speaker": "",
+    "method": "vg-projected",
+    "preserve_context": false
+  },
+  "elapsed_s": 49.23,
+  "downloads": [
+    {
+      "name": "original_trimmed.wav",
+      "bytes": 42028,
+      "sha256": "6296385c93514cc12446927a9c8229e6aa635f026183aa212402389083e576ca",
+      "status": 200
+    },
+    {
+      "name": "defended.wav",
+      "bytes": 42028,
+      "sha256": "fb6bd5c65ef20b7684acd2fc75c8c5e35c6142517f3159f0eac8afc3098a2e18",
+      "status": 200
+    },
+    {
+      "name": "delta.wav",
+      "bytes": 42028,
+      "sha256": "384a7c722168edd21c128e78b43f4b77fbaf3b874619b9a0afc2b7def9cf640a",
+      "status": 200
+    },
+    {
+      "name": "conv_from_clean.wav",
+      "bytes": 47444,
+      "sha256": "6fdf56ad1a5908de33639af98e889509d1b21bcbccae6aac08c9bcf841db2b9f",
+      "status": 200
+    },
+    {
+      "name": "conv_from_defended.wav",
+      "bytes": 47444,
+      "sha256": "09e572441cdace0f065c61afff68eb04b61baa0a50784bc17164854c2b920cdb",
+      "status": 200
+    },
+    {
+      "name": "report.json",
+      "bytes": 3911,
+      "sha256": "315ee7995543dc198d164af3228154f54858be02456b408dacc36dee3a1fcfca",
+      "status": 200
+    }
+  ],
+  "health_during_request_s": 0.078,
+  "model_backed_http_request_passed": true,
+  "identity_verdict": {
+    "asv_complete": true,
+    "clean_vc_identity_ok": false,
+    "identity_ok": true,
+    "screened_identity_ok": false,
+    "protocol": "ECAPA closed-set identity only; not a quality or imperceptibility claim"
+  },
+  "quality_joint_claim": false
+}

@@ -1,0 +1,748 @@
+{
+  "started_utc": "2026-11-09T05:01:08.100184+00:00",
+  "state": "complete",
+  "max_hours": 3.0,
+  "protocol_sha256": "fc7916963cdeb1cbff0973aab76fb4e82a854333ba40d0b605ed2a65ae8b78d4",
+  "commands": [
+    [
+      "preflight",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "tools/preflight.py",
+        "--scope",
+        "experiment",
+        "--out",
+        "outputs/course/2026-11-09/preflight.json"
+      ]
+    ],
+    [
+      "resume_main",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/reproduce.py",
+        "main",
+        "--max-hours",
+        "2"
+      ]
+    ],
+    [
+      "resume_eps",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/reproduce.py",
+        "eps",
+        "--max-hours",
+        "2"
+      ]
+    ],
+    [
+      "mos_main_vg",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/compute_mos.py",
+        "--exp-dir",
+        "outputs/cloud/main_vg",
+        "--out",
+        "outputs/cloud/main_vg/mos.csv",
+        "--device",
+        "cuda"
+      ]
+    ],
+    [
+      "wer_main_vg",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/compute_wer.py",
+        "--exp-dir",
+        "outputs/cloud/main_vg",
+        "--vctk",
+        "data/VCTK22",
+        "--source-speaker",
+        "p226",
+        "--source-utt",
+        "2",
+        "--out",
+        "outputs/cloud/main_vg/wer.csv",
+        "--device",
+        "cuda"
+      ]
+    ],
+    [
+      "mos_main_vg-nop",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/compute_mos.py",
+        "--exp-dir",
+        "outputs/cloud/main_vg-nop",
+        "--out",
+        "outputs/cloud/main_vg-nop/mos.csv",
+        "--device",
+        "cuda"
+      ]
+    ],
+    [
+      "wer_main_vg-nop",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/compute_wer.py",
+        "--exp-dir",
+        "outputs/cloud/main_vg-nop",
+        "--vctk",
+        "data/VCTK22",
+        "--source-speaker",
+        "p226",
+        "--source-utt",
+        "2",
+        "--out",
+        "outputs/cloud/main_vg-nop/wer.csv",
+        "--device",
+        "cuda"
+      ]
+    ],
+    [
+      "mos_main_emb",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/compute_mos.py",
+        "--exp-dir",
+        "outputs/cloud/main_emb",
+        "--out",
+        "outputs/cloud/main_emb/mos.csv",
+        "--device",
+        "cuda"
+      ]
+    ],
+    [
+      "wer_main_emb",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/compute_wer.py",
+        "--exp-dir",
+        "outputs/cloud/main_emb",
+        "--vctk",
+        "data/VCTK22",
+        "--source-speaker",
+        "p226",
+        "--source-utt",
+        "2",
+        "--out",
+        "outputs/cloud/main_emb/wer.csv",
+        "--device",
+        "cuda"
+      ]
+    ],
+    [
+      "mos_main_fb",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/compute_mos.py",
+        "--exp-dir",
+        "outputs/cloud/main_fb",
+        "--out",
+        "outputs/cloud/main_fb/mos.csv",
+        "--device",
+        "cuda"
+      ]
+    ],
+    [
+      "wer_main_fb",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/compute_wer.py",
+        "--exp-dir",
+        "outputs/cloud/main_fb",
+        "--vctk",
+        "data/VCTK22",
+        "--source-speaker",
+        "p226",
+        "--source-utt",
+        "2",
+        "--out",
+        "outputs/cloud/main_fb/wer.csv",
+        "--device",
+        "cuda"
+      ]
+    ],
+    [
+      "mos_main_e2e",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/compute_mos.py",
+        "--exp-dir",
+        "outputs/cloud/main_e2e",
+        "--out",
+        "outputs/cloud/main_e2e/mos.csv",
+        "--device",
+        "cuda"
+      ]
+    ],
+    [
+      "wer_main_e2e",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/compute_wer.py",
+        "--exp-dir",
+        "outputs/cloud/main_e2e",
+        "--vctk",
+        "data/VCTK22",
+        "--source-speaker",
+        "p226",
+        "--source-utt",
+        "2",
+        "--out",
+        "outputs/cloud/main_e2e/wer.csv",
+        "--device",
+        "cuda"
+      ]
+    ],
+    [
+      "mos_eps_.02",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/compute_mos.py",
+        "--exp-dir",
+        "outputs/cloud/eps_.02",
+        "--out",
+        "outputs/cloud/eps_.02/mos.csv",
+        "--device",
+        "cuda"
+      ]
+    ],
+    [
+      "wer_eps_.02",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/compute_wer.py",
+        "--exp-dir",
+        "outputs/cloud/eps_.02",
+        "--vctk",
+        "data/VCTK22",
+        "--source-speaker",
+        "p226",
+        "--source-utt",
+        "2",
+        "--out",
+        "outputs/cloud/eps_.02/wer.csv",
+        "--device",
+        "cuda"
+      ]
+    ],
+    [
+      "mos_eps_.05",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/compute_mos.py",
+        "--exp-dir",
+        "outputs/cloud/eps_.05",
+        "--out",
+        "outputs/cloud/eps_.05/mos.csv",
+        "--device",
+        "cuda"
+      ]
+    ],
+    [
+      "wer_eps_.05",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/compute_wer.py",
+        "--exp-dir",
+        "outputs/cloud/eps_.05",
+        "--vctk",
+        "data/VCTK22",
+        "--source-speaker",
+        "p226",
+        "--source-utt",
+        "2",
+        "--out",
+        "outputs/cloud/eps_.05/wer.csv",
+        "--device",
+        "cuda"
+      ]
+    ],
+    [
+      "mos_eps_.08",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/compute_mos.py",
+        "--exp-dir",
+        "outputs/cloud/eps_.08",
+        "--out",
+        "outputs/cloud/eps_.08/mos.csv",
+        "--device",
+        "cuda"
+      ]
+    ],
+    [
+      "wer_eps_.08",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/compute_wer.py",
+        "--exp-dir",
+        "outputs/cloud/eps_.08",
+        "--vctk",
+        "data/VCTK22",
+        "--source-speaker",
+        "p226",
+        "--source-utt",
+        "2",
+        "--out",
+        "outputs/cloud/eps_.08/wer.csv",
+        "--device",
+        "cuda"
+      ]
+    ],
+    [
+      "mos_eps_.10",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/compute_mos.py",
+        "--exp-dir",
+        "outputs/cloud/eps_.10",
+        "--out",
+        "outputs/cloud/eps_.10/mos.csv",
+        "--device",
+        "cuda"
+      ]
+    ],
+    [
+      "wer_eps_.10",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/compute_wer.py",
+        "--exp-dir",
+        "outputs/cloud/eps_.10",
+        "--vctk",
+        "data/VCTK22",
+        "--source-speaker",
+        "p226",
+        "--source-utt",
+        "2",
+        "--out",
+        "outputs/cloud/eps_.10/wer.csv",
+        "--device",
+        "cuda"
+      ]
+    ],
+    [
+      "summarize_original_campaign",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "tools/build_cloud_report.py"
+      ]
+    ],
+    [
+      "new_utterances_vg",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/run_experiment.py",
+        "--model-dir",
+        "checkpoints/adain-vc-official",
+        "--vctk",
+        "data/VCTK22",
+        "--speakers",
+        "p225,p226,p227,p228,p229",
+        "--per-speaker",
+        "2",
+        "--utt-offset",
+        "40",
+        "--max-dur",
+        "3.5",
+        "--source-speaker",
+        "p226",
+        "--source-utt",
+        "2",
+        "--registry",
+        "outputs/registry.npz",
+        "--attack-registry",
+        "outputs/registry_vc.npz",
+        "--eps",
+        ".05",
+        "--method",
+        "vg",
+        "--iters1",
+        "3000",
+        "--iters2",
+        "1500",
+        "--seed",
+        "2026",
+        "--device",
+        "cuda",
+        "--no-progress",
+        "--out-dir",
+        "outputs/course/2026-11-09/new_utterances_vg"
+      ]
+    ],
+    [
+      "new_utterances_refinement",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/refine_masked.py",
+        "--exp-dir",
+        "outputs/course/2026-11-09/new_utterances_vg",
+        "--out-dir",
+        "outputs/course/2026-11-09/new_utterances_projected",
+        "--speakers",
+        "p225,p226,p227,p228,p229",
+        "--steps",
+        "1000",
+        "--learning-rate",
+        ".0003",
+        "--margin-db",
+        "3"
+      ]
+    ],
+    [
+      "quality_new_baseline",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/quality_sweep.py",
+        "--exp-dir",
+        "outputs/course/2026-11-09/new_utterances_vg",
+        "--out-dir",
+        "outputs/course/2026-11-09/quality_new_baseline",
+        "--speakers",
+        "p225,p226,p227,p228,p229",
+        "--scales",
+        "0,1",
+        "--wav-subtype",
+        "PCM_16"
+      ]
+    ],
+    [
+      "quality_new_refined",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/quality_sweep.py",
+        "--exp-dir",
+        "outputs/course/2026-11-09/new_utterances_projected",
+        "--out-dir",
+        "outputs/course/2026-11-09/quality_new_refined",
+        "--speakers",
+        "p225,p226,p227,p228,p229",
+        "--scales",
+        "0,1",
+        "--wav-subtype",
+        "PCM_16"
+      ]
+    ],
+    [
+      "channels_baseline",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/audit_channels.py",
+        "--exp-dir",
+        "outputs/cloud/main_vg",
+        "--out-dir",
+        "outputs/course/2026-11-09/channels_baseline",
+        "--speakers",
+        "p225,p226,p227,p228,p229"
+      ]
+    ],
+    [
+      "contents_baseline",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/audit_channels.py",
+        "--exp-dir",
+        "outputs/cloud/main_vg",
+        "--out-dir",
+        "outputs/course/2026-11-09/contents_baseline",
+        "--speakers",
+        "p225,p226,p227,p228,p229",
+        "--channels",
+        "none,pcm16",
+        "--contents",
+        "p226_002,p225_002,p227_002"
+      ]
+    ],
+    [
+      "channels_refined_dev",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/audit_channels.py",
+        "--exp-dir",
+        "outputs/quality/refine_dev",
+        "--out-dir",
+        "outputs/course/2026-11-09/channels_refined_dev",
+        "--speakers",
+        "p225,p226"
+      ]
+    ],
+    [
+      "contents_refined_dev",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/audit_channels.py",
+        "--exp-dir",
+        "outputs/quality/refine_dev",
+        "--out-dir",
+        "outputs/course/2026-11-09/contents_refined_dev",
+        "--speakers",
+        "p225,p226",
+        "--channels",
+        "none,pcm16",
+        "--contents",
+        "p226_002,p225_002,p227_002"
+      ]
+    ],
+    [
+      "channels_refined_validation",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/audit_channels.py",
+        "--exp-dir",
+        "outputs/quality/refine_validation",
+        "--out-dir",
+        "outputs/course/2026-11-09/channels_refined_validation",
+        "--speakers",
+        "p227,p228,p229"
+      ]
+    ],
+    [
+      "contents_refined_validation",
+      [
+        "/root/voiceguard/.venv/bin/python",
+        "scripts/audit_channels.py",
+        "--exp-dir",
+        "outputs/quality/refine_validation",
+        "--out-dir",
+        "outputs/course/2026-11-09/contents_refined_validation",
+        "--speakers",
+        "p227,p228,p229",
+        "--channels",
+        "none,pcm16",
+        "--contents",
+        "p226_002,p225_002,p227_002"
+      ]
+    ]
+  ],
+  "stages": [
+    {
+      "name": "preflight",
+      "started_utc": "2026-11-09T05:01:08.100284+00:00",
+      "log": "outputs/course/2026-11-09/preflight.log",
+      "returncode": 0,
+      "elapsed_s": 2.27
+    },
+    {
+      "name": "resume_main",
+      "started_utc": "2026-11-09T05:01:10.370265+00:00",
+      "log": "outputs/course/2026-11-09/resume_main.log",
+      "returncode": 0,
+      "elapsed_s": 18.09
+    },
+    {
+      "name": "resume_eps",
+      "started_utc": "2026-11-09T05:01:28.464289+00:00",
+      "log": "outputs/course/2026-11-09/resume_eps.log",
+      "returncode": 0,
+      "elapsed_s": 395.74
+    },
+    {
+      "name": "mos_main_vg",
+      "started_utc": "2026-11-09T05:08:04.200916+00:00",
+      "log": "outputs/course/2026-11-09/mos_main_vg.log",
+      "returncode": 0,
+      "elapsed_s": 5.57
+    },
+    {
+      "name": "wer_main_vg",
+      "started_utc": "2026-11-09T05:08:09.774724+00:00",
+      "log": "outputs/course/2026-11-09/wer_main_vg.log",
+      "returncode": 0,
+      "elapsed_s": 8.98
+    },
+    {
+      "name": "mos_main_vg-nop",
+      "started_utc": "2026-11-09T05:08:18.758565+00:00",
+      "log": "outputs/course/2026-11-09/mos_main_vg-nop.log",
+      "returncode": 0,
+      "elapsed_s": 4.87
+    },
+    {
+      "name": "wer_main_vg-nop",
+      "started_utc": "2026-11-09T05:08:23.633772+00:00",
+      "log": "outputs/course/2026-11-09/wer_main_vg-nop.log",
+      "returncode": 0,
+      "elapsed_s": 9.68
+    },
+    {
+      "name": "mos_main_emb",
+      "started_utc": "2026-11-09T05:08:33.319223+00:00",
+      "log": "outputs/course/2026-11-09/mos_main_emb.log",
+      "returncode": 0,
+      "elapsed_s": 4.93
+    },
+    {
+      "name": "wer_main_emb",
+      "started_utc": "2026-11-09T05:08:38.246249+00:00",
+      "log": "outputs/course/2026-11-09/wer_main_emb.log",
+      "returncode": 0,
+      "elapsed_s": 8.73
+    },
+    {
+      "name": "mos_main_fb",
+      "started_utc": "2026-11-09T05:08:46.977429+00:00",
+      "log": "outputs/course/2026-11-09/mos_main_fb.log",
+      "returncode": 0,
+      "elapsed_s": 4.72
+    },
+    {
+      "name": "wer_main_fb",
+      "started_utc": "2026-11-09T05:08:51.700136+00:00",
+      "log": "outputs/course/2026-11-09/wer_main_fb.log",
+      "returncode": 0,
+      "elapsed_s": 8.18
+    },
+    {
+      "name": "mos_main_e2e",
+      "started_utc": "2026-11-09T05:08:59.878673+00:00",
+      "log": "outputs/course/2026-11-09/mos_main_e2e.log",
+      "returncode": 0,
+      "elapsed_s": 4.92
+    },
+    {
+      "name": "wer_main_e2e",
+      "started_utc": "2026-11-09T05:09:04.804834+00:00",
+      "log": "outputs/course/2026-11-09/wer_main_e2e.log",
+      "returncode": 0,
+      "elapsed_s": 8.03
+    },
+    {
+      "name": "mos_eps_.02",
+      "started_utc": "2026-11-09T05:09:12.833170+00:00",
+      "log": "outputs/course/2026-11-09/mos_eps_.02.log",
+      "returncode": 0,
+      "elapsed_s": 4.77
+    },
+    {
+      "name": "wer_eps_.02",
+      "started_utc": "2026-11-09T05:09:17.606090+00:00",
+      "log": "outputs/course/2026-11-09/wer_eps_.02.log",
+      "returncode": 0,
+      "elapsed_s": 8.53
+    },
+    {
+      "name": "mos_eps_.05",
+      "started_utc": "2026-11-09T05:09:26.135327+00:00",
+      "log": "outputs/course/2026-11-09/mos_eps_.05.log",
+      "returncode": 0,
+      "elapsed_s": 4.92
+    },
+    {
+      "name": "wer_eps_.05",
+      "started_utc": "2026-11-09T05:09:31.060121+00:00",
+      "log": "outputs/course/2026-11-09/wer_eps_.05.log",
+      "returncode": 0,
+      "elapsed_s": 8.33
+    },
+    {
+      "name": "mos_eps_.08",
+      "started_utc": "2026-11-09T05:09:39.391156+00:00",
+      "log": "outputs/course/2026-11-09/mos_eps_.08.log",
+      "returncode": 0,
+      "elapsed_s": 4.82
+    },
+    {
+      "name": "wer_eps_.08",
+      "started_utc": "2026-11-09T05:09:44.216444+00:00",
+      "log": "outputs/course/2026-11-09/wer_eps_.08.log",
+      "returncode": 0,
+      "elapsed_s": 10.88
+    },
+    {
+      "name": "mos_eps_.10",
+      "started_utc": "2026-11-09T05:09:55.102448+00:00",
+      "log": "outputs/course/2026-11-09/mos_eps_.10.log",
+      "returncode": 0,
+      "elapsed_s": 4.82
+    },
+    {
+      "name": "wer_eps_.10",
+      "started_utc": "2026-11-09T05:09:59.925876+00:00",
+      "log": "outputs/course/2026-11-09/wer_eps_.10.log",
+      "returncode": 0,
+      "elapsed_s": 9.88
+    },
+    {
+      "name": "summarize_original_campaign",
+      "started_utc": "2026-11-09T05:10:09.807607+00:00",
+      "log": "outputs/course/2026-11-09/summarize_original_campaign.log",
+      "returncode": 0,
+      "elapsed_s": 0.06
+    },
+    {
+      "name": "new_utterances_vg",
+      "started_utc": "2026-11-09T05:10:09.872868+00:00",
+      "log": "outputs/course/2026-11-09/new_utterances_vg.log",
+      "returncode": 0,
+      "elapsed_s": 1884.85
+    },
+    {
+      "name": "new_utterances_refinement",
+      "started_utc": "2026-11-09T05:41:34.720741+00:00",
+      "log": "outputs/course/2026-11-09/new_utterances_refinement.log",
+      "returncode": 0,
+      "elapsed_s": 185.38
+    },
+    {
+      "name": "quality_new_baseline",
+      "started_utc": "2026-11-09T05:44:40.099596+00:00",
+      "log": "outputs/course/2026-11-09/quality_new_baseline.log",
+      "returncode": 0,
+      "elapsed_s": 51.56
+    },
+    {
+      "name": "quality_new_refined",
+      "started_utc": "2026-11-09T05:45:31.658019+00:00",
+      "log": "outputs/course/2026-11-09/quality_new_refined.log",
+      "returncode": 0,
+      "elapsed_s": 50.6
+    },
+    {
+      "name": "channels_baseline",
+      "started_utc": "2026-11-09T05:46:22.255682+00:00",
+      "log": "outputs/course/2026-11-09/channels_baseline.log",
+      "returncode": 0,
+      "elapsed_s": 186.42
+    },
+    {
+      "name": "contents_baseline",
+      "started_utc": "2026-11-09T05:49:28.682514+00:00",
+      "log": "outputs/course/2026-11-09/contents_baseline.log",
+      "returncode": 0,
+      "elapsed_s": 112.72
+    },
+    {
+      "name": "channels_refined_dev",
+      "started_utc": "2026-11-09T05:51:21.402899+00:00",
+      "log": "outputs/course/2026-11-09/channels_refined_dev.log",
+      "returncode": 0,
+      "elapsed_s": 76.49
+    },
+    {
+      "name": "contents_refined_dev",
+      "started_utc": "2026-11-09T05:52:37.890098+00:00",
+      "log": "outputs/course/2026-11-09/contents_refined_dev.log",
+      "returncode": 0,
+      "elapsed_s": 51.2
+    },
+    {
+      "name": "channels_refined_validation",
+      "started_utc": "2026-11-09T05:53:29.096148+00:00",
+      "log": "outputs/course/2026-11-09/channels_refined_validation.log",
+      "returncode": 0,
+      "elapsed_s": 107.9
+    },
+    {
+      "name": "contents_refined_validation",
+      "started_utc": "2026-11-09T05:55:17.000436+00:00",
+      "log": "outputs/course/2026-11-09/contents_refined_validation.log",
+      "returncode": 0,
+      "elapsed_s": 75.48
+    }
+  ],
+  "billing_note": "Workload time limit does not power off ECS",
+  "elapsed_s": 3324.39,
+  "updated_utc": "2026-11-09T05:56:32.493675+00:00"
+}

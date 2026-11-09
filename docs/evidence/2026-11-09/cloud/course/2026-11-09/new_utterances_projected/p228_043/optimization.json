@@ -1,0 +1,52 @@
+{
+  "algorithm": "experimental projected refinement",
+  "utterance": "p228_043",
+  "trace": [
+    {
+      "step": 100,
+      "surrogate_loss": 1.570082664489746
+    },
+    {
+      "step": 200,
+      "surrogate_loss": 1.4993857145309448
+    },
+    {
+      "step": 300,
+      "surrogate_loss": 1.448168158531189
+    },
+    {
+      "step": 400,
+      "surrogate_loss": 1.4203852415084839
+    },
+    {
+      "step": 500,
+      "surrogate_loss": 1.4101645946502686
+    },
+    {
+      "step": 600,
+      "surrogate_loss": 1.406181812286377
+    },
+    {
+      "step": 700,
+      "surrogate_loss": 1.4021776914596558
+    },
+    {
+      "step": 800,
+      "surrogate_loss": 1.3830296993255615
+    },
+    {
+      "step": 900,
+      "surrogate_loss": 1.3688673973083496
+    },
+    {
+      "step": 1000,
+      "surrogate_loss": 1.356775164604187
+    }
+  ],
+  "elapsed_s": 18.43,
+  "original_sha256": "786c9aafabd921dff0bb902ddef55fcd8d97b71ee7bb95df4f16eec745fa866e",
+  "starting_defended_sha256": "2e83dbd3647ce70ff5fe270ad112894e8c21dda57032928bea7c72673e4a0e21",
+  "adv_reference_sha256": "f91e7d28e5f11d18ede80a78a08f8a211d33ad39df078fab3cdb56b62e794ee0",
+  "defended_sha256": "439edf3c83b99868e9d6f80a43bf5dc371d3b0b69e1b6aa65ed8475983aef4cf",
+  "evaluated": false
+}

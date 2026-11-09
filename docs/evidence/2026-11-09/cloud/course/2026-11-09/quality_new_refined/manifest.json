@@ -1,0 +1,82 @@
+{
+  "source_manifest_sha256": "46da80c60c7fa81b56d87f965e3cf6b5185e4d698fdb45e5ef1567dd07c9263e",
+  "scales": [
+    0.0,
+    1.0
+  ],
+  "mask_project_iterations": 0,
+  "mask_margin_db": 3.0,
+  "restore_context": false,
+  "wav_subtype": "PCM_16",
+  "code_sha256": "301fa5e4d11972d81657d99c0cb13c12b0672d3efb5cbf0de2f149158729cc6c",
+  "masking_sha256": "d3b5000cef4b9bc1d56b40f9f8f5af5d08742bd7e4b9e780bf78c817b62d04e8",
+  "evaluation_code_sha256": {
+    "vguard/audio.py": "5b025eb903d8c6dd9fe289f1bb1312d4ec718b3c63943a04cd12f2e7b7062d6f",
+    "vguard/asv.py": "27a969bf96f7a5e2abf2a823568ebd97c749506547dd7e7d1ef788685be99a25",
+    "vguard/vc/adainvc.py": "59aa141bd1b2f1738b033debf7725fce0aea9c125dc5aa92f06d1ca4b99c5878",
+    "vguard/metrics/mos.py": "b1cf797b1c0b99e825a04774922c07c2bf2de583a0b392464f9f72cafde2efa3",
+    "vguard/metrics/wer.py": "b2688c6629e5eacc1c786d6d9e9fd9d82f1e91703ee533d317754f3e5f87b814"
+  },
+  "quality_model_sha256": {
+    "/root/voiceguard/checkpoints/mosnet-hf/pytorch_model.bin": "a71a45618d77d652ffa77117e9188729c76d214c858d0c29bdf71da4954b9544",
+    "/root/voiceguard/checkpoints/mosnet-hf/config.json": "71e85350b2efa56cfddb25e0a17ed06e151c1cc62376aff4871c2474065d4307",
+    "/root/voiceguard/checkpoints/mosnet-hf/modeling_mosnet.py": "862ea1b0a8353454023ecf208a5419f860fdd98d6f1f077531930f3313398b79",
+    "/root/voiceguard/checkpoints/mosnet-hf/configuration_mosnet.py": "486001bc64145b5c6ec17548502e58106ca06ff6e602306d7948e382071fcda5",
+    "/root/.cache/whisper/base.pt": "ed3a0b6b1c0edf879ad9b11b1af5a0e6ab5db9205f891f668f8b0e6c6326e34e"
+  },
+  "speakers": [
+    "p225",
+    "p226",
+    "p227",
+    "p228",
+    "p229"
+  ],
+  "device": "cuda",
+  "gate": "MOS>=3, target WER<=0.10, ECAPA protected identity; not the exact paper ASR metric",
+  "inputs": {
+    "outputs/course/2026-11-09/new_utterances_projected/p225_051/original_trimmed.wav": "1f27b7b8abb73b1b92c2de98a9a577f0e77be320fe6ae573a71ce131454ad3e7",
+    "outputs/course/2026-11-09/new_utterances_projected/p225_051/defended.wav": "cdc66480f8a0767b201f5d4583043771de91c0df2fe6b3dfb2b5299c1580a7a5",
+    "outputs/course/2026-11-09/new_utterances_projected/p225_053/original_trimmed.wav": "6864f4752065a1ae56a9a71ef8f3fc214a465188f3984c5c6eff1edf34259b7b",
+    "outputs/course/2026-11-09/new_utterances_projected/p225_053/defended.wav": "f06641edf7d2d66532d49b69f103ad21bd180cdbc3b36f43a8be3ba6899598cb",
+    "outputs/course/2026-11-09/new_utterances_projected/p226_045/original_trimmed.wav": "4d8cc1ae35fa9f3230614cf16ca2416c4406aaa8f3fb9286efb6ea7cf1711bb0",
+    "outputs/course/2026-11-09/new_utterances_projected/p226_045/defended.wav": "7eb17965f6ff9407e09f635dd205c81ae749f2ea6f501dc0212e288602e2d5a5",
+    "outputs/course/2026-11-09/new_utterances_projected/p226_047/original_trimmed.wav": "6eecdf200b8fe2e9df4dca35c3f4977fd1c01a9aef488b7226801f9feef92064",
+    "outputs/course/2026-11-09/new_utterances_projected/p226_047/defended.wav": "8371381cf5695e0cf1de37ea050fafa95a488a7dfcaed2aadd56d8a09446ef5e",
+    "outputs/course/2026-11-09/new_utterances_projected/p227_042/original_trimmed.wav": "cb72c4aaa1b61c509e549f80a14b24442a3756d0fc4115dae2edbfbaf38b0c49",
+    "outputs/course/2026-11-09/new_utterances_projected/p227_042/defended.wav": "71bd961fd5d5885c39ac5231cd87eab17dd284a13e779cbe16e0272762fc12a1",
+    "outputs/course/2026-11-09/new_utterances_projected/p227_043/original_trimmed.wav": "8826948b6e7f25abb8acc7f8bca5038509d7675d7d03e383825e755a64c05941",
+    "outputs/course/2026-11-09/new_utterances_projected/p227_043/defended.wav": "01246132bf73f85ade4e7bca7bbf8fb60489bc444af3289db9d9d87117458854",
+    "outputs/course/2026-11-09/new_utterances_projected/p228_042/original_trimmed.wav": "5b4efaab01142d6d251212c90f45c0a5b20758aee87b8d543180156d420cabf1",
+    "outputs/course/2026-11-09/new_utterances_projected/p228_042/defended.wav": "7b97a0e04cb17194ee709da7f4ca83a7d4a4f747c7d731b5dc7393107ba64acc",
+    "outputs/course/2026-11-09/new_utterances_projected/p228_043/original_trimmed.wav": "786c9aafabd921dff0bb902ddef55fcd8d97b71ee7bb95df4f16eec745fa866e",
+    "outputs/course/2026-11-09/new_utterances_projected/p228_043/defended.wav": "439edf3c83b99868e9d6f80a43bf5dc371d3b0b69e1b6aa65ed8475983aef4cf",
+    "outputs/course/2026-11-09/new_utterances_projected/p229_041/original_trimmed.wav": "068cdbefaad4aa86a797afe79f7414059d5c5184587bd6aaf332c73cf0f833e1",
+    "outputs/course/2026-11-09/new_utterances_projected/p229_041/defended.wav": "be0f6e8ec39bd35860b5f85857bc98e7d528a0d4cc413b7f72494fa404406d75",
+    "outputs/course/2026-11-09/new_utterances_projected/p229_042/original_trimmed.wav": "319d330213f80d897224e129a7a5931e6df71b609cde6b4321c9c10c1bc2306a",
+    "outputs/course/2026-11-09/new_utterances_projected/p229_042/defended.wav": "adb3c0bc444f58ddad04d7cad847b87caa98372d66ab6f9df2af0fe335cb256b"
+  },
+  "reference_inputs": {
+    "data/VCTK22/p225/p225_051.wav": "26cb01ceaacecd8e17da261a34551a42a79178079b2d22e3a5d8c0ea1885ebf3",
+    "data/VCTK22/p225/p225_051.txt": "9c7754369d2008330b229a242d2a211878fccf7b8b29057ff54569b01953107d",
+    "data/VCTK22/p225/p225_053.wav": "d03def15fd433bb3f5bf095ecce35fcfbc2331aff3aab13864380f61492d7889",
+    "data/VCTK22/p225/p225_053.txt": "c4d90620caed844247d6b7e1e7ef840e13961b5ee758ee212d0c1afb9d66c676",
+    "data/VCTK22/p226/p226_045.wav": "ab13330ee543590e3b58a5325639e5a4b6cf73645bcabddda1aa8d88a35d50fc",
+    "data/VCTK22/p226/p226_045.txt": "926e5b4e26b70517cb415dc977a3b93cea029e03ae167038f06910693de02edc",
+    "data/VCTK22/p226/p226_047.wav": "bea11eb34a18fcd51567be0205ed3b33d22184c4570c2067d3b6dbf098937241",
+    "data/VCTK22/p226/p226_047.txt": "9782a20b041e1d9ff8aaaed5e07dd26cccf0454fd8fe31d79a8c2c045c794d86",
+    "data/VCTK22/p227/p227_042.wav": "c54dc7e9e399b21268532413430d19b5135b6dcd1fd745d13a6b119595404778",
+    "data/VCTK22/p227/p227_042.txt": "b0f53c45d9a0d674c1b9a424a478eae7258f6c6b6186663ee0331a81deda359d",
+    "data/VCTK22/p227/p227_043.wav": "78b0db66d9e4795dd6f9dfac002feeddbe2ce57a1cd703724aea7f69bc170d1e",
+    "data/VCTK22/p227/p227_043.txt": "90efbe752dd42b74ca0b19fc357a1685eaa4521a3af9b56be4a6e9f42cbacc34",
+    "data/VCTK22/p228/p228_042.wav": "5778bd31ad7ecaac0f5df3545669486d20aee7fd433c214a6e5e055350adca2c",
+    "data/VCTK22/p228/p228_042.txt": "1b3511e1b0f8dcc01b251824917d79323e4a4ef974458c2d5f2b9e9c8ae4f649",
+    "data/VCTK22/p228/p228_043.wav": "a2eb94a612e9a9a4d1c2ec3448ce360108107b215322aa5e357a7b554466a871",
+    "data/VCTK22/p228/p228_043.txt": "d8dbabecdbcc959e89a2f548596b7cbc9bf46a1789add864a44983eb67edda0b",
+    "data/VCTK22/p229/p229_041.wav": "be397400c782b9bfcb0e058e82b70bbc4ad9c2e45fc3f9d74d162141a5f2ca28",
+    "data/VCTK22/p229/p229_041.txt": "1c8dcf83b5b9e0892a48d49aeb6effd108ad7b613180cf9f65b2a017e426b462",
+    "data/VCTK22/p229/p229_042.wav": "4920a8d0e25ede9b9895dc2b2f7067d01da39f5d24650ee3c4a23d36ebba43f2",
+    "data/VCTK22/p229/p229_042.txt": "988313e324a1aa87ceb70ea75bbdaa1f16590810e00fb254c1bada355315f929",
+    "data/VCTK22/p226/p226_002.wav": "9be1622dd552d1b728ddb8754042ac4bb1cbe8b64ea04ed929d71c1fcc39d28c",
+    "data/VCTK22/p226/p226_002.txt": "cc089050d61d57f3e806b6cf2ffa31aee29b8d749aa3067ade1f45ec3773ca73"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "verified_utc": "2026-11-09T05:08:00.333Z",
+  "browser": "157.0.4341.42",
+  "headless": true,
+  "real_browser_upload": true,
+  "real_gpu_response_status": 200,
+  "sample_with_optional_reference_loaded": true,
+  "rendered_artifact_count": 6,
+  "playable_audio_metadata": [
+    {
+      "src": "http://127.0.0.1:8020/files/20261109-130712-2d5a0731/original_trimmed.wav",
+      "duration": 0.874667,
+      "readyState": 4,
+      "error": null
+    },
+    {
+      "src": "http://127.0.0.1:8020/files/20261109-130712-2d5a0731/defended.wav",
+      "duration": 0.874667,
+      "readyState": 4,
+      "error": null
+    },
+    {
+      "src": "http://127.0.0.1:8020/files/20261109-130712-2d5a0731/delta.wav",
+      "duration": 0.874667,
+      "readyState": 4,
+      "error": null
+    },
+    {
+      "src": "http://127.0.0.1:8020/files/20261109-130712-2d5a0731/conv_from_clean.wav",
+      "duration": 0.9875,
+      "readyState": 4,
+      "error": null
+    },
+    {
+      "src": "http://127.0.0.1:8020/files/20261109-130712-2d5a0731/conv_from_defended.wav",
+      "duration": 0.9875,
+      "readyState": 4,
+      "error": null
+    }
+  ],
+  "download": {
+    "filename": "defended.wav",
+    "bytes": 42028,
+    "sha256": "21271deabcdbff339b66e4da95c571b44139dd7bbd6d5e1c0d916a6a5dd1e51e"
+  },
+  "identity_verdict": {
+    "asv_complete": true,
+    "clean_vc_identity_ok": false,
+    "identity_ok": true,
+    "screened_identity_ok": false,
+    "protocol": "ECAPA closed-set identity only; not a quality or imperceptibility claim"
+  },
+  "quality_evaluated": false,
+  "elapsed_s": 48.325,
+  "page_errors": []
+}

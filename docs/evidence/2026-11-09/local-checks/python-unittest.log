@@ -1,0 +1,12 @@
+Campaign complete: False
+Campaign complete: False
+Campaign complete: False
+Campaign complete: True
+Campaign complete: False
+{'utterance': 'p225_040', 'reference_mode': 'transcript', 'cer_original_trimmed': 0, 'wer_original_trimmed': 0, 'cer_defended': 0, 'wer_defended': 0, 'cer_conv_from_clean': 0, 'wer_conv_from_clean': 0, 'cer_conv_from_defended': 0, 'wer_conv_from_defended': 0}
+saved: C:\WINDOWS\TEMP\tmp9o58qsq2\wer.csv
+.......................
+----------------------------------------------------------------------
+Ran 23 tests in 11.220s
+
+OK

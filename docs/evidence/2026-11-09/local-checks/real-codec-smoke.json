@@ -1,0 +1,63 @@
+{
+  "kind": "Real ffmpeg codec smoke, no ASV/quality defense evaluation",
+  "ffmpeg_sha256": "2ce797a0f88d7f067180338fb227f7b1928ea727bd9a4d7a1d022f7c52af71a3",
+  "input_sha256": "2cd414a49fe9ac6e8b7b65ef47c508045c1703c86f4cad5c7773ff055ef5ee6d",
+  "rows": [
+    {
+      "channel": "none",
+      "input_samples": 20992,
+      "output_samples": 20992,
+      "finite": true,
+      "elapsed_s": 0.0
+    },
+    {
+      "channel": "pcm16",
+      "input_samples": 20992,
+      "output_samples": 20992,
+      "finite": true,
+      "elapsed_s": 0.0
+    },
+    {
+      "channel": "mp3-128k",
+      "input_samples": 20992,
+      "output_samples": 20992,
+      "finite": true,
+      "elapsed_s": 1.687
+    },
+    {
+      "channel": "mp3-32k",
+      "input_samples": 20992,
+      "output_samples": 20992,
+      "finite": true,
+      "elapsed_s": 0.141
+    },
+    {
+      "channel": "aac-64k",
+      "input_samples": 20992,
+      "output_samples": 21504,
+      "finite": true,
+      "elapsed_s": 0.141
+    },
+    {
+      "channel": "opus-24k",
+      "input_samples": 20992,
+      "output_samples": 20992,
+      "finite": true,
+      "elapsed_s": 0.14
+    },
+    {
+      "channel": "g711",
+      "input_samples": 20992,
+      "output_samples": 20991,
+      "finite": true,
+      "elapsed_s": 0.11
+    },
+    {
+      "channel": "resample8k",
+      "input_samples": 20992,
+      "output_samples": 20991,
+      "finite": true,
+      "elapsed_s": 0.109
+    }
+  ]
+}

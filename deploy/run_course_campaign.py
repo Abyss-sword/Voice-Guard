@@ -5,8 +5,10 @@ Timeout stops this workload, not ECS billing. Final data/report status is explic
 from __future__ import annotations
 
 import argparse
+import csv
 from datetime import datetime, timezone
 import json
+import math
 import os
 from pathlib import Path
 import signal
@@ -20,6 +22,24 @@ from vguard.run_state import file_sha256, write_json
 
 SPEAKERS="p225,p226,p227,p228,p229"
 OUT="outputs/course/2026-11-09"
+
+
+def saved_quality_digest(command):
+    """Keep completed measurements intact when resuming the campaign."""
+    if not any(Path(arg).name in ('compute_mos.py','compute_wer.py') for arg in command):return None
+    try:
+        directory=Path(command[command.index('--exp-dir')+1])
+        path=Path(command[command.index('--out')+1])
+        with (directory/'results.csv').open(encoding='utf-8',newline='') as stream:
+            expected={row['utterance'] for row in csv.DictReader(stream)}
+        with path.open(encoding='utf-8',newline='') as stream:rows=list(csv.DictReader(stream))
+        prefix='mos' if any(Path(arg).name=='compute_mos.py' for arg in command) else 'wer'
+        if len(expected)!=5 or len(rows)!=5 or {row['utterance'] for row in rows}!=expected:return None
+        if prefix=='wer' and any(row.get('reference_mode')!='transcript' for row in rows):return None
+        if not all(math.isfinite(float(row[f'{prefix}_{key}'])) for row in rows for key in
+                   ('original_trimmed','defended','conv_from_clean','conv_from_defended')):return None
+        return file_sha256(path)
+    except (OSError,KeyError,ValueError,TypeError):return None
 
 
 def verify_frozen_inputs(protocol):
@@ -129,7 +149,13 @@ def main():
             record["stages"].append(item)
             write_json(state,record)
             stage_started=time.monotonic()
-            code=execute(command,remaining,Path(item["log"]))
+            preserved=saved_quality_digest(command)
+            if preserved:
+                code=0
+                item['preserved_quality_csv_sha256']=preserved
+                item['quality_note']='Existing complete scores preserved; not recomputed by this invocation'
+            else:
+                code=execute(command,remaining,Path(item["log"]))
             item.update(returncode=code,elapsed_s=round(time.monotonic()-stage_started,2))
             write_json(state,record)
             if code: raise subprocess.CalledProcessError(code,command)

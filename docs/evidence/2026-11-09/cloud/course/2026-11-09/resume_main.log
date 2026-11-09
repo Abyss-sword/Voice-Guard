@@ -1,0 +1,75 @@
++ /root/voiceguard/.venv/bin/python scripts/run_experiment.py --model-dir checkpoints/adain-vc-official --vctk data/VCTK22 --registry outputs/registry.npz --attack-registry outputs/registry_vc.npz --per-speaker 1 --utt-offset 30 --max-dur 2.5 --source-speaker p226 --source-utt 2 --device cuda --seed 2026 --no-progress --speakers p225,p226,p227,p228,p229 --method vg --eps .05 --iters1 3000 --iters2 1500 --out-dir outputs/cloud/main_vg
+/root/voiceguard/scripts/../vguard/vc/adainvc.py:66: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(ckpt_path, map_location=device)
+least-likely: p225 -> p237
+least-likely: p226 -> p229
+least-likely: p227 -> p229
+least-likely: p228 -> p237
+least-likely: p229 -> p237
+skip p225_040: done
+skip p226_039: done
+skip p227_033: done
+skip p228_035: done
+skip p229_032: done
+SUMMARY: {"total": 5, "evaluated": 5, "asv_missing": 0, "unfiltered_successes": 3, "unfiltered_rate": 0.6, "screened": 4, "screen_pass_rate": 0.8, "screened_successes": 2, "screened_rate": 0.5, "protocol": "ECAPA identity only; quality thresholds are not included"}
+csv: outputs/cloud/main_vg/results.csv
++ /root/voiceguard/.venv/bin/python scripts/run_experiment.py --model-dir checkpoints/adain-vc-official --vctk data/VCTK22 --registry outputs/registry.npz --attack-registry outputs/registry_vc.npz --per-speaker 1 --utt-offset 30 --max-dur 2.5 --source-speaker p226 --source-utt 2 --device cuda --seed 2026 --no-progress --speakers p225,p226,p227,p228,p229 --method vg-nop --eps .05 --iters1 3000 --iters2 1500 --out-dir outputs/cloud/main_vg-nop
+/root/voiceguard/scripts/../vguard/vc/adainvc.py:66: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(ckpt_path, map_location=device)
+least-likely: p225 -> p237
+least-likely: p226 -> p229
+least-likely: p227 -> p229
+least-likely: p228 -> p237
+least-likely: p229 -> p237
+skip p225_040: done
+skip p226_039: done
+skip p227_033: done
+skip p228_035: done
+skip p229_032: done
+SUMMARY: {"total": 5, "evaluated": 5, "asv_missing": 0, "unfiltered_successes": 2, "unfiltered_rate": 0.4, "screened": 4, "screen_pass_rate": 0.8, "screened_successes": 2, "screened_rate": 0.5, "protocol": "ECAPA identity only; quality thresholds are not included"}
+csv: outputs/cloud/main_vg-nop/results.csv
++ /root/voiceguard/.venv/bin/python scripts/run_experiment.py --model-dir checkpoints/adain-vc-official --vctk data/VCTK22 --registry outputs/registry.npz --attack-registry outputs/registry_vc.npz --per-speaker 1 --utt-offset 30 --max-dur 2.5 --source-speaker p226 --source-utt 2 --device cuda --seed 2026 --no-progress --speakers p225,p226,p227,p228,p229 --method emb --eps .05 --iters1 3000 --iters2 1500 --out-dir outputs/cloud/main_emb
+/root/voiceguard/scripts/../vguard/vc/adainvc.py:66: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(ckpt_path, map_location=device)
+least-likely: p225 -> p237
+least-likely: p226 -> p229
+least-likely: p227 -> p229
+least-likely: p228 -> p237
+least-likely: p229 -> p237
+skip p225_040: done
+skip p226_039: done
+skip p227_033: done
+skip p228_035: done
+skip p229_032: done
+SUMMARY: {"total": 5, "evaluated": 5, "asv_missing": 0, "unfiltered_successes": 2, "unfiltered_rate": 0.4, "screened": 4, "screen_pass_rate": 0.8, "screened_successes": 1, "screened_rate": 0.25, "protocol": "ECAPA identity only; quality thresholds are not included"}
+csv: outputs/cloud/main_emb/results.csv
++ /root/voiceguard/.venv/bin/python scripts/run_experiment.py --model-dir checkpoints/adain-vc-official --vctk data/VCTK22 --registry outputs/registry.npz --attack-registry outputs/registry_vc.npz --per-speaker 1 --utt-offset 30 --max-dur 2.5 --source-speaker p226 --source-utt 2 --device cuda --seed 2026 --no-progress --speakers p225,p226,p227,p228,p229 --method fb --eps .05 --iters1 3000 --iters2 1500 --out-dir outputs/cloud/main_fb
+/root/voiceguard/scripts/../vguard/vc/adainvc.py:66: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(ckpt_path, map_location=device)
+least-likely: p225 -> p237
+least-likely: p226 -> p229
+least-likely: p227 -> p229
+least-likely: p228 -> p237
+least-likely: p229 -> p237
+skip p225_040: done
+skip p226_039: done
+skip p227_033: done
+skip p228_035: done
+skip p229_032: done
+SUMMARY: {"total": 5, "evaluated": 5, "asv_missing": 0, "unfiltered_successes": 1, "unfiltered_rate": 0.2, "screened": 4, "screen_pass_rate": 0.8, "screened_successes": 0, "screened_rate": 0.0, "protocol": "ECAPA identity only; quality thresholds are not included"}
+csv: outputs/cloud/main_fb/results.csv
++ /root/voiceguard/.venv/bin/python scripts/run_experiment.py --model-dir checkpoints/adain-vc-official --vctk data/VCTK22 --registry outputs/registry.npz --attack-registry outputs/registry_vc.npz --per-speaker 1 --utt-offset 30 --max-dur 2.5 --source-speaker p226 --source-utt 2 --device cuda --seed 2026 --no-progress --speakers p225,p226,p227,p228,p229 --method e2e --eps .05 --iters1 3000 --iters2 1500 --out-dir outputs/cloud/main_e2e
+/root/voiceguard/scripts/../vguard/vc/adainvc.py:66: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(ckpt_path, map_location=device)
+least-likely: p225 -> p237
+least-likely: p226 -> p229
+least-likely: p227 -> p229
+least-likely: p228 -> p237
+least-likely: p229 -> p237
+skip p225_040: done
+skip p226_039: done
+skip p227_033: done
+skip p228_035: done
+skip p229_032: done
+SUMMARY: {"total": 5, "evaluated": 5, "asv_missing": 0, "unfiltered_successes": 2, "unfiltered_rate": 0.4, "screened": 4, "screen_pass_rate": 0.8, "screened_successes": 1, "screened_rate": 0.25, "protocol": "ECAPA identity only; quality thresholds are not included"}
+csv: outputs/cloud/main_e2e/results.csv

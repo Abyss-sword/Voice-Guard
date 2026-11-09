@@ -1,0 +1,33 @@
+{
+  "created_utc": "2026-11-09T05:51:20.644540+00:00",
+  "type": "post-hoc diagnostic; not part of the original frozen validation",
+  "observation_before_design": "New 10 utterances: refined MOS 3.0551 / macroWER .1469 / screened joint 0/8; cropped zero-noise controls MOS 3.0877 / macroWER .095.",
+  "question": "Does preserving the complete original context reduce content errors, and does identity defense survive the same restoration?",
+  "change": "Restore unmodified audio only outside the original top_db=15 crop; preserve the exact optimized perturbation inside the crop. No extra optimization or tuning.",
+  "input": "outputs/course/2026-11-09/new_utterances_projected",
+  "output": "outputs/course/2026-11-09/quality_new_refined_context_posthoc",
+  "scales": [
+    0,
+    1
+  ],
+  "wav_subtype": "PCM_16",
+  "speakers": [
+    "p225",
+    "p226",
+    "p227",
+    "p228",
+    "p229"
+  ],
+  "expected_rows": 20,
+  "gate": "Unchanged: MOSNet>=3, WER<=.10, preserved protected identity, changed conversion identity, separately measured full-context clean-VC screen",
+  "code_sha256": {
+    "scripts/quality_sweep.py": "301fa5e4d11972d81657d99c0cb13c12b0672d3efb5cbf0de2f149158729cc6c",
+    "vguard/audio.py": "5b025eb903d8c6dd9fe289f1bb1312d4ec718b3c63943a04cd12f2e7b7062d6f"
+  },
+  "limitations": [
+    "Designed after seeing new-utterance results, so not independent frozen validation",
+    "No human ratings",
+    "Correlated speakers and utterances",
+    "Do not replace the original cropped results or choose the better protocol per utterance"
+  ]
+}

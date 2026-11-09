@@ -1,0 +1,169 @@
+{
+  "created_utc": "2026-11-09T05:25:15.480163+00:00",
+  "kind": "model resources, not a complete deployment",
+  "files": [
+    {
+      "path": "checkpoints/adain-vc-official/attr.pkl",
+      "bytes": 4321,
+      "sha256": "c5ec695df8e84be2ee440fbc8816f36ef96ecc557af088026e22139e56c181e5"
+    },
+    {
+      "path": "checkpoints/adain-vc-official/attr.pkl.download.json",
+      "bytes": 233,
+      "sha256": "1a6ff5e3778ad8768946588eb1f9e9bfa187b04f948f5cd8c8a3e85bc3468f1b"
+    },
+    {
+      "path": "checkpoints/adain-vc-official/config.yaml",
+      "bytes": 1130,
+      "sha256": "3ef536aa57ee27d6a39ab5531e16de285a8859fa4565cdd13628963e1d7a571b"
+    },
+    {
+      "path": "checkpoints/adain-vc-official/vctk_model.ckpt",
+      "bytes": 36197052,
+      "sha256": "31d3a9361b756122e7f8aa2cfecbb7ee0ac3bc98d4fc656d92543e0ad4f0b3ca"
+    },
+    {
+      "path": "checkpoints/adain-vc-official/vctk_model.ckpt.download.json",
+      "bytes": 244,
+      "sha256": "3bc8a215d4fd806a5dd82b41e64a73f4e6a9f36c743c7151bae73822db3617d9"
+    },
+    {
+      "path": "checkpoints/ecapa-local/classifier.ckpt",
+      "bytes": 5534328,
+      "sha256": "fd9e3634fe68bd0a427c95e354c0c677374f62b3f434e45b78599950d860d535"
+    },
+    {
+      "path": "checkpoints/ecapa-local/classifier.ckpt.download.json",
+      "bytes": 280,
+      "sha256": "bc05e130c8ae299dae3cd2b183c5bfe05ec2c83765b8b1012ea2ea514d7a64a0"
+    },
+    {
+      "path": "checkpoints/ecapa-local/embedding_model.ckpt",
+      "bytes": 83316686,
+      "sha256": "0575cb64845e6b9a10db9bcb74d5ac32b326b8dc90352671d345e2ee3d0126a2"
+    },
+    {
+      "path": "checkpoints/ecapa-local/embedding_model.ckpt.download.json",
+      "bytes": 286,
+      "sha256": "7b88cf3f62f217e1422861b01fac88dbf74881b4a47464705434ecf00b0b9f2b"
+    },
+    {
+      "path": "checkpoints/ecapa-local/hyperparams.upstream.yaml",
+      "bytes": 1919,
+      "sha256": "6f78854fa04ba59e761437b76a2575d3aba5e5016de3e9b69f0c9a5077fb1a41"
+    },
+    {
+      "path": "checkpoints/ecapa-local/hyperparams.upstream.yaml.download.json",
+      "bytes": 283,
+      "sha256": "be82e184929ca66575260e36a2a825a721c37071a1b579f4ed631042476648de"
+    },
+    {
+      "path": "checkpoints/ecapa-local/hyperparams.yaml",
+      "bytes": 1909,
+      "sha256": "0c7279c122fe96fa50a6654643dde8759f605aac0be91c8e769dae0e5538f49f"
+    },
+    {
+      "path": "checkpoints/ecapa-local/label_encoder.ckpt",
+      "bytes": 128619,
+      "sha256": "e13c3a167bb4112685670ee896d20e2b565af16b3a4ceeaa8689fa4d22adb8b9"
+    },
+    {
+      "path": "checkpoints/ecapa-local/label_encoder.txt",
+      "bytes": 128619,
+      "sha256": "e13c3a167bb4112685670ee896d20e2b565af16b3a4ceeaa8689fa4d22adb8b9"
+    },
+    {
+      "path": "checkpoints/ecapa-local/label_encoder.txt.download.json",
+      "bytes": 281,
+      "sha256": "550798bf939adf7b2cca748608d04c917fdb0da186bc557972f81a730b491e8d"
+    },
+    {
+      "path": "checkpoints/ecapa-local/local_config.json",
+      "bytes": 235,
+      "sha256": "0f7fc565098b12ab99739a9f856c34cc95b7c42759e312dfb73185fa607d7fe3"
+    },
+    {
+      "path": "checkpoints/ecapa-local/mean_var_norm_emb.ckpt",
+      "bytes": 1921,
+      "sha256": "cd70225b05b37be64fc5a95e24395d804231d43f74b2e1e5a513db7b69b34c33"
+    },
+    {
+      "path": "checkpoints/ecapa-local/mean_var_norm_emb.ckpt.download.json",
+      "bytes": 284,
+      "sha256": "94b9a3ca4a7d27219233293fb73b44c12526f0b22595b7fed22f8dc16f9fd499"
+    },
+    {
+      "path": "checkpoints/mosnet-hf/config.json",
+      "bytes": 182,
+      "sha256": "71e85350b2efa56cfddb25e0a17ed06e151c1cc62376aff4871c2474065d4307"
+    },
+    {
+      "path": "checkpoints/mosnet-hf/config.upstream.json",
+      "bytes": 216,
+      "sha256": "5230e64861e6bd7ae99633e3e430148812c34222c7b3d3a35720c52a94a6dc84"
+    },
+    {
+      "path": "checkpoints/mosnet-hf/config.upstream.json.download.json",
+      "bytes": 254,
+      "sha256": "e972d4ea52033ad8ef3fbd76c9a39ff5164637ba61908397e6de8a29017647d5"
+    },
+    {
+      "path": "checkpoints/mosnet-hf/configuration_mosnet.py",
+      "bytes": 717,
+      "sha256": "486001bc64145b5c6ec17548502e58106ca06ff6e602306d7948e382071fcda5"
+    },
+    {
+      "path": "checkpoints/mosnet-hf/configuration_mosnet.py.download.json",
+      "bytes": 266,
+      "sha256": "422c40593ba654f3a64c2bd9e78d25c4d452115f6aa72c358336996940ffd1e1"
+    },
+    {
+      "path": "checkpoints/mosnet-hf/local_config.json",
+      "bytes": 235,
+      "sha256": "4b5cf4b5760feed2502947c9a8670006d159da46fe2c2b56997d1f66514c43b8"
+    },
+    {
+      "path": "checkpoints/mosnet-hf/modeling_mosnet.py",
+      "bytes": 12490,
+      "sha256": "862ea1b0a8353454023ecf208a5419f860fdd98d6f1f077531930f3313398b79"
+    },
+    {
+      "path": "checkpoints/mosnet-hf/modeling_mosnet.py.download.json",
+      "bytes": 263,
+      "sha256": "b2f7e45b6d99b83b971bbbe2dec8358b0d774cd4290e689cb10b48c010f699e3"
+    },
+    {
+      "path": "checkpoints/mosnet-hf/pytorch_model.bin",
+      "bytes": 4739905,
+      "sha256": "a71a45618d77d652ffa77117e9188729c76d214c858d0c29bdf71da4954b9544"
+    },
+    {
+      "path": "checkpoints/mosnet-hf/pytorch_model.bin.download.json",
+      "bytes": 264,
+      "sha256": "c052d5131da8e52e3c7d5b0df65d3c1236a64028157912e6d598cadc9cae21d9"
+    },
+    {
+      "path": "whisper/base.pt",
+      "bytes": 145262807,
+      "sha256": "ed3a0b6b1c0edf879ad9b11b1af5a0e6ab5db9205f891f668f8b0e6c6326e34e"
+    }
+  ],
+  "included_whisper": true,
+  "not_included": [
+    "VCTK dataset",
+    "registries: generate from the recorded enrollment protocol",
+    "Python/CUDA environment"
+  ],
+  "sources": {
+    "AdaIN-VC": "https://github.com/jjery2243542/adaptive_voice_conversion",
+    "ECAPA": "https://huggingface.co/speechbrain/spkrec-ecapa-voxceleb/tree/0f99f2d0ebe89ac095bcc5903c4dd8f72b367286",
+    "MOSNet": "https://huggingface.co/1NEYRON1/mosnet/tree/4162a3e63ac725ecf7dce8dee3aa71e7afd9c65d",
+    "Whisper": "https://github.com/openai/whisper"
+  },
+  "sharing_url": null,
+  "license_note": "Upstream model/data terms apply; no new license is granted by this archive.",
+  "archive_bytes": 253422166,
+  "archive_sha256": "bf2254d9413028820bba5ddb7e8170cf02abe1d820d287d0e049847f00d9e208",
+  "archive_crc_verified": true,
+  "local_archive_and_members_verified": true
+}

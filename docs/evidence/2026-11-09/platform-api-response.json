@@ -1,0 +1,65 @@
+{
+  "message": "处理完成：说话人 p225，ε=0.05，未通过筛选后的身份维检查（详见 report.json）",
+  "artifacts": [
+    {
+      "kind": "audio",
+      "label": "原始音频（trim 后）",
+      "filename": "original_trimmed.wav",
+      "url": "http://127.0.0.1:8020/files/20261109-130150-dcbfb202/original_trimmed.wav"
+    },
+    {
+      "kind": "audio",
+      "label": "保护后音频（含时域扰动）",
+      "filename": "defended.wav",
+      "url": "http://127.0.0.1:8020/files/20261109-130150-dcbfb202/defended.wav"
+    },
+    {
+      "kind": "audio",
+      "label": "扰动本身（可试听）",
+      "filename": "delta.wav",
+      "url": "http://127.0.0.1:8020/files/20261109-130150-dcbfb202/delta.wav"
+    },
+    {
+      "kind": "audio",
+      "label": "对照：干净音频经 VC 转换",
+      "filename": "conv_from_clean.wav",
+      "url": "http://127.0.0.1:8020/files/20261109-130150-dcbfb202/conv_from_clean.wav"
+    },
+    {
+      "kind": "audio",
+      "label": "被保护音频经 VC 转换（需核查身份与质量）",
+      "filename": "conv_from_defended.wav",
+      "url": "http://127.0.0.1:8020/files/20261109-130150-dcbfb202/conv_from_defended.wav"
+    },
+    {
+      "kind": "json",
+      "label": "处理报告（参数/判定/相似度）",
+      "filename": "report.json",
+      "url": "http://127.0.0.1:8020/files/20261109-130150-dcbfb202/report.json"
+    }
+  ],
+  "meta": {
+    "job_id": "20261109-130150-dcbfb202",
+    "method_id": "group_xx_voice_guard",
+    "target_speaker": "p225",
+    "eps": 0.05,
+    "iters": [
+      300,
+      200
+    ],
+    "elapsed_s": 46.6,
+    "defended_pred": "p225",
+    "converted_pred": "p230",
+    "defense_ok": false,
+    "identity_verdict": {
+      "asv_complete": true,
+      "clean_vc_identity_ok": false,
+      "identity_ok": true,
+      "screened_identity_ok": false,
+      "protocol": "ECAPA closed-set identity only; not a quality or imperceptibility claim"
+    },
+    "quality_evaluated": false,
+    "method": "vg-projected",
+    "preserve_context": false
+  }
+}

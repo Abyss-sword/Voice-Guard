@@ -18,6 +18,9 @@ def main():
     suffixes={'.json','.csv','.md','.log','.txt','.service'}|({'.wav','.png'} if args.audio else set())
     files=sorted(p for root in roots for p in root.rglob('*') if p.is_file() and not p.is_symlink() and p.suffix in suffixes)
     files += sorted(Path('outputs').glob('registry*.manifest.json'))
+    files += [path for path in (Path('data/VCTK22_subset_manifest.json'),
+              Path('docs/evidence/2026-11-09/frozen-protocol.json'),
+              Path('docs/evidence/2026-11-09/posthoc-context-protocol.json')) if path.is_file()]
     sources=sorted(p for folder in ('vguard','scripts','deploy','platform/service','frontend','tools')
                    for p in Path(folder).rglob('*') if p.is_file() and p.suffix in {'.py','.sh','.service'})
     args.out.parent.mkdir(parents=True,exist_ok=True)

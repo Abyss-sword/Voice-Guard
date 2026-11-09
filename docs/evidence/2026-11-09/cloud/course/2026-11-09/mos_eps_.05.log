@@ -1,0 +1,6 @@
+{'utterance': 'p225_040', 'mos_original_trimmed': 3.332, 'mos_defended': 1.003, 'mos_conv_from_clean': 2.992, 'mos_conv_from_defended': 1.504}
+{'utterance': 'p226_039', 'mos_original_trimmed': 3.033, 'mos_defended': 0.518, 'mos_conv_from_clean': 1.625, 'mos_conv_from_defended': 1.284}
+{'utterance': 'p227_033', 'mos_original_trimmed': 3.246, 'mos_defended': 2.312, 'mos_conv_from_clean': 3.065, 'mos_conv_from_defended': 1.123}
+{'utterance': 'p228_035', 'mos_original_trimmed': 3.425, 'mos_defended': 0.672, 'mos_conv_from_clean': 2.29, 'mos_conv_from_defended': 0.447}
+{'utterance': 'p229_032', 'mos_original_trimmed': 3.24, 'mos_defended': 2.465, 'mos_conv_from_clean': 2.952, 'mos_conv_from_defended': 1.217}
+saved: outputs/cloud/eps_.05/mos.csv

@@ -1,0 +1,181 @@
+{
+  "new_statistics": {
+    "baseline": {
+      "total": 10,
+      "screened": 8,
+      "joint_successes": 0,
+      "joint_rate": 0.0,
+      "wilson95_descriptive": [
+        0.0,
+        0.32440756488388023
+      ],
+      "mean_mos": 1.936374047398567,
+      "macro_wer": 0.445952380952381,
+      "uncertainty_note": "Repeated utterances/sources within a speaker are correlated; interval is not a speaker-generalization confidence claim"
+    },
+    "refined": {
+      "total": 10,
+      "screened": 8,
+      "joint_successes": 0,
+      "joint_rate": 0.0,
+      "wilson95_descriptive": [
+        0.0,
+        0.32440756488388023
+      ],
+      "mean_mos": 3.0551374912261964,
+      "macro_wer": 0.1469047619047619,
+      "uncertainty_note": "Repeated utterances/sources within a speaker are correlated; interval is not a speaker-generalization confidence claim"
+    }
+  },
+  "new_counts": {
+    "baseline": {
+      "quality_ok": 0,
+      "identity_ok": 7,
+      "clean_vc_identity_ok": 8,
+      "screened_quality_identity_ok": 0
+    },
+    "refined": {
+      "quality_ok": 4,
+      "identity_ok": 5,
+      "clean_vc_identity_ok": 8,
+      "screened_quality_identity_ok": 0
+    }
+  },
+  "clean_control_disagreements": [],
+  "new_paired_mean_changes": {
+    "mos_defended": 1.118763443827629,
+    "wer_defended": -0.29904761904761906
+  },
+  "mp3_fixed_diagnostics": [
+    {
+      "method": "channels_baseline",
+      "utterance": "p225_040",
+      "none_joint": false,
+      "mp3_joint": false,
+      "none_wrong_minus_target": 0.126515731215477,
+      "mp3_wrong_minus_target": 0.030853256583213806,
+      "none_difference_highband_fraction": 0.5710395254731309,
+      "mp3_difference_highband_fraction": 0.44311177510324873,
+      "mp3_clean_screen": true,
+      "mp3_quality_ok": false,
+      "mp3_identity_ok": true
+    },
+    {
+      "method": "channels_baseline",
+      "utterance": "p226_039",
+      "none_joint": false,
+      "mp3_joint": false,
+      "none_wrong_minus_target": -0.038285285234451294,
+      "mp3_wrong_minus_target": 0.03963330388069153,
+      "none_difference_highband_fraction": 0.5738377800684796,
+      "mp3_difference_highband_fraction": 0.4938347315729449,
+      "mp3_clean_screen": true,
+      "mp3_quality_ok": false,
+      "mp3_identity_ok": false
+    },
+    {
+      "method": "channels_baseline",
+      "utterance": "p227_033",
+      "none_joint": false,
+      "mp3_joint": false,
+      "none_wrong_minus_target": 0.23685913532972336,
+      "mp3_wrong_minus_target": 0.13970501720905304,
+      "none_difference_highband_fraction": 0.5307318677998778,
+      "mp3_difference_highband_fraction": 0.43650624210355715,
+      "mp3_clean_screen": true,
+      "mp3_quality_ok": false,
+      "mp3_identity_ok": true
+    },
+    {
+      "method": "channels_baseline",
+      "utterance": "p228_035",
+      "none_joint": false,
+      "mp3_joint": false,
+      "none_wrong_minus_target": 0.1830592304468155,
+      "mp3_wrong_minus_target": 0.1209796890616417,
+      "none_difference_highband_fraction": 0.5707733298348909,
+      "mp3_difference_highband_fraction": 0.4498640077524069,
+      "mp3_clean_screen": false,
+      "mp3_quality_ok": false,
+      "mp3_identity_ok": true
+    },
+    {
+      "method": "channels_baseline",
+      "utterance": "p229_032",
+      "none_joint": false,
+      "mp3_joint": false,
+      "none_wrong_minus_target": 0.1643054336309433,
+      "mp3_wrong_minus_target": 0.17869915068149567,
+      "none_difference_highband_fraction": 0.5505094641375323,
+      "mp3_difference_highband_fraction": 0.4166701381022355,
+      "mp3_clean_screen": false,
+      "mp3_quality_ok": false,
+      "mp3_identity_ok": true
+    },
+    {
+      "method": "channels_refined_dev",
+      "utterance": "p225_040",
+      "none_joint": true,
+      "mp3_joint": true,
+      "none_wrong_minus_target": 0.02059110999107361,
+      "mp3_wrong_minus_target": 0.009694069623947144,
+      "none_difference_highband_fraction": 0.01752180459166756,
+      "mp3_difference_highband_fraction": 0.03725426441601029,
+      "mp3_clean_screen": true,
+      "mp3_quality_ok": true,
+      "mp3_identity_ok": true
+    },
+    {
+      "method": "channels_refined_dev",
+      "utterance": "p226_039",
+      "none_joint": false,
+      "mp3_joint": false,
+      "none_wrong_minus_target": -0.1700543463230133,
+      "mp3_wrong_minus_target": -0.22289913892745972,
+      "none_difference_highband_fraction": 0.05483819710907925,
+      "mp3_difference_highband_fraction": 0.10147967882196007,
+      "mp3_clean_screen": true,
+      "mp3_quality_ok": true,
+      "mp3_identity_ok": false
+    },
+    {
+      "method": "channels_refined_validation",
+      "utterance": "p227_033",
+      "none_joint": false,
+      "mp3_joint": false,
+      "none_wrong_minus_target": -0.08338767290115356,
+      "mp3_wrong_minus_target": -0.12162387371063232,
+      "none_difference_highband_fraction": 0.0037837530616324395,
+      "mp3_difference_highband_fraction": 0.009317410341622883,
+      "mp3_clean_screen": true,
+      "mp3_quality_ok": false,
+      "mp3_identity_ok": false
+    },
+    {
+      "method": "channels_refined_validation",
+      "utterance": "p228_035",
+      "none_joint": true,
+      "mp3_joint": false,
+      "none_wrong_minus_target": 0.14157161116600037,
+      "mp3_wrong_minus_target": 0.13090436160564423,
+      "none_difference_highband_fraction": 0.02770341267192984,
+      "mp3_difference_highband_fraction": 0.061031231651170796,
+      "mp3_clean_screen": false,
+      "mp3_quality_ok": true,
+      "mp3_identity_ok": true
+    },
+    {
+      "method": "channels_refined_validation",
+      "utterance": "p229_032",
+      "none_joint": false,
+      "mp3_joint": false,
+      "none_wrong_minus_target": 0.2662835568189621,
+      "mp3_wrong_minus_target": 0.28143662959337234,
+      "none_difference_highband_fraction": 0.03424123250196559,
+      "mp3_difference_highband_fraction": 0.1129994512866966,
+      "mp3_clean_screen": false,
+      "mp3_quality_ok": false,
+      "mp3_identity_ok": true
+    }
+  ]
+}
