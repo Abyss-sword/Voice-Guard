@@ -235,12 +235,11 @@ python tools/verify_local.py --frontend  # 需先下载 AdaIN 权重；合成输
 
 ## 课程平台接入
 
-本轮更新 `platform/` 适配服务（含启动时任务目录清理 `--keep-jobs`）、1.1.0 方法配置与三份有来源摘要的真实音频。
-启动及接口说明见 [课程平台接入说明](docs/10_课程平台接入说明.md) 和
-[小组 README](platform/README-group.md)。平台 Fork 已存在（`Abyss-sword/algorithm_research_frontend`，
-分支 `group_xx_submission` 已推送方法配置/索引/样例/小组 README，endpoint 指向 `http://127.0.0.1:8020/process`），
-本地 6 项测试、配置校验与生产构建通过；可选参考输入导致样例按钮拒绝执行的问题有补丁
-`platform/patches/optional-input-sample.patch`。真实组号、成员、云盘链接与正式 PR 仍待补齐。
+**Fork 已更新到 1.1.0（2026-11-09，分支 `group_xx_submission` 提交 `6c46429`）**：
+方法配置（新增 `method`/`preserve_context` 参数）、3 段云端实测样例 + `sample-provenance.json`、根 README 均已推入 Fork；
+**仍未创建 PR**（按此前确认）。启动及接口说明见 [课程平台接入说明](docs/10_课程平台接入说明.md) 和
+[小组 README](platform/README-group.md)。本地 6 项测试、配置校验与生产构建通过；可选参考输入导致样例按钮拒绝执行的问题有补丁
+`platform/patches/optional-input-sample.patch`（未应用到 Fork）。真实组号、成员与正式 PR 仍待补齐。
 
 完整模型分发包位于忽略目录 `outputs/course/resources/VoiceGuard-model-resources-complete.zip`（253,422,166 字节），
 含 AdaIN-VC、ECAPA、MOSNet、Whisper base、来源、逐文件摘要与恢复说明；不含数据、注册库及运行环境。
