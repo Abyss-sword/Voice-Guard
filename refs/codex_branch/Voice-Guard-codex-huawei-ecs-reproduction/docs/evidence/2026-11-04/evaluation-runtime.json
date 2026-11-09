@@ -1,7 +1,0 @@
-{
-  "cuda_matmul": true,
-  "audio": "data/VCTK22/p225/p225_040.wav",
-  "mos_original": 3.2430078983306885,
-  "whisper_original": "You'd better believe it.",
-  "whisper_model_sha256": "ed3a0b6b1c0edf879ad9b11b1af5a0e6ab5db9205f891f668f8b0e6c6326e34e"
-}

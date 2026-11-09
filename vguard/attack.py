@@ -152,12 +152,17 @@ def _stage2(
     progress: bool = True,
     channel_fn=None,
     flag_fn=None,
+    imp_channel_fn=None,
+    imp_weight: float = 0.0,
 ) -> Tuple[bool, Tensor, int]:
     """阶段2：加掩蔽约束。官方语义：迭代中一旦防御失败立即返回。
 
     channel_fn（EOT，可选）：对 adv_inp 施加可微信道后再算身份与损失，
     使扰动对信道稳健；掩蔽损失仍作用于原始 adv_inp。
     flag_fn（可选）：自定义"防御成功"判定（如 Es 线性探头），默认注册库 argmax。
+    imp_channel_fn / imp_weight（防御侧 EOT，可选）：在 adv_inp 上施加可微信道后
+    约束其身份嵌入仍接近原说话人（F_imp 信道项），防止信道把防御音频自身的
+    声纹破坏；imp_weight=0 时行为与官方完全一致。
     """
     ptb = stage1_ptb.detach().clone().requires_grad_(True)
     vc_tgt = vc_tgt.detach().clone().requires_grad_(False)
@@ -181,6 +186,13 @@ def _stage2(
 
         loss_emb_l2 = criterion(adv_emb, tgt_emb) - 0.1 * criterion(adv_emb, org_emb)
         loss = loss_emb_l2 + c * loss_th
+
+        # 防御侧 EOT：信道后的防御音频仍应保持原说话人身份（保护 F_imp）
+        if imp_channel_fn is not None and imp_weight > 0:
+            adv_imp = imp_channel_fn(adv_inp)
+            imp_emb = model.speaker_encoder(wav2mel_tensor(adv_imp, attr=attr, **feature_kwargs))
+            loss_imp_ch = criterion(imp_emb, org_emb.detach())
+            loss = loss + imp_weight * loss_imp_ch
 
         if i % 100 == 0:
             rng.set_postfix(loss=float(loss), th=float(loss_th), flag=attack_flag)
@@ -211,12 +223,16 @@ def voice_guard_attack(
     progress: bool = True,
     channel_fn=None,
     flag_fn=None,
+    imp_channel_fn=None,
+    imp_weight: float = 0.0,
     **feature_kwargs,
 ) -> Dict:
     """Voice Guard 完整攻击。返回 dict：{"adv_wav", "c", "flag", "steps"}。
 
     channel_fn（EOT，可选）：阶段2 中对扰动后音频施加可微信道（信道稳健性训练）。
     flag_fn（可选）：自定义防御成功判定 adv_emb -> bool（如 Es 线性探头）。
+    imp_channel_fn / imp_weight（防御侧 EOT，可选）：阶段2 增加"信道后仍保留原身份"
+    的正则项（F_imp 信道稳健），默认关闭。
     """
     attr = attr or {"mean": np.float32(0.0), "std": np.float32(1.0)}
     device = next(model.parameters()).device
@@ -256,6 +272,7 @@ def voice_guard_attack(
             model, vc_tgt, vc_tgt_mask, vc_tgt_psd_max, org_emb, tgt_emb,
             registry, vc_tgt_speaker, eps, n_iters2, c, stage1_ptb,
             psd_transformer, attr, feature_kwargs, progress, channel_fn, flag_fn,
+            imp_channel_fn, imp_weight,
         )
         if flag and false_c == 0:
             attack_step_2_c = c

@@ -61,6 +61,10 @@ def main():
     ap.add_argument("--eps", type=float, default=0.1)
     ap.add_argument("--method", choices=["vg", "vg-nop", "emb", "fb", "e2e"], default="vg")
     ap.add_argument("--eot", action="store_true", help="VG+EOT：阶段2用可微信道做稳健训练")
+    ap.add_argument("--imp-eot", action="store_true",
+                    help="防御侧 EOT：阶段2 增加「信道后身份仍保持 (F_imp)」正则项")
+    ap.add_argument("--imp-eot-weight", type=float, default=0.5,
+                    help="防御侧 EOT 正则权重（默认 0.5）")
     ap.add_argument("--iters1", type=int, default=3000)
     ap.add_argument("--iters2", type=int, default=1500)
     ap.add_argument("--out-dir", required=True)
@@ -223,13 +227,20 @@ def main():
                 if args.eot:
                     from vguard.channel import differentiable_channel
                     channel_fn = lambda adv: differentiable_channel(adv, sr)
+                imp_channel_fn = None
+                if getattr(args, "imp_eot", False):
+                    from vguard.channel import differentiable_channel
+                    imp_channel_fn = lambda adv: differentiable_channel(adv, sr)
                 res = voice_guard_attack(
                     model, torch.from_numpy(wav), vc_tgt_mask=theta,
                     vc_tgt_psd_max=float(psd_max), adv_tgt=torch.from_numpy(adv_wav),
                     registry=atk_reg, vc_tgt_speaker=x, eps=args.eps,
                     n_iters1=args.iters1, n_iters2=args.iters2, c_init=1.0, attr=attr,
                     progress=not args.no_progress, flag_fn=flag_fn,
-                    channel_fn=channel_fn, **feature_kwargs)
+                    channel_fn=channel_fn,
+                    imp_channel_fn=imp_channel_fn,
+                    imp_weight=float(getattr(args, "imp_eot_weight", 0.0)),
+                    **feature_kwargs)
                 adv_np = res["adv_wav"].numpy().astype(np.float32)
             elif args.method == "vg-nop":
                 from vguard.baselines import vg_wo_p

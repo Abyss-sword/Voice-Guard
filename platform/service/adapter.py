@@ -27,6 +27,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import logging
 import math
 import os
 import shutil
@@ -49,6 +50,11 @@ ARGS = None
 PIPE = None
 SPEAKER_FIRST: dict[str, str] = {}
 GPU_LOCK = asyncio.Lock()
+MAX_UPLOAD_MB = 20
+BUSY_429 = True
+
+LOG = logging.getLogger("voiceguard.adapter")
+logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 
 def _build_pipeline(args):
@@ -81,6 +87,29 @@ app.add_middleware(
     allow_headers=["*"],
     expose_headers=["*"],
 )
+
+
+@app.middleware("http")
+async def _structured_log(request: Request, call_next):
+    """结构化 JSON 日志 + 请求 ID（X-Request-ID 透传/生成）。"""
+    rid = request.headers.get("x-request-id") or uuid.uuid4().hex[:12]
+    t0 = time.monotonic()
+    status = 500
+    try:
+        response = await call_next(request)
+        status = response.status_code
+    finally:
+        LOG.info(json.dumps({
+            "ts": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
+            "level": "info" if status < 400 else "warn",
+            "request_id": rid,
+            "method": request.method,
+            "path": request.url.path,
+            "status": status,
+            "elapsed_ms": round((time.monotonic() - t0) * 1000, 1),
+        }, ensure_ascii=False))
+    response.headers["X-Request-ID"] = rid
+    return response
 
 
 @app.get("/health")
@@ -117,6 +146,16 @@ async def process(
         eps, fast, context, method = parse_parameters(params)
     except Exception as e:  # noqa: BLE001
         return JSONResponse(status_code=400, content={"error": f"parameters 解析失败：{e}"})
+
+    # 治理：请求体积上限
+    cl = request.headers.get("content-length")
+    if cl and cl.isdigit() and int(cl) > MAX_UPLOAD_MB * 1024 * 1024:
+        return JSONResponse(status_code=413,
+                            content={"error": f"请求超过 {MAX_UPLOAD_MB}MB 上限"})
+    # 治理：GPU 忙时快速失败（避免排队堆积）
+    if BUSY_429 and GPU_LOCK.locked():
+        return JSONResponse(status_code=429,
+                            content={"error": "服务繁忙（上一请求仍在处理），请稍后重试"})
 
     if defend_audio is None:
         return JSONResponse(status_code=400, content={"error": "缺少必填素材 defend_audio"})
