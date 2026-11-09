@@ -30,6 +30,10 @@
 
 产物：`outputs/exp03_eps005/hard_masking.json` + 每句 `defended_hard.wav` / `defended_exact.wav`。
 
+**复核（第二组数据）**：在 `outputs/exp05_vgnop`（VG w/o P 消融，5 句）上重复：
+超阈率 **90.8% → 6.2%**（硬投影 60 次）、严格缩放区间 **1.0e-4 ~ 2.0e-4**、
+SNR **70.5–80.7 dB** —— 与主实验结论一致，说明"严格不可感知要求扰动缩到 ~1e-4"不是单组数据的偶然。
+
 复现命令：
 
 ```powershell
