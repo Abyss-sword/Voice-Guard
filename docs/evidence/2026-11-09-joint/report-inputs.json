@@ -1,0 +1,10 @@
+{
+  "analysis_sha256": "eb48fa924182836e70fa1809d5e4bcb2300bfb0df8b39eb4b2737de0babebfee",
+  "protocol_sha256": "da92df9837ddb18ebde3e1b0f160cebab0baeff44bf08cd710d177928adaf65a",
+  "selection_sha256": "4388fd2bc76180964b6b214f8ec1d7bd48432536545e2899c517860d3bdd89b1",
+  "archive_verification_sha256": "d2f4343e19c6bec7b3fc67c47727ee595a78c0fe9034dbdb6126dff6e0bd11a4",
+  "clean_diagnostic_sha256": "3389fa95d6f96fcb8a589de8bd4679a71d11439b2a9e0d65c4a62ac3d579bc20",
+  "builder_sha256": "ebf4731edb3cdb779708d8c5b0ca9742bd1626f70d62f8c787a3175acd63ecc6",
+  "markdown_sha256": "c34610856c7902dc8af390e86f4e774f54aa2ed0fea0f1751c4568e82a76c90c",
+  "figure_sha256": "d069c61fce400888c5bbfa03414de942cafdb8752e5f80df477a2ed5b8cad4f2"
+}

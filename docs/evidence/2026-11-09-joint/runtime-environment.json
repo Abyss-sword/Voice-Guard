@@ -1,0 +1,21 @@
+{
+  "recorded_utc": "2026-11-09T10:57:46.888998+00:00",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "platform": "Linux-5.15.0-76-generic-x86_64-with-glibc2.35",
+  "packages": {
+    "torch": "2.5.1",
+    "torchaudio": "2.5.1",
+    "numpy": "1.26.4",
+    "scipy": "1.14.1",
+    "librosa": "0.10.2.post1",
+    "soundfile": "0.12.1",
+    "speechbrain": "1.0.2",
+    "Resemblyzer": "0.1.4",
+    "openai-whisper": "20240930",
+    "h5py": "3.10.0"
+  },
+  "cuda": "12.4",
+  "cudnn": 90100,
+  "gpu": "Tesla T4, 580.178.04, 15360 MiB",
+  "note": "Read-only post-run package/hardware snapshot from a separate process, not a timestamped pre-run guarantee. Backend flags in a new process do not establish flags in the experiment process, so they are omitted. Fixed utterance seeds do not guarantee bitwise reproducibility of all CUDA kernels."
+}

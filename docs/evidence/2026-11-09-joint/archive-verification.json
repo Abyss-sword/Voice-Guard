@@ -1,0 +1,11 @@
+{
+  "archive": "joint-evidence.tar.gz",
+  "bytes": 62660572,
+  "sha256": "b231f74d1f2d7dd8ca9b1a9dbb242d528c33557154bcedb8d8888aa47f09c5f0",
+  "measured_wavs_verified_against_scores": 372,
+  "wav_files": 400,
+  "development_only": false,
+  "note": "Model weights excluded; use the existing complete model/ASR packages. Original input WAVs, enrolled prototypes, outputs and frozen execution bytes included. ECAPA is an optimization surrogate, not independent evaluation.",
+  "all_files_verified": 862,
+  "local_archive_verified": true
+}

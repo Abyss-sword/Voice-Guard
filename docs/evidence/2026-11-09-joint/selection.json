@@ -1,0 +1,77 @@
+{
+  "frozen_utc": "2026-11-09T09:42:58.510679+00:00",
+  "protocol_sha256": "da92df9837ddb18ebde3e1b0f160cebab0baeff44bf08cd710d177928adaf65a",
+  "development_results_sha256": "a0b85af442173b436f9a1688495c7463287c16993a65791d911c6d359927c18e",
+  "selected": {
+    "profile": {
+      "name": "joint_guard_snr20",
+      "guarded": true
+    },
+    "full_joint": 5,
+    "strict_joint": 10,
+    "protected_quality": 3,
+    "mean_wer": 0.0,
+    "mean_mos": 3.576531728108724
+  },
+  "baseline": {
+    "profile": {
+      "name": "native_emb_snr20",
+      "objective": "embedding",
+      "strong_steps": 3000,
+      "conceal_steps": 1500,
+      "strong_snr_db": 15.0,
+      "final_snr_db": 20.0,
+      "learning_rate": 0.001,
+      "final_margin_db": 0.0
+    },
+    "full_joint": 3,
+    "strict_joint": 7,
+    "protected_quality": 3,
+    "mean_wer": 0.0,
+    "mean_mos": 3.5706910292307534
+  },
+  "all_candidates": [
+    {
+      "profile": {
+        "name": "native_emb_snr20",
+        "objective": "embedding",
+        "strong_steps": 3000,
+        "conceal_steps": 1500,
+        "strong_snr_db": 15.0,
+        "final_snr_db": 20.0,
+        "learning_rate": 0.001,
+        "final_margin_db": 0.0
+      },
+      "full_joint": 3,
+      "strict_joint": 7,
+      "protected_quality": 3,
+      "mean_wer": 0.0,
+      "mean_mos": 3.5706910292307534
+    },
+    {
+      "profile": {
+        "name": "output_only_snr20",
+        "guarded": false
+      },
+      "full_joint": 5,
+      "strict_joint": 10,
+      "protected_quality": 3,
+      "mean_wer": 0.0,
+      "mean_mos": 3.5713972250620523
+    },
+    {
+      "profile": {
+        "name": "joint_guard_snr20",
+        "guarded": true
+      },
+      "full_joint": 5,
+      "strict_joint": 10,
+      "protected_quality": 3,
+      "mean_wer": 0.0,
+      "mean_mos": 3.576531728108724
+    }
+  ],
+  "recommended_after_development": "joint_guard_snr20",
+  "validation_examined": false,
+  "selection_rule": "One global challenger selected on development only: maximize full-clean Eq10 success count, strict identity joint count, unique protected-quality count, lower macro WER, higher protected MOS, profile name. Compare this tuple to baseline and retain baseline recommendation unless strictly better. Selected challenger still gets one frozen paired validation for an honest test."
+}

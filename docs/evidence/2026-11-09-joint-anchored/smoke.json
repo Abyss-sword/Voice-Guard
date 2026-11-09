@@ -1,0 +1,43 @@
+{
+  "development_only": true,
+  "details": {
+    "trace": [
+      {
+        "step": 3,
+        "content_index": 0,
+        "loss": 0.3178306818008423,
+        "output_margin": 0.169651061296463,
+        "output_own_similarity": 0.5081905126571655,
+        "native_output_own_similarity": 0.9014075994491577,
+        "defense": 0.31197628378868103,
+        "guard": 0.0029271922539919615,
+        "content_relative_mse": 0.034635961055755615,
+        "spectral_relative_l1": 0.006633499637246132,
+        "guard_weight_next": 2.0,
+        "elapsed_s": 3.07
+      }
+    ],
+    "anchors": [
+      {
+        "margin": -0.12,
+        "ecapa_own_similarity": 0.5481105279922486,
+        "native_own_similarity": 0.8567571473121643
+      }
+    ],
+    "surrogates": [
+      "ECAPA",
+      "native AdaIN speaker encoder on reconstructed, trimmed waveform"
+    ],
+    "held_out": [
+      "GE2E",
+      "MOSNet",
+      "Whisper base",
+      "Whisper small.en"
+    ],
+    "phase_gradient": "Only last 2 GL iterations differentiated; detached crop boundaries",
+    "constraint_note": "Relative-output targets are soft proxy constraints, not independent-quality guarantees",
+    "elapsed_s": 3.15
+  },
+  "code_sha256": "1e6d5113c1ba52d3443de28d83adc46e99fa9b2a86c737f5bcc67955a9cddbb4",
+  "model_parameters_frozen": true
+}

@@ -1,0 +1,10 @@
+{
+  "decided_utc": "2026-11-09T10:34:04.154141+00:00",
+  "protocol_sha256": "d75cb7907c8327a54f4220ba6aa633d2412ce10c2ea986ed4dac73f0fb2438a2",
+  "selection_sha256": "06b92f117cc37849c48a19951b4bb3abd8377025bd63330303e56d98a6efc949",
+  "validation_allowed": true,
+  "development_full_successes": 5,
+  "development_protected_quality": 3,
+  "gate": "Run ten fresh validation sentences only if development full-clean successes >=5/6 and protected quality 3/3; otherwise stop extension at development and preserve negative results.",
+  "new_validation_examined": false
+}

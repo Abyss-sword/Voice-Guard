@@ -1,0 +1,11 @@
+{
+  "archive": "anchored-evidence.tar.gz",
+  "bytes": 33137902,
+  "sha256": "28526b1cedade34a67347d33125e407a5e5c57cd09941a7eb7f6656c599c0229",
+  "measured_wavs_verified_against_scores": 195,
+  "wav_files": 213,
+  "development_only": false,
+  "note": "Model weights excluded; use the existing complete model/ASR packages. Original input WAVs, enrolled prototypes, outputs and frozen execution bytes included. ECAPA is an optimization surrogate, not independent evaluation.",
+  "all_files_verified": 550,
+  "local_archive_verified": true
+}
