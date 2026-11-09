@@ -237,31 +237,30 @@ _text(s, Inches(8.5), Inches(1.5), Inches(4.0), Inches(5.0),
 # ---------------------------------------------------------------- 5 实验结果
 s = prs.slides.add_slide(BLANK)
 _bg(s)
-_header(s, "RESULTS", "实验结果：核心主张完整复现", 5)
+_header(s, "RESULTS", "实验结果：身份维通过，但联合质量未达论文水平", 5)
 if os.path.exists(CURVE_DARK):
     s.shapes.add_picture(CURVE_DARK, Inches(0.85), Inches(1.42), width=Inches(6.2))
 else:
     _box(s, Inches(0.85), Inches(1.42), Inches(6.2), Inches(3.6), fill=PANEL, line=BORDER)
     _text(s, Inches(0.85), Inches(2.6), Inches(6.2), Inches(0.5), "（ε 曲线图）", align=PP_ALIGN.CENTER, color=SUB)
 _table(s, Inches(7.25), Inches(1.42), Inches(5.25),
-       [["方法（ε=0.05，筛选后）", "防御率"],
-        ["频域 emb", "0%"],
-        ["频域 fb", "25%"],
-        ["频域 e2e", "0%"],
-        ["时域 vg-nop（消融）", "75%"],
-        ["**VG（时域+掩蔽）", "**75%"]],
+       [["方法（ε=0.05，筛选后）", "身份维 / 联合"],
+        ["频域 emb", "1/4 · 0/4"],
+        ["频域 fb", "0/4 · 0/4"],
+        ["频域 e2e", "1/4 · 0/4"],
+        ["时域 vg-nop（消融）", "2/4 · 0/4"],
+        ["**VG（时域+掩蔽）", "**2/4 · 0/4"]],
        col_w=[3.6, 1.65])
 _text(s, Inches(0.85), Inches(5.15), Inches(11.6), Inches(1.9),
-      [("ε 权衡曲线（左，筛选后）：", {"bold": True, "color": INK}),
-       "0.02→75% · 0.05→75% · 0.08→50% · 0.10→50%；"
-       "低 ε 平台受「顽固句」限制（F_str），高 ε 由 F_imp 退化主导 —— 最优工作点 ε≈0.05。",
-       "频域基线筛选后几乎全失败（emb 0/4、e2e 0/4、fb 1/4）；MCD 频域 ~3 vs 时域 ~35–44。",
-       ("云端 T4 实测：", {"bold": True, "color": ACC2}),
-       "3000/1500 步 194.67s/句、CUDA 峰值 175.8MiB；身份维通过（p225→p225 / 转换后 p234），"
-       "但 MOS 3.33→1.02、WER 0→40%（未复现「强且不可感知」）。",
-       ("质量改进 refine：", {"bold": True, "color": ACC2}),
-       "平均 MOS 1.397→3.192、平均逐句 WER 62.76%→5.71%（固定参数验证联合门槛 1/2，小样本）。"],
-      size=13, color=SUB, line_spacing=1.28)
+      [("云端归档（9 组 × 5 句，32 个冻结阶段）：", {"bold": True, "color": INK}),
+       "原 VG 身份维 2/4，联合质量（MOS≥3 且 WER≤10%）0/4；原 VG MOSNet 均值 1.397、WER 62.76%"
+       "——身份翻转常伴随严重质量损失；四档 ε 扫描同样无联合通过。",
+       ("两阶段 + 原生参考修正：", {"bold": True, "color": ACC2}),
+       "修复注册上下文后同句配对：GE2E 严格联合 9/31 → 15/31（48.4%）；完整干净控制 2/6；"
+       "原始 MOSNet 重评：干净 3.96 / 原 VG 2.55 / 改进 4.41。",
+       ("结论：", {"bold": True, "color": RED}),
+       "方法链路完整复现，但未复现论文「强且不可感知」的联合质量；所有负结果与失败探索均保留。"],
+      size=12.5, color=SUB, line_spacing=1.26)
 
 # ---------------------------------------------------------------- 6 加分项
 s = prs.slides.add_slide(BLANK)
@@ -295,18 +294,18 @@ _bg(s)
 _header(s, "SUMMARY", "总结与展望", 7)
 _card(s, Inches(0.85), Inches(1.6), Inches(3.83), Inches(3.2), "已完成",
       ["完整复现（H 对齐 1e-4 / θx / 两阶段）",
-       "核心主张复现：时域 75% ≫ 频域 25%",
-       "ε 权衡曲线 + 双区间机理",
-       "信道分析 + EOT 受控负面结果"], accent=GREEN)
+       "云端 32 个冻结阶段：9 组×5 句主表 + ε 扫描 + 80 信道 + 60 内容源",
+       "两阶段原生参考修正：GE2E 严格联合 9/31→15/31",
+       "系统与交付物（双服务 + 报告/PPT/PDF）"], accent=GREEN)
 _card(s, Inches(4.88), Inches(1.6), Inches(3.83), Inches(3.2), "局限（如实声明）",
-      ["未训练（资源不计入难度）",
-       "抽样规模小于论文；单句 2–4s 需 20–60min",
-       "AdaIN-VC+GL 质量上限 → F_str 质量维恒真",
-       "评估 ASV 域差异影响绝对值（趋势可复现）"], accent=AMBER)
+      ["联合质量未达论文水平（原 VG 0/4、改进 15/31 仍不足）",
+       "MOSNet 为预测器、无真人 MOS/听测",
+       "注册库/评估器/数据与论文有差异",
+       "抽样规模小于论文（20 人 865 句子集）"], accent=AMBER)
 _card(s, Inches(8.91), Inches(1.6), Inches(3.6), Inches(3.2), "展望",
-      ["防御侧信道稳健损失（F_imp-信道项）",
-       "黑盒迁移（VQMIVC）验证",
-       "多信道联合稳健 + 实时化"],
+      ["多种子方差 + 人工听测",
+       "防御侧信道稳健损失（F_imp-信道项）",
+       "黑盒迁移（VQMIVC）与实时化"],
       accent=ACC1)
 _text(s, Inches(0.85), Inches(5.2), Inches(11.6), Inches(0.6),
       "致谢：IJCAI 2023 论文作者的开源工作；官方 AdaIN-VC 权重；hf-mirror 数据镜像。",
