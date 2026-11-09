@@ -15,6 +15,12 @@ def main():
     parser.add_argument('--audio',type=Path,default=Path('data/VCTK22/p225/p225_040.wav'))
     parser.add_argument('--out',type=Path,default=Path('outputs/course/gradio-live'))
     args=parser.parse_args()
+    # gradio_client 1.3.0 需要前端同款 schema 补丁（bool/additionalProperties/nullable 等）
+    try:
+        from frontend.app import _patch_gradio_client_schema
+        _patch_gradio_client_schema()
+    except Exception:  # noqa: BLE001
+        pass
     from gradio_client import Client,handle_file
     import soundfile as sf
     import numpy as np
