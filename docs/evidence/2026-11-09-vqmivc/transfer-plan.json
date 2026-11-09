@@ -1,0 +1,24 @@
+{
+  "frozen_utc": "2026-11-09T13:48:22.674518+00:00",
+  "utterances": [
+    "p225_104",
+    "p226_073",
+    "p227_072",
+    "p228_072",
+    "p229_072",
+    "p230_076"
+  ],
+  "contents": [
+    "p226_002",
+    "p226_004"
+  ],
+  "profiles": [
+    "native_emb_snr20",
+    "lda_margin_snr20",
+    "lda_margin_snr18_mask3"
+  ],
+  "parent_protocol_sha256": "5015843cc751f13b5c408f1df93c40122d5f478858bf3397c504c4be7211fd8e",
+  "parent_output": "outputs/discriminant/2026-11-09-v2",
+  "planned_conversion_records": 36,
+  "design": "First six already observed development sentences, six enrolled speakers, one anchor and one held-out optimization text, all three parent methods. Fixed before any VQMIVC defense result; original clean-conversion plumbing smoke is separate. Matching clean controls, fixed paired vocoder seeds, GE2E/MOSNet/small.en primary, ECAPA/base secondary. No VQMIVC gradients or outputs for defense optimization or method choice. Not fresh-sentence or full-distribution evidence."
+}

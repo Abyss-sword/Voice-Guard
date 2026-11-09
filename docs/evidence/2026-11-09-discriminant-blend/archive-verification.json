@@ -1,0 +1,11 @@
+{
+  "archive": "blend-evidence.tar.gz",
+  "bytes": 112508703,
+  "sha256": "1d77ac0e236d6599db62ade15b95b13b92c9ad1478b2e05c23221f379dddc8dd",
+  "wav_files": 721,
+  "rows_development": 192,
+  "rows_validation": 160,
+  "recorded_utc": "2026-11-09T15:20:24.718069+00:00",
+  "automatic_shutdown": false,
+  "all_files_verified": 1271
+}

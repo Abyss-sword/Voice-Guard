@@ -1,0 +1,40 @@
+{
+  "post_hoc_clean_only": true,
+  "code_sha256": "ecfaf1afb49816e7c094e04166e1f306b791b691e4c9fc600869ceb8f96b56ec",
+  "rows": [
+    {
+      "path": "data/VCTK22/p226/p226_073.wav",
+      "sha256": "e3c0aa8fd5d0f42d2519f93aaeb5fec1d6cb7c075e9fb58f03e23e001db390f7",
+      "sample_rate": 22050,
+      "samples": 70549,
+      "rms": 0.03453454559744693,
+      "abs_peak": 0.46510010957717896,
+      "feature_shape": [
+        1,
+        80,
+        320
+      ],
+      "feature_mean": -1.3140848875045776,
+      "feature_std": 1.1845881938934326
+    },
+    {
+      "path": "outputs/discriminant/2026-11-09-v2/controls/p226_073/original.wav",
+      "sha256": "b19862223e23d303879e94f35c4c64d0cb4a8f8f1879f5dc09715d8cee7b9715",
+      "sample_rate": 24000,
+      "samples": 76789,
+      "rms": 0.03453058096628183,
+      "abs_peak": 0.47021484375,
+      "feature_shape": [
+        1,
+        80,
+        320
+      ],
+      "feature_mean": -1.3117328882217407,
+      "feature_std": 1.183234691619873
+    }
+  ],
+  "resampled_reference_snr_db": 66.27436208797647,
+  "resampled_max_abs_difference": 0.00021944305060355059,
+  "speaker_embedding_cosine": 0.9999994039535522,
+  "feature_relative_l2": 0.01905304193496704
+}

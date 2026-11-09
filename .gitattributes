@@ -10,6 +10,12 @@ docs/evidence/2026-11-09-staged/** -text whitespace=blank-at-eol,blank-at-eof,sp
 docs/evidence/2026-11-09-joint/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 docs/evidence/2026-11-09-joint-anchored/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 docs/evidence/2026-11-09-content-robust/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+docs/evidence/2026-11-09-discriminant/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+docs/evidence/2026-11-09-discriminant-blend/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+docs/evidence/2026-11-09-vqmivc/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+docs/evidence/2026-11-09-vqmivc-transport/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Preserve the pinned optional VQMIVC/ParallelWaveGAN upstream snapshot verbatim.
+third_party/vqmivc/** -text -whitespace
 # Preserve raw progress logs and generated vector output as emitted by their tools.
 docs/evidence/**/*.log -text -whitespace
 docs/figures/**/*.svg -whitespace

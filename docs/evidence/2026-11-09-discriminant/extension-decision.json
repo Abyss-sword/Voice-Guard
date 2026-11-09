@@ -1,0 +1,16 @@
+{
+  "decided_utc": "2026-11-09T14:09:53.803475+00:00",
+  "protocol_sha256": "5015843cc751f13b5c408f1df93c40122d5f478858bf3397c504c4be7211fd8e",
+  "selection_sha256": "888aab0d4d7a8de1eb2a9cdf0b10cb3d0d3e98658d77ce4c0fad8235b85f6d90",
+  "validation_allowed": false,
+  "checks": {
+    "full_joint_improved": true,
+    "strict_joint_not_worse": true,
+    "original_quality_count_not_worse": true,
+    "every_baseline_passing_original_preserved": true,
+    "wer_not_worse_beyond_tolerance": true,
+    "mos_not_worse_beyond_tolerance": false
+  },
+  "gate": "Selected candidate must strictly improve development full-clean success count, not decrease strict success count or unique original-quality count, preserve every baseline-passing original, macro WER <= baseline+.005, and predicted MOS >= baseline-.05. Otherwise stop without scoring fresh validation.",
+  "new_validation_examined": false
+}

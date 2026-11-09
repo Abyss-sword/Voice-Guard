@@ -1,0 +1,19 @@
+{
+  "recorded_utc": "2026-11-09T14:06:02.787920+00:00",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "torch": "2.5.1+cu124",
+  "cuda": "12.4",
+  "gpu": "Tesla T4",
+  "optional_isolated_packages": {
+    "resampy": "0.4.3",
+    "pyworld": "0.3.5"
+  },
+  "setup": "python -m pip install --no-deps --target outputs/vqmivc/vendor pyworld==0.3.5 resampy==0.4.3",
+  "launch_environment": {
+    "PYTHONPATH": "outputs/vqmivc/vendor",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  },
+  "primary_environment_modified": false,
+  "automatic_shutdown": false
+}

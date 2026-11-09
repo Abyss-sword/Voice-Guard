@@ -1,0 +1,96 @@
+{
+  "frozen_utc": "2026-11-09T14:19:45.147059+00:00",
+  "protocol_sha256": "6b24200c1517addea6d864ffc87eb8da06efaffbb1eaa76650215438e8bbb922",
+  "development_results_sha256": "0b63bd13713277c59f46f2ece9c2d9d8a1371441c5d597b29d110740dd6bf198",
+  "selected": {
+    "profile": {
+      "name": "lda_blend50",
+      "snr_db": 20.0,
+      "mask_relax_db": 0.0,
+      "blend": 0.5
+    },
+    "full_joint": 9,
+    "strict_joint": 22,
+    "protected_quality": 10,
+    "mean_wer": 0.042559523809523804,
+    "mean_mos": 4.126033206780751
+  },
+  "baseline": {
+    "profile": {
+      "name": "native_emb_snr20",
+      "objective": "embedding",
+      "strong_steps": 3000,
+      "conceal_steps": 1500,
+      "strong_snr_db": 15.0,
+      "final_snr_db": 20.0,
+      "learning_rate": 0.001,
+      "final_margin_db": 0.0
+    },
+    "full_joint": 8,
+    "strict_joint": 17,
+    "protected_quality": 10,
+    "mean_wer": 0.042559523809523804,
+    "mean_mos": 4.164028724034627
+  },
+  "all_candidates": [
+    {
+      "profile": {
+        "name": "native_emb_snr20",
+        "objective": "embedding",
+        "strong_steps": 3000,
+        "conceal_steps": 1500,
+        "strong_snr_db": 15.0,
+        "final_snr_db": 20.0,
+        "learning_rate": 0.001,
+        "final_margin_db": 0.0
+      },
+      "full_joint": 8,
+      "strict_joint": 17,
+      "protected_quality": 10,
+      "mean_wer": 0.042559523809523804,
+      "mean_mos": 4.164028724034627
+    },
+    {
+      "profile": {
+        "name": "lda_blend25",
+        "snr_db": 20.0,
+        "mask_relax_db": 0.0,
+        "blend": 0.25
+      },
+      "full_joint": 8,
+      "strict_joint": 20,
+      "protected_quality": 10,
+      "mean_wer": 0.042559523809523804,
+      "mean_mos": 4.142690896987915
+    },
+    {
+      "profile": {
+        "name": "lda_blend50",
+        "snr_db": 20.0,
+        "mask_relax_db": 0.0,
+        "blend": 0.5
+      },
+      "full_joint": 9,
+      "strict_joint": 22,
+      "protected_quality": 10,
+      "mean_wer": 0.042559523809523804,
+      "mean_mos": 4.126033206780751
+    },
+    {
+      "profile": {
+        "name": "lda_blend75",
+        "snr_db": 20.0,
+        "mask_relax_db": 0.0,
+        "blend": 0.75
+      },
+      "full_joint": 9,
+      "strict_joint": 22,
+      "protected_quality": 10,
+      "mean_wer": 0.042559523809523804,
+      "mean_mos": 4.115763048330943
+    }
+  ],
+  "recommended_after_development": "lda_blend50",
+  "validation_examined": false,
+  "selection_rule": "One global challenger selected on development only: maximize full-clean Eq10 success count, strict identity joint count, unique protected-quality count, lower macro WER, higher protected MOS, profile name. Compare this tuple to baseline and retain baseline recommendation unless strictly better. Selected challenger still gets one frozen paired validation for an honest test."
+}

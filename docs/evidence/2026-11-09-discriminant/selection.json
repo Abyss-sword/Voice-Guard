@@ -1,0 +1,80 @@
+{
+  "frozen_utc": "2026-11-09T14:09:53.434047+00:00",
+  "protocol_sha256": "5015843cc751f13b5c408f1df93c40122d5f478858bf3397c504c4be7211fd8e",
+  "development_results_sha256": "ee20e1d8debc93acf1e5ce64484031d8b55915645dbda136e1da4e7022ed5b11",
+  "selected": {
+    "profile": {
+      "name": "lda_margin_snr20",
+      "snr_db": 20.0,
+      "mask_relax_db": 0.0
+    },
+    "full_joint": 10,
+    "strict_joint": 24,
+    "protected_quality": 10,
+    "mean_wer": 0.042559523809523804,
+    "mean_mos": 4.101006984710693
+  },
+  "baseline": {
+    "profile": {
+      "name": "native_emb_snr20",
+      "objective": "embedding",
+      "strong_steps": 3000,
+      "conceal_steps": 1500,
+      "strong_snr_db": 15.0,
+      "final_snr_db": 20.0,
+      "learning_rate": 0.001,
+      "final_margin_db": 0.0
+    },
+    "full_joint": 8,
+    "strict_joint": 17,
+    "protected_quality": 10,
+    "mean_wer": 0.042559523809523804,
+    "mean_mos": 4.164028724034627
+  },
+  "all_candidates": [
+    {
+      "profile": {
+        "name": "native_emb_snr20",
+        "objective": "embedding",
+        "strong_steps": 3000,
+        "conceal_steps": 1500,
+        "strong_snr_db": 15.0,
+        "final_snr_db": 20.0,
+        "learning_rate": 0.001,
+        "final_margin_db": 0.0
+      },
+      "full_joint": 8,
+      "strict_joint": 17,
+      "protected_quality": 10,
+      "mean_wer": 0.042559523809523804,
+      "mean_mos": 4.164028724034627
+    },
+    {
+      "profile": {
+        "name": "lda_margin_snr20",
+        "snr_db": 20.0,
+        "mask_relax_db": 0.0
+      },
+      "full_joint": 10,
+      "strict_joint": 24,
+      "protected_quality": 10,
+      "mean_wer": 0.042559523809523804,
+      "mean_mos": 4.101006984710693
+    },
+    {
+      "profile": {
+        "name": "lda_margin_snr18_mask3",
+        "snr_db": 18.0,
+        "mask_relax_db": 3.0
+      },
+      "full_joint": 8,
+      "strict_joint": 21,
+      "protected_quality": 10,
+      "mean_wer": 0.042559523809523804,
+      "mean_mos": 4.103856285413106
+    }
+  ],
+  "recommended_after_development": "lda_margin_snr20",
+  "validation_examined": false,
+  "selection_rule": "One global challenger selected on development only: maximize full-clean Eq10 success count, strict identity joint count, unique protected-quality count, lower macro WER, higher protected MOS, profile name. Compare this tuple to baseline and retain baseline recommendation unless strictly better. Selected challenger still gets one frozen paired validation for an honest test."
+}
