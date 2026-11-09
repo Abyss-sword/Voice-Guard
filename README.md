@@ -338,6 +338,15 @@ $env:MPLCONFIGDIR="D:\Voice Guard\.mplcache"
 
 ### 云端可做（需登录 T4 ECS 或云资源）
 
+> **一键驱动**：deploy/run_cloud_enhancements.py（本地已 dry-run 验证）覆盖 C1 多种子、C2 扩展样本、
+> ASR 阈值映射与信道扫描：
+> `ash
+> # 在 ECS /root/voiceguard 下：
+> git pull && .venv/bin/python deploy/run_cloud_enhancements.py --dry-run   # 先看命令
+> .venv/bin/python deploy/run_cloud_enhancements.py --max-hours 6           # 断点续跑，已有结果跳过
+> `
+> 结束后会打印「ECS 仍在计费」提醒；回传 outputs/cloud/ 与 outputs/enhancements/。
+
 | # | 事项 | 内容 | 预计 | 状态 |
 |---|---|---|---|---|
 | C1 | 多种子完整批次 | `reproduce.py --seed` 跑 2–3 个种子，报告 mean±std（每种子 9 组×5 句） | 每种子 1–1.5h | ⬜ |
