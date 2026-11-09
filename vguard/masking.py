@@ -153,6 +153,84 @@ def project_masked_delta(delta: np.ndarray, theta: np.ndarray, psd_max: float,
     return wave
 
 
+def masking_exceedance(delta: np.ndarray, theta: np.ndarray, psd_max: float,
+                       n_fft: int, hop_length: int, win_length: int,
+                       margin_db: float = 0.0) -> dict:
+    """测量扰动在各时频格超出掩蔽阈的程度（L2 严格性指标）。
+
+    使用与 project_masked_delta 相同的 center=True STFT，保证与 theta 帧对齐。
+    返回：exceed_frac（超阈格占比）、mean_excess_db、max_excess_db、峰值/RMS。
+    """
+    delta = np.asarray(delta, dtype=np.float64)
+    spectrum = librosa.stft(delta.astype(np.float32), n_fft=n_fft, hop_length=hop_length,
+                            win_length=win_length, center=True, pad_mode="reflect")
+    thr = np.asarray(theta, dtype=np.float64).T - margin_db
+    n = min(spectrum.shape[1], thr.shape[1])
+    spectrum, thr = spectrum[:, :n], thr[:, :n]
+    z = math.sqrt(8.0 / 3.0) * np.abs(spectrum) / win_length
+    psd = 10 * np.log10(z * z + 1e-19) + (96 - 10 * math.log10(float(psd_max) + 1e-19))
+    excess = psd - thr
+    frac = float(np.mean(excess > 0))
+    pos = excess[excess > 0]
+    return {"exceed_frac": round(frac, 5),
+            "mean_excess_db": round(float(pos.mean()), 3) if pos.size else 0.0,
+            "max_excess_db": round(float(pos.max()), 3) if pos.size else 0.0,
+            "peak": round(float(np.abs(delta).max()), 6),
+            "rms": round(float(np.sqrt(np.mean(delta ** 2) + 1e-19)), 6)}
+
+
+def project_masked_delta_hard(delta: np.ndarray, theta: np.ndarray, psd_max: float,
+                              n_fft: int, hop_length: int, win_length: int,
+                              max_iters: int = 200, margin_db: float = 0.0,
+                              tol: float = 0.0) -> tuple[np.ndarray, dict]:
+    """L2：把扰动硬投影到 θx 之下（逐格钳位 + 迭代到不再超阈）。
+
+    与 project_masked_delta 的区别：默认 margin_db=0（更严格）且迭代到
+    exceed_frac <= tol 为止，返回最终扰动与诊断信息。
+    """
+    wave = np.asarray(delta, dtype=np.float32).copy()
+    cap = float(np.max(np.abs(wave)))
+    diag = {"iters": 0, "exceed_frac": 1.0}
+    for it in range(1, int(max_iters) + 1):
+        out = project_masked_delta(wave, theta, psd_max, n_fft, hop_length, win_length,
+                                   iterations=1, margin_db=margin_db)
+        wave = np.clip(out, -cap, cap).astype(np.float32)
+        diag = masking_exceedance(wave, theta, psd_max, n_fft, hop_length, win_length,
+                                  margin_db=margin_db)
+        diag["iters"] = it
+        if diag["exceed_frac"] <= tol:
+            break
+    return wave, diag
+
+
+def project_to_mask_exact(delta: np.ndarray, theta: np.ndarray, psd_max: float,
+                          n_fft: int, hop_length: int, win_length: int,
+                          margin_db: float = 0.0) -> tuple[np.ndarray, dict]:
+    """L2 严格版：一次性缩放扰动，使**每个**时频格都不超过 θx。
+
+    PSD 与幅度平方成正比，故按最紧的违规格求缩放因子 s ≤ 1；
+    返回 (缩放后扰动, {"scale": s, ...})。代价是扰动整体变弱（SNR 上升）。
+    """
+    delta = np.asarray(delta, dtype=np.float64)
+    spectrum = librosa.stft(delta.astype(np.float32), n_fft=n_fft, hop_length=hop_length,
+                            win_length=win_length, center=True, pad_mode="reflect")
+    thr = np.asarray(theta, dtype=np.float64).T - margin_db
+    n = min(spectrum.shape[1], thr.shape[1])
+    spectrum, thr = spectrum[:, :n], thr[:, :n]
+    z = math.sqrt(8.0 / 3.0) * np.abs(spectrum) / win_length
+    psd = 10 * np.log10(z * z + 1e-19) + (96 - 10 * math.log10(float(psd_max) + 1e-19))
+    over = psd - thr
+    if not np.any(over > 0):
+        return delta.astype(np.float32), {"scale": 1.0, "exceed_frac": 0.0}
+    # 每个违规格要求的最大缩放：10^(-over/20)，取最小
+    s = float(np.min(np.power(10.0, -over[over > 0] / 20.0)))
+    scaled = (delta * s).astype(np.float32)
+    diag = masking_exceedance(scaled, theta, psd_max, n_fft, hop_length, win_length,
+                              margin_db=margin_db)
+    diag["scale"] = round(s, 6)
+    return scaled, diag
+
+
 def generate_th(audio: np.ndarray, sample_rate: int, n_fft: int, hop_length: int, win_length: int):
     """返回 (theta_xs, psd_max)。theta_xs 形状 (n_frames, n_freq)。"""
     PSD, psd_max = compute_PSD_matrix(
