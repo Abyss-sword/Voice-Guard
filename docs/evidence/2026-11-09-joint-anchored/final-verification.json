@@ -1,0 +1,293 @@
+{
+  "checked_utc": "2026-11-09T11:03:22.604594+00:00",
+  "protocol_sha256": "da92df9837ddb18ebde3e1b0f160cebab0baeff44bf08cd710d177928adaf65a",
+  "selection_sha256": "4388fd2bc76180964b6b214f8ec1d7bd48432536545e2899c517860d3bdd89b1",
+  "execution_source_verified": {
+    "vguard/joint_recovery.py": {
+      "execution_sha256": "24037e5f86c079ce8ab63da310ac0f6936d642e97633c7d8ec95c8d04f16205f",
+      "delivery_sha256": "24037e5f86c079ce8ab63da310ac0f6936d642e97633c7d8ec95c8d04f16205f",
+      "byte_identical": true,
+      "equal_after_lf_normalization": true
+    },
+    "scripts/run_joint_recovery.py": {
+      "execution_sha256": "8a571bd23347fbe819286b6b81e96bb3879cb1cfe5c6b0a767e701caa7ebe9a0",
+      "delivery_sha256": "8a571bd23347fbe819286b6b81e96bb3879cb1cfe5c6b0a767e701caa7ebe9a0",
+      "byte_identical": true,
+      "equal_after_lf_normalization": true
+    },
+    "tools/prepare_joint_recovery.py": {
+      "execution_sha256": "9c21e29b8de6efa2108a455bcc95dfb7c214460e6841164788b6aba94543cdda",
+      "delivery_sha256": "9c21e29b8de6efa2108a455bcc95dfb7c214460e6841164788b6aba94543cdda",
+      "byte_identical": true,
+      "equal_after_lf_normalization": true
+    },
+    "tools/analyze_joint_recovery.py": {
+      "execution_sha256": "28a3d5c0dc9fe8360811a00d4f3bd13ef3246f025db790810ae2d48699af549d",
+      "delivery_sha256": "28a3d5c0dc9fe8360811a00d4f3bd13ef3246f025db790810ae2d48699af549d",
+      "byte_identical": true,
+      "equal_after_lf_normalization": true
+    },
+    "tools/analyze_staged_recovery.py": {
+      "execution_sha256": "34be54e1154eb9830ef93b3459968b06f0f5868de1eb825a15de63724033e113",
+      "delivery_sha256": "34be54e1154eb9830ef93b3459968b06f0f5868de1eb825a15de63724033e113",
+      "byte_identical": true,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/staged_recovery.py": {
+      "execution_sha256": "2f149f2c8f823c38067621292c0e1058773351f536e8fb4c0d07b99fe9296495",
+      "delivery_sha256": "2f149f2c8f823c38067621292c0e1058773351f536e8fb4c0d07b99fe9296495",
+      "byte_identical": true,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/recovery.py": {
+      "execution_sha256": "f5025a1ecf3ae867acfe708fb3e8f1499e9ba246de9bf356baf825e0d4e45001",
+      "delivery_sha256": "2b07cb39802570b88e4dd29c2aa5c666d5dc3823622ab1515ebc66492a507580",
+      "byte_identical": false,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/features.py": {
+      "execution_sha256": "61970004de9afac52cc3804658688d04102205426bd7cbf0f19932a0ae24f767",
+      "delivery_sha256": "16ec2985e8cf82358c14a319ab15613997652c009dbf10cdb30abd5f685bcf76",
+      "byte_identical": false,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/masking.py": {
+      "execution_sha256": "c44bd63e9df70bd8525cff04759bda1cd5af46072f807c746a606e86dfb2d830",
+      "delivery_sha256": "d3b5000cef4b9bc1d56b40f9f8f5af5d08742bd7e4b9e780bf78c817b62d04e8",
+      "byte_identical": false,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/vc/adainvc.py": {
+      "execution_sha256": "b79a3e9cff2a0357473d0bdf6c0df266c3b9fde1d69b545526a22290287f78b8",
+      "delivery_sha256": "59aa141bd1b2f1738b033debf7725fce0aea9c125dc5aa92f06d1ca4b99c5878",
+      "byte_identical": false,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/asv.py": {
+      "execution_sha256": "a0561d5de6a2b00067add163622c4425545382d8d1c735a3e5ecb8fef9cfd511",
+      "delivery_sha256": "27a969bf96f7a5e2abf2a823568ebd97c749506547dd7e7d1ef788685be99a25",
+      "byte_identical": false,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/audio.py": {
+      "execution_sha256": "38d7688a5a0fe4e0dd5590ca5c8909d27c1127ef5a10e59dc1e404f1a1cbe74f",
+      "delivery_sha256": "5b025eb903d8c6dd9fe289f1bb1312d4ec718b3c63943a04cd12f2e7b7062d6f",
+      "byte_identical": false,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/metrics/staged.py": {
+      "execution_sha256": "c6bd268b68645fcf769861c1c3fa4c044462a053d54227d1839f56a72eb5764e",
+      "delivery_sha256": "c6bd268b68645fcf769861c1c3fa4c044462a053d54227d1839f56a72eb5764e",
+      "byte_identical": true,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/metrics/wer.py": {
+      "execution_sha256": "75f953eecdc415fbd338eb42cb551d163f1de2d7f9055fac2b36081ec5f21f07",
+      "delivery_sha256": "b2688c6629e5eacc1c786d6d9e9fd9d82f1e91703ee533d317754f3e5f87b814",
+      "byte_identical": false,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/metrics/mos_original.py": {
+      "execution_sha256": "d41771ece8132bf97fff3488962cefaead85c9d5edcd0fc7ece2fc58c5d20e5d",
+      "delivery_sha256": "58f3b43ee3d09e4e087355f66a1f9140ed281344cb00665d2bd2e83545441a80",
+      "byte_identical": false,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/run_state.py": {
+      "execution_sha256": "b60f5de10999981242aeedbc2b2105054b3a7e69cd2b0b184b9fba0dc63ddf5b",
+      "delivery_sha256": "b60f5de10999981242aeedbc2b2105054b3a7e69cd2b0b184b9fba0dc63ddf5b",
+      "byte_identical": true,
+      "equal_after_lf_normalization": true
+    },
+    "third_party/ada_in_vc/model.py": {
+      "execution_sha256": "a0a2b8201e8c45eceab6b626fbef0ed67e07faad3509baca98b68f2fa208bdd7",
+      "delivery_sha256": "3f602da959517ad927ea0525797928559f0205325bdb25c8804f02685b316480",
+      "byte_identical": false,
+      "equal_after_lf_normalization": true
+    }
+  },
+  "independent_analysis_recomputed": true,
+  "archive": {
+    "archive": "joint-evidence.tar.gz",
+    "bytes": 62660572,
+    "sha256": "b231f74d1f2d7dd8ca9b1a9dbb242d528c33557154bcedb8d8888aa47f09c5f0",
+    "measured_wavs_verified_against_scores": 372,
+    "wav_files": 400,
+    "development_only": false,
+    "note": "Model weights excluded; use the existing complete model/ASR packages. Original input WAVs, enrolled prototypes, outputs and frozen execution bytes included. ECAPA is an optimization surrogate, not independent evaluation.",
+    "all_files_verified": 862,
+    "local_archive_verified": true
+  },
+  "prior_archives_unchanged": {
+    "outputs/course/final-complete-evidence.tar.gz": "4984c94226caae7eb4602cb804b6217bf94d1eedd34c73e898a944a3ed341b3f",
+    "outputs/paper_quality/final-recovery-evidence.tar.gz": "9a2aeb9e389b5910c0f5723ff5c87ebc40a13925efbf760c2c10a045f61a3a5d",
+    "outputs/staged_recovery/final-staged-evidence.tar.gz": "874865a9d35672143a8cbbac105bb5724189698d805fd4d0efaf8f5ea2134c80"
+  },
+  "extension": {
+    "execution_source_verified": {
+      "vguard/joint_recovery.py": {
+        "execution_sha256": "24037e5f86c079ce8ab63da310ac0f6936d642e97633c7d8ec95c8d04f16205f",
+        "delivery_sha256": "24037e5f86c079ce8ab63da310ac0f6936d642e97633c7d8ec95c8d04f16205f",
+        "byte_identical": true,
+        "equal_after_lf_normalization": true
+      },
+      "scripts/run_joint_recovery.py": {
+        "execution_sha256": "8a571bd23347fbe819286b6b81e96bb3879cb1cfe5c6b0a767e701caa7ebe9a0",
+        "delivery_sha256": "8a571bd23347fbe819286b6b81e96bb3879cb1cfe5c6b0a767e701caa7ebe9a0",
+        "byte_identical": true,
+        "equal_after_lf_normalization": true
+      },
+      "tools/prepare_joint_recovery.py": {
+        "execution_sha256": "9c21e29b8de6efa2108a455bcc95dfb7c214460e6841164788b6aba94543cdda",
+        "delivery_sha256": "9c21e29b8de6efa2108a455bcc95dfb7c214460e6841164788b6aba94543cdda",
+        "byte_identical": true,
+        "equal_after_lf_normalization": true
+      },
+      "tools/analyze_joint_recovery.py": {
+        "execution_sha256": "28a3d5c0dc9fe8360811a00d4f3bd13ef3246f025db790810ae2d48699af549d",
+        "delivery_sha256": "28a3d5c0dc9fe8360811a00d4f3bd13ef3246f025db790810ae2d48699af549d",
+        "byte_identical": true,
+        "equal_after_lf_normalization": true
+      },
+      "tools/analyze_staged_recovery.py": {
+        "execution_sha256": "34be54e1154eb9830ef93b3459968b06f0f5868de1eb825a15de63724033e113",
+        "delivery_sha256": "34be54e1154eb9830ef93b3459968b06f0f5868de1eb825a15de63724033e113",
+        "byte_identical": true,
+        "equal_after_lf_normalization": true
+      },
+      "vguard/staged_recovery.py": {
+        "execution_sha256": "2f149f2c8f823c38067621292c0e1058773351f536e8fb4c0d07b99fe9296495",
+        "delivery_sha256": "2f149f2c8f823c38067621292c0e1058773351f536e8fb4c0d07b99fe9296495",
+        "byte_identical": true,
+        "equal_after_lf_normalization": true
+      },
+      "vguard/recovery.py": {
+        "execution_sha256": "f5025a1ecf3ae867acfe708fb3e8f1499e9ba246de9bf356baf825e0d4e45001",
+        "delivery_sha256": "2b07cb39802570b88e4dd29c2aa5c666d5dc3823622ab1515ebc66492a507580",
+        "byte_identical": false,
+        "equal_after_lf_normalization": true
+      },
+      "vguard/features.py": {
+        "execution_sha256": "61970004de9afac52cc3804658688d04102205426bd7cbf0f19932a0ae24f767",
+        "delivery_sha256": "16ec2985e8cf82358c14a319ab15613997652c009dbf10cdb30abd5f685bcf76",
+        "byte_identical": false,
+        "equal_after_lf_normalization": true
+      },
+      "vguard/masking.py": {
+        "execution_sha256": "c44bd63e9df70bd8525cff04759bda1cd5af46072f807c746a606e86dfb2d830",
+        "delivery_sha256": "d3b5000cef4b9bc1d56b40f9f8f5af5d08742bd7e4b9e780bf78c817b62d04e8",
+        "byte_identical": false,
+        "equal_after_lf_normalization": true
+      },
+      "vguard/vc/adainvc.py": {
+        "execution_sha256": "b79a3e9cff2a0357473d0bdf6c0df266c3b9fde1d69b545526a22290287f78b8",
+        "delivery_sha256": "59aa141bd1b2f1738b033debf7725fce0aea9c125dc5aa92f06d1ca4b99c5878",
+        "byte_identical": false,
+        "equal_after_lf_normalization": true
+      },
+      "vguard/asv.py": {
+        "execution_sha256": "a0561d5de6a2b00067add163622c4425545382d8d1c735a3e5ecb8fef9cfd511",
+        "delivery_sha256": "27a969bf96f7a5e2abf2a823568ebd97c749506547dd7e7d1ef788685be99a25",
+        "byte_identical": false,
+        "equal_after_lf_normalization": true
+      },
+      "vguard/audio.py": {
+        "execution_sha256": "38d7688a5a0fe4e0dd5590ca5c8909d27c1127ef5a10e59dc1e404f1a1cbe74f",
+        "delivery_sha256": "5b025eb903d8c6dd9fe289f1bb1312d4ec718b3c63943a04cd12f2e7b7062d6f",
+        "byte_identical": false,
+        "equal_after_lf_normalization": true
+      },
+      "vguard/metrics/staged.py": {
+        "execution_sha256": "c6bd268b68645fcf769861c1c3fa4c044462a053d54227d1839f56a72eb5764e",
+        "delivery_sha256": "c6bd268b68645fcf769861c1c3fa4c044462a053d54227d1839f56a72eb5764e",
+        "byte_identical": true,
+        "equal_after_lf_normalization": true
+      },
+      "vguard/metrics/wer.py": {
+        "execution_sha256": "75f953eecdc415fbd338eb42cb551d163f1de2d7f9055fac2b36081ec5f21f07",
+        "delivery_sha256": "b2688c6629e5eacc1c786d6d9e9fd9d82f1e91703ee533d317754f3e5f87b814",
+        "byte_identical": false,
+        "equal_after_lf_normalization": true
+      },
+      "vguard/metrics/mos_original.py": {
+        "execution_sha256": "d41771ece8132bf97fff3488962cefaead85c9d5edcd0fc7ece2fc58c5d20e5d",
+        "delivery_sha256": "58f3b43ee3d09e4e087355f66a1f9140ed281344cb00665d2bd2e83545441a80",
+        "byte_identical": false,
+        "equal_after_lf_normalization": true
+      },
+      "vguard/run_state.py": {
+        "execution_sha256": "b60f5de10999981242aeedbc2b2105054b3a7e69cd2b0b184b9fba0dc63ddf5b",
+        "delivery_sha256": "b60f5de10999981242aeedbc2b2105054b3a7e69cd2b0b184b9fba0dc63ddf5b",
+        "byte_identical": true,
+        "equal_after_lf_normalization": true
+      },
+      "third_party/ada_in_vc/model.py": {
+        "execution_sha256": "a0a2b8201e8c45eceab6b626fbef0ed67e07faad3509baca98b68f2fa208bdd7",
+        "delivery_sha256": "3f602da959517ad927ea0525797928559f0205325bdb25c8804f02685b316480",
+        "byte_identical": false,
+        "equal_after_lf_normalization": true
+      },
+      "vguard/anchored_joint_recovery.py": {
+        "execution_sha256": "1e6d5113c1ba52d3443de28d83adc46e99fa9b2a86c737f5bcc67955a9cddbb4",
+        "delivery_sha256": "1e6d5113c1ba52d3443de28d83adc46e99fa9b2a86c737f5bcc67955a9cddbb4",
+        "byte_identical": true,
+        "equal_after_lf_normalization": true
+      },
+      "scripts/run_anchored_joint.py": {
+        "execution_sha256": "6764e8a38f83f60d626b0e3067a8b57e8b6523a76632af15919dba1c6996dbae",
+        "delivery_sha256": "6764e8a38f83f60d626b0e3067a8b57e8b6523a76632af15919dba1c6996dbae",
+        "byte_identical": true,
+        "equal_after_lf_normalization": true
+      },
+      "tools/prepare_anchored_joint.py": {
+        "execution_sha256": "54019184fa72b1a2e4d701a59d4c201d10b8ac1caa69218498a62dc93bc08ec6",
+        "delivery_sha256": "54019184fa72b1a2e4d701a59d4c201d10b8ac1caa69218498a62dc93bc08ec6",
+        "byte_identical": true,
+        "equal_after_lf_normalization": true
+      },
+      "tools/decide_anchored_validation.py": {
+        "execution_sha256": "3760a663c8e59862db43562efa3718829e32d8965cc9be9122e5229ff816bc05",
+        "delivery_sha256": "3760a663c8e59862db43562efa3718829e32d8965cc9be9122e5229ff816bc05",
+        "byte_identical": true,
+        "equal_after_lf_normalization": true
+      }
+    },
+    "archive": {
+      "archive": "anchored-evidence.tar.gz",
+      "bytes": 33137902,
+      "sha256": "28526b1cedade34a67347d33125e407a5e5c57cd09941a7eb7f6656c599c0229",
+      "measured_wavs_verified_against_scores": 195,
+      "wav_files": 213,
+      "development_only": false,
+      "note": "Model weights excluded; use the existing complete model/ASR packages. Original input WAVs, enrolled prototypes, outputs and frozen execution bytes included. ECAPA is an optimization surrogate, not independent evaluation.",
+      "all_files_verified": 550,
+      "local_archive_verified": true
+    },
+    "validation_allowed": true,
+    "decision_sha256": "22b90c1b025fed464e795d52dcf999a61b673e97b1a1c8bd211129a7376d451e",
+    "independent_analysis_recomputed": true,
+    "combined_markdown_sha256": "0b8c3a7330f3c80034c574dd596a4ddc1823987bcc288bd1766d81a133c3fe1f"
+  },
+  "unit_tests": {
+    "count": 45,
+    "passed": true,
+    "log_sha256": "63cf2a62b8ba83b63b165bd30c0d3da379e923612ca5ed9c5d1b40b0a286d6fc"
+  },
+  "report": {
+    "path": "deliverables/Voice_Guard_联合质量优化报告.pdf",
+    "sha256": "1231b2dee2f3e803c02799b0f0a5b4bfc3ad11e59dfc50989ff3553c560479ec",
+    "pages": 5,
+    "rendered_page_sha256": {
+      "page-01.png": "7db4d1c69edcf3a94a5867c85f02c81d70b9a6b456b61f06faf07440f620719c",
+      "page-02.png": "97eb858f6bffa6a3119a1a6ea7aef1fafaffe5da8f786efeb3f79ea32b24f5d9",
+      "page-03.png": "bd340c290daf764fad0fe5efe39cc296964d59352f996ebaad3a7add92413ac6",
+      "page-04.png": "5f5dcfa19e12a2a4beec00ec355eac4918dfb6e9287e5c58b46b908cf0d94edf",
+      "page-05.png": "20e7723f2e8438cbabc8df6349697d75f06812ccbbf91a16c9527329330f103d"
+    },
+    "visual_review": "All latest rendered pages inspected; no clipping or overlap observed"
+  },
+  "human_mos_ratings": 0,
+  "ecapa_participates_in_gradient": true,
+  "automatic_shutdown": false,
+  "claim": "Exploratory paired validation; no paper-scale equivalence claim"
+}

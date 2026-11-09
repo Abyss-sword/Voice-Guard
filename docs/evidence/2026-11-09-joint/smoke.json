@@ -1,0 +1,39 @@
+{
+  "development_only": true,
+  "official_samples": 138900,
+  "surrogate_samples_trimmed": 138900,
+  "waveform_correlation": 0.9999999995280353,
+  "relative_waveform_error": 3.072344770771451e-05,
+  "mel_gradient_l1": 8.759809494018555,
+  "gradient_finite": true,
+  "details": {
+    "trace": [
+      {
+        "step": 3,
+        "content_index": 0,
+        "loss": 0.18842078745365143,
+        "output_identity_margin": 0.134882390499115,
+        "guard": 0.0017691977554932237,
+        "identity_preservation": 0.0,
+        "content_relative_mse": 0.02884598821401596,
+        "spectral_relative_l1": 0.006620412692427635,
+        "guard_weight_next": 2.0,
+        "elapsed_s": 1.31
+      }
+    ],
+    "surrogate": "ECAPA, participates in gradients",
+    "held_out": [
+      "GE2E",
+      "MOSNet",
+      "Whisper base",
+      "Whisper small.en"
+    ],
+    "phase_gradient": "last 2 GL iterations; preceding phases detached",
+    "forward_gl_iterations": 100,
+    "guarded": true,
+    "content_guard": "AdaIN content latent and multi-resolution spectra, not a direct ASR constraint",
+    "elapsed_s": 1.33
+  },
+  "elapsed_s": 9.521012573000917,
+  "peak_gpu_memory_bytes": 478735872
+}

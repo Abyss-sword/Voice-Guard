@@ -1,0 +1,499 @@
+{
+  "source_sha256": "80afb9114f69903b8e8a9557ffa163dc624189ccf449e321186d991c484860c2",
+  "clean_pairs": 40,
+  "full_quality_pass": 6,
+  "failure_reasons_nonexclusive": {
+    "mos": 6,
+    "wer": 34,
+    "identity": 9
+  },
+  "distinct_reference_texts": [
+    "Ask her to bring these things with her from the store."
+  ],
+  "note": "Historical frozen gates retained. WER>10% on an 11-word sentence permits at most one word error. New experiment broadens fixed content sources before evaluation; no historical scores are replaced.",
+  "details": [
+    {
+      "utterance": "p225_081",
+      "content": "p226_002",
+      "failures": [
+        "mos",
+        "wer"
+      ],
+      "mos": 2.9145772457122803,
+      "wer": 0.18181818181818182,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "That's her, to bring these things with her from the store.",
+      "english_normalized_wer_diagnostic": 0.18181818181818182
+    },
+    {
+      "utterance": "p225_081",
+      "content": "p227_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 3.630890130996704,
+      "wer": 0.45454545454545453,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "I'm going to break these things with her from the start",
+      "english_normalized_wer_diagnostic": 0.45454545454545453
+    },
+    {
+      "utterance": "p225_082",
+      "content": "p226_002",
+      "failures": [
+        "identity",
+        "wer"
+      ],
+      "mos": 3.525846242904663,
+      "wer": 0.36363636363636365,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "I had to bring these things with her from this dog.",
+      "english_normalized_wer_diagnostic": 0.36363636363636365
+    },
+    {
+      "utterance": "p225_082",
+      "content": "p227_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 4.299089431762695,
+      "wer": 0.18181818181818182,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "I ask her to bring these things with her from the start",
+      "english_normalized_wer_diagnostic": 0.18181818181818182
+    },
+    {
+      "utterance": "p226_063",
+      "content": "p226_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 3.3555691242218018,
+      "wer": 0.18181818181818182,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "I asked her to bring these things with her from the store.",
+      "english_normalized_wer_diagnostic": 0.18181818181818182
+    },
+    {
+      "utterance": "p226_063",
+      "content": "p227_002",
+      "failures": [],
+      "mos": 4.211175441741943,
+      "wer": 0.09090909090909091,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "Ask her to bring these things with her from the start.",
+      "english_normalized_wer_diagnostic": 0.09090909090909091
+    },
+    {
+      "utterance": "p226_064",
+      "content": "p226_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 4.679258823394775,
+      "wer": 0.2727272727272727,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "I ask her to bring the entertainment with her from the store.",
+      "english_normalized_wer_diagnostic": 0.2727272727272727
+    },
+    {
+      "utterance": "p226_064",
+      "content": "p227_002",
+      "failures": [],
+      "mos": 4.888625621795654,
+      "wer": 0.09090909090909091,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "asked her to bring these things with her from the store.",
+      "english_normalized_wer_diagnostic": 0.09090909090909091
+    },
+    {
+      "utterance": "p227_062",
+      "content": "p226_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 4.487440586090088,
+      "wer": 0.36363636363636365,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "I asked her to bring the entertainment with her from the store.",
+      "english_normalized_wer_diagnostic": 0.36363636363636365
+    },
+    {
+      "utterance": "p227_062",
+      "content": "p227_002",
+      "failures": [],
+      "mos": 4.49580192565918,
+      "wer": 0.09090909090909091,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "asked her to bring these things with her from the store.",
+      "english_normalized_wer_diagnostic": 0.09090909090909091
+    },
+    {
+      "utterance": "p227_063",
+      "content": "p226_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 4.120965480804443,
+      "wer": 0.5454545454545454,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "I also tried to bring this thing with power from the store.",
+      "english_normalized_wer_diagnostic": 0.5454545454545454
+    },
+    {
+      "utterance": "p227_063",
+      "content": "p227_002",
+      "failures": [],
+      "mos": 4.427601337432861,
+      "wer": 0.0,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "Ask her to bring these things with her from the store.",
+      "english_normalized_wer_diagnostic": 0.0
+    },
+    {
+      "utterance": "p228_062",
+      "content": "p226_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 3.4379377365112305,
+      "wer": 0.9090909090909091,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "Pass out to Brolymood, their names for power coming with the goal.",
+      "english_normalized_wer_diagnostic": 0.9090909090909091
+    },
+    {
+      "utterance": "p228_062",
+      "content": "p227_002",
+      "failures": [
+        "identity",
+        "wer"
+      ],
+      "mos": 3.8197600841522217,
+      "wer": 0.18181818181818182,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "Ask her to bring these things with her on the star.",
+      "english_normalized_wer_diagnostic": 0.18181818181818182
+    },
+    {
+      "utterance": "p228_063",
+      "content": "p226_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 4.0432610511779785,
+      "wer": 0.7272727272727273,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "I also had to brand these things with half of a dollar.",
+      "english_normalized_wer_diagnostic": 0.7272727272727273
+    },
+    {
+      "utterance": "p228_063",
+      "content": "p227_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 4.0649800300598145,
+      "wer": 1.1818181818181819,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "House of Cards are very good videos of things, of what they have from the stars.",
+      "english_normalized_wer_diagnostic": 1.1818181818181819
+    },
+    {
+      "utterance": "p229_062",
+      "content": "p226_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 4.396620750427246,
+      "wer": 0.45454545454545453,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "pass cut to brain-reviewed things with half from the store.",
+      "english_normalized_wer_diagnostic": 0.45454545454545453
+    },
+    {
+      "utterance": "p229_062",
+      "content": "p227_002",
+      "failures": [],
+      "mos": 4.4917192459106445,
+      "wer": 0.09090909090909091,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "Ask her to bring these things with her from the start.",
+      "english_normalized_wer_diagnostic": 0.09090909090909091
+    },
+    {
+      "utterance": "p229_063",
+      "content": "p226_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 3.8812968730926514,
+      "wer": 0.36363636363636365,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "I asked her to bring the statements with her from the store.",
+      "english_normalized_wer_diagnostic": 0.36363636363636365
+    },
+    {
+      "utterance": "p229_063",
+      "content": "p227_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 4.405018329620361,
+      "wer": 0.18181818181818182,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "asked her to bring these things with her from the start.",
+      "english_normalized_wer_diagnostic": 0.18181818181818182
+    },
+    {
+      "utterance": "p230_065",
+      "content": "p226_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 3.7010650634765625,
+      "wer": 0.45454545454545453,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "That's it to bring these things with her from this doll.",
+      "english_normalized_wer_diagnostic": 0.45454545454545453
+    },
+    {
+      "utterance": "p230_065",
+      "content": "p227_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 3.889206886291504,
+      "wer": 0.18181818181818182,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "Ask her to break these things with her from the star",
+      "english_normalized_wer_diagnostic": 0.18181818181818182
+    },
+    {
+      "utterance": "p230_066",
+      "content": "p226_002",
+      "failures": [],
+      "mos": 3.339816093444824,
+      "wer": 0.09090909090909091,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "asked her to bring these things with her from the store.",
+      "english_normalized_wer_diagnostic": 0.09090909090909091
+    },
+    {
+      "utterance": "p230_066",
+      "content": "p227_002",
+      "failures": [
+        "mos",
+        "wer"
+      ],
+      "mos": 2.8319859504699707,
+      "wer": 0.2727272727272727,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "I asked her to bring these things with her from the start.",
+      "english_normalized_wer_diagnostic": 0.2727272727272727
+    },
+    {
+      "utterance": "p231_063",
+      "content": "p226_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 4.275394916534424,
+      "wer": 0.8181818181818182,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "to bring these to the individual power between this door.",
+      "english_normalized_wer_diagnostic": 0.8181818181818182
+    },
+    {
+      "utterance": "p231_063",
+      "content": "p227_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 4.445390701293945,
+      "wer": 0.6363636363636364,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "about to go to breaking beat with her from the door",
+      "english_normalized_wer_diagnostic": 0.6363636363636364
+    },
+    {
+      "utterance": "p231_064",
+      "content": "p226_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 4.4925031661987305,
+      "wer": 0.36363636363636365,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "That's good to bring these things with her from the storm.",
+      "english_normalized_wer_diagnostic": 0.36363636363636365
+    },
+    {
+      "utterance": "p231_064",
+      "content": "p227_002",
+      "failures": [
+        "identity",
+        "wer"
+      ],
+      "mos": 4.4721360206604,
+      "wer": 0.2727272727272727,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "I scared to bring these things with her from the start",
+      "english_normalized_wer_diagnostic": 0.2727272727272727
+    },
+    {
+      "utterance": "p232_061",
+      "content": "p226_002",
+      "failures": [
+        "identity",
+        "wer"
+      ],
+      "mos": 3.1812307834625244,
+      "wer": 0.18181818181818182,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "I asked her to bring these things with her from the store.",
+      "english_normalized_wer_diagnostic": 0.18181818181818182
+    },
+    {
+      "utterance": "p232_061",
+      "content": "p227_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 3.9082720279693604,
+      "wer": 0.18181818181818182,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "Ask her to break these things with her from the stall.",
+      "english_normalized_wer_diagnostic": 0.18181818181818182
+    },
+    {
+      "utterance": "p232_062",
+      "content": "p226_002",
+      "failures": [
+        "identity",
+        "wer"
+      ],
+      "mos": 3.0798308849334717,
+      "wer": 0.18181818181818182,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "I'll ask her to bring these things with her from the store.",
+      "english_normalized_wer_diagnostic": 0.18181818181818182
+    },
+    {
+      "utterance": "p232_062",
+      "content": "p227_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 3.8334507942199707,
+      "wer": 0.18181818181818182,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "Ask her to bring these things with her for the stall.",
+      "english_normalized_wer_diagnostic": 0.18181818181818182
+    },
+    {
+      "utterance": "p233_066",
+      "content": "p226_002",
+      "failures": [
+        "identity",
+        "mos",
+        "wer"
+      ],
+      "mos": 2.8792617321014404,
+      "wer": 0.45454545454545453,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "I was asked to bring this thing with her from the store.",
+      "english_normalized_wer_diagnostic": 0.45454545454545453
+    },
+    {
+      "utterance": "p233_066",
+      "content": "p227_002",
+      "failures": [
+        "mos",
+        "wer"
+      ],
+      "mos": 2.9204466342926025,
+      "wer": 0.7272727272727273,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "That's the character breaking these things with F on the star.",
+      "english_normalized_wer_diagnostic": 0.7272727272727273
+    },
+    {
+      "utterance": "p233_067",
+      "content": "p226_002",
+      "failures": [
+        "identity",
+        "mos",
+        "wer"
+      ],
+      "mos": 2.8506903648376465,
+      "wer": 0.18181818181818182,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "to bring these things with her from the store.",
+      "english_normalized_wer_diagnostic": 0.18181818181818182
+    },
+    {
+      "utterance": "p233_067",
+      "content": "p227_002",
+      "failures": [
+        "identity",
+        "mos",
+        "wer"
+      ],
+      "mos": 2.7636334896087646,
+      "wer": 0.18181818181818182,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "asked her to bring these things with her from the start.",
+      "english_normalized_wer_diagnostic": 0.18181818181818182
+    },
+    {
+      "utterance": "p234_062",
+      "content": "p226_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 4.4960713386535645,
+      "wer": 0.7272727272727273,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "I had to burn this damage with half of the stone.",
+      "english_normalized_wer_diagnostic": 0.7272727272727273
+    },
+    {
+      "utterance": "p234_062",
+      "content": "p227_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 4.728405475616455,
+      "wer": 0.6363636363636364,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "Ask her to brag about those things, what happened to the staff.",
+      "english_normalized_wer_diagnostic": 0.6363636363636364
+    },
+    {
+      "utterance": "p234_063",
+      "content": "p226_002",
+      "failures": [
+        "identity",
+        "wer"
+      ],
+      "mos": 4.2178544998168945,
+      "wer": 0.36363636363636365,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "As it to bring these things with her from stone.",
+      "english_normalized_wer_diagnostic": 0.36363636363636365
+    },
+    {
+      "utterance": "p234_063",
+      "content": "p227_002",
+      "failures": [
+        "wer"
+      ],
+      "mos": 4.204970836639404,
+      "wer": 0.5454545454545454,
+      "reference": "Ask her to bring these things with her from the store.",
+      "hypothesis": "that's good to break these things with her and the star",
+      "english_normalized_wer_diagnostic": 0.5454545454545454
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "validation_results_sha256": "068c923a853cd61f4983d88b9c342fbcd9f07210b7d24bac469aaa6134153aa9",
+  "audit_code_sha256": "08b1f752f5381d601df4e31638cccc4887a2da323f9c1897ba6f8d5d8e28e6ba",
+  "post_validation_only": true,
+  "method_selection_changed": false,
+  "summaries": {
+    "native_emb_snr20": {
+      "pairs": 40,
+      "converted_proxy_changed_heldout_retained": 9,
+      "converted_heldout_changed_proxy_retained": 6,
+      "mean_output_ecapa_own_margin": -0.07425400735810399,
+      "mean_output_ge2e_own_margin": -0.042692831158638,
+      "mean_original_ecapa_own_margin": 0.33685246109962463,
+      "mean_original_ge2e_own_margin": 0.10987394452095031
+    },
+    "anchored_joint_snr20": {
+      "pairs": 40,
+      "converted_proxy_changed_heldout_retained": 9,
+      "converted_heldout_changed_proxy_retained": 2,
+      "mean_output_ecapa_own_margin": -0.10929450704716145,
+      "mean_output_ge2e_own_margin": -0.03294870555400849,
+      "mean_original_ecapa_own_margin": 0.34997260123491286,
+      "mean_original_ge2e_own_margin": 0.109931480884552
+    }
+  },
+  "changed_full_joint_pairs": [
+    {
+      "utterance": "p225_109",
+      "content": "p227_002",
+      "baseline_joint": true,
+      "challenger_joint": false,
+      "challenger_original_quality_ok": false,
+      "baseline_output_ge2e_identity": "p230",
+      "challenger_output_ge2e_identity": "p230",
+      "baseline_output_ge2e_margin": -0.015200316905975342,
+      "challenger_output_ge2e_margin": -0.05988335609436035,
+      "baseline_output_wer": 0.09090909090909091,
+      "challenger_output_wer": 0.09090909090909091,
+      "baseline_output_mos": 4.18450927734375,
+      "challenger_output_mos": 4.222630500793457
+    },
+    {
+      "utterance": "p225_109",
+      "content": "p226_004",
+      "baseline_joint": true,
+      "challenger_joint": false,
+      "challenger_original_quality_ok": false,
+      "baseline_output_ge2e_identity": "p228",
+      "challenger_output_ge2e_identity": "p228",
+      "baseline_output_ge2e_margin": -0.06671816110610962,
+      "challenger_output_ge2e_margin": -0.0933876633644104,
+      "baseline_output_wer": 0.0,
+      "challenger_output_wer": 0.0,
+      "baseline_output_mos": 4.3723039627075195,
+      "challenger_output_mos": 4.415496349334717
+    },
+    {
+      "utterance": "p228_074",
+      "content": "p226_004",
+      "baseline_joint": false,
+      "challenger_joint": true,
+      "challenger_original_quality_ok": true,
+      "baseline_output_ge2e_identity": "p228",
+      "challenger_output_ge2e_identity": "p230",
+      "baseline_output_ge2e_margin": 0.02286696434020996,
+      "challenger_output_ge2e_margin": -0.02827274799346924,
+      "baseline_output_wer": 0.0,
+      "challenger_output_wer": 0.0,
+      "baseline_output_mos": 4.652039527893066,
+      "challenger_output_mos": 4.56121826171875
+    },
+    {
+      "utterance": "p230_078",
+      "content": "p226_004",
+      "baseline_joint": true,
+      "challenger_joint": false,
+      "challenger_original_quality_ok": true,
+      "baseline_output_ge2e_identity": "p228",
+      "challenger_output_ge2e_identity": "p230",
+      "baseline_output_ge2e_margin": -0.00012677907943725586,
+      "challenger_output_ge2e_margin": 0.016099095344543457,
+      "baseline_output_wer": 0.06666666666666667,
+      "challenger_output_wer": 0.0,
+      "baseline_output_mos": 4.505840301513672,
+      "challenger_output_mos": 4.4102911949157715
+    }
+  ],
+  "note": "Proxy and GE2E embeddings have different spaces and margins. Each margin is within its own registry; do not compare raw margin magnitude across models. Descriptive mechanism check, not a causal ablation."
+}
