@@ -1,0 +1,12 @@
+{
+  "total": 10,
+  "evaluated": 10,
+  "asv_missing": 0,
+  "unfiltered_successes": 7,
+  "unfiltered_rate": 0.7,
+  "screened": 8,
+  "screen_pass_rate": 0.8,
+  "screened_successes": 5,
+  "screened_rate": 0.625,
+  "protocol": "ECAPA identity only; quality thresholds are not included"
+}

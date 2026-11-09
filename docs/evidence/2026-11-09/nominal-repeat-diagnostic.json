@@ -1,0 +1,115 @@
+{
+  "experiments": [
+    "main_vg",
+    "eps_.05"
+  ],
+  "manifests_equal": true,
+  "manifest_sha256": [
+    "4d94989610792d3dc02a9eb1d8bf5c695128dd1a422335c95b1c2237fe99b199",
+    "4d94989610792d3dc02a9eb1d8bf5c695128dd1a422335c95b1c2237fe99b199"
+  ],
+  "rows": [
+    {
+      "utterance": "p225_040",
+      "seed_equal": true,
+      "flag_equal": true,
+      "c_equal": true,
+      "max_absolute_waveform_difference": 0.011932373046875,
+      "rms_waveform_difference": 0.0016187025466933846,
+      "audio_sha256": [
+        "234662147696a4729f5a125b0763259d30346b0d2608d11e0be75f72bc7a8750",
+        "655f88d15f5fd783bf313a3855a59abd1fd969df6cc232d167c6a61314b9e7d7"
+      ],
+      "mos_defended": [
+        1.049,
+        1.003
+      ],
+      "wer_defended": [
+        0.4,
+        0.4
+      ]
+    },
+    {
+      "utterance": "p226_039",
+      "seed_equal": true,
+      "flag_equal": true,
+      "c_equal": true,
+      "max_absolute_waveform_difference": 0.00921630859375,
+      "rms_waveform_difference": 0.001484188251197338,
+      "audio_sha256": [
+        "6ad0792566f802039b933a7f7b868324768c867b71f60e12d9566933be45522d",
+        "e56ae970e0bedacb659ac44ad43c87c51c9229929bfd171e984688855fa26309"
+      ],
+      "mos_defended": [
+        0.519,
+        0.518
+      ],
+      "wer_defended": [
+        1.0,
+        2.0
+      ]
+    },
+    {
+      "utterance": "p227_033",
+      "seed_equal": true,
+      "flag_equal": true,
+      "c_equal": true,
+      "max_absolute_waveform_difference": 0.01458740234375,
+      "rms_waveform_difference": 0.002031227108091116,
+      "audio_sha256": [
+        "e11e61324ad9377d9be52543a106d084e389f34f69bf4ed348a128fdef6cdbc8",
+        "e5eabd2d69145ef423fa2febbee97738b94f898647c59606f1cff4bb883e1632"
+      ],
+      "mos_defended": [
+        2.313,
+        2.312
+      ],
+      "wer_defended": [
+        0.5714,
+        0.5714
+      ]
+    },
+    {
+      "utterance": "p228_035",
+      "seed_equal": true,
+      "flag_equal": true,
+      "c_equal": true,
+      "max_absolute_waveform_difference": 0.010528564453125,
+      "rms_waveform_difference": 0.001633129664696753,
+      "audio_sha256": [
+        "0f8b38c5bb8941c419286f2c4cd674090aee89fd20bc095cab8f30f9f6ddb2ca",
+        "56c018a0ea11887113f284d735485705fdee88a5e778f2fb4addb17be68f9a98"
+      ],
+      "mos_defended": [
+        0.673,
+        0.672
+      ],
+      "wer_defended": [
+        0.6667,
+        0.6667
+      ]
+    },
+    {
+      "utterance": "p229_032",
+      "seed_equal": true,
+      "flag_equal": true,
+      "c_equal": true,
+      "max_absolute_waveform_difference": 0.01031494140625,
+      "rms_waveform_difference": 0.001623973366804421,
+      "audio_sha256": [
+        "ff0d23c2dd5af8d82ec3f71d92585567fbc609001b3b5f4c8580931edb35fb6a",
+        "eccc5ba070ae9e0124f7db9863a12f12550443d54f5add29e491382bcf2d9e59"
+      ],
+      "mos_defended": [
+        2.432,
+        2.465
+      ],
+      "wer_defended": [
+        0.5,
+        0.5
+      ]
+    }
+  ],
+  "cause_identified": false,
+  "note": "One pair of nominally identical runs; not a multi-seed stability estimate. Source/input manifests and seeds match; cause of waveform differences was not isolated."
+}

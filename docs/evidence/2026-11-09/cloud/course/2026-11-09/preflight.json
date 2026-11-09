@@ -1,0 +1,234 @@
+{
+  "ready": true,
+  "scope": "experiment",
+  "device": "cuda",
+  "gpu": "Tesla T4",
+  "free_gb": 77.28,
+  "versions": {
+    "torch": "2.5.1",
+    "torchaudio": "2.5.1",
+    "librosa": "0.10.2.post1",
+    "numpy": "1.26.4",
+    "soundfile": "0.12.1",
+    "PyYAML": "6.0.2",
+    "speechbrain": "1.0.2",
+    "gradio": "4.44.1"
+  },
+  "checks": [
+    {
+      "name": "python",
+      "ok": true,
+      "detail": "3.10.12"
+    },
+    {
+      "name": "third_party/ada_in_vc/model.py",
+      "ok": true,
+      "detail": "required upstream source"
+    },
+    {
+      "name": "third_party/ada_in_vc/config.yaml",
+      "ok": true,
+      "detail": "required upstream source"
+    },
+    {
+      "name": "torch",
+      "ok": true,
+      "detail": "2.5.1"
+    },
+    {
+      "name": "torchaudio",
+      "ok": true,
+      "detail": "2.5.1"
+    },
+    {
+      "name": "librosa",
+      "ok": true,
+      "detail": "0.10.2.post1"
+    },
+    {
+      "name": "numpy",
+      "ok": true,
+      "detail": "1.26.4"
+    },
+    {
+      "name": "soundfile",
+      "ok": true,
+      "detail": "0.12.1"
+    },
+    {
+      "name": "PyYAML",
+      "ok": true,
+      "detail": "6.0.2"
+    },
+    {
+      "name": "speechbrain",
+      "ok": true,
+      "detail": "1.0.2"
+    },
+    {
+      "name": "gradio",
+      "ok": true,
+      "detail": "4.44.1"
+    },
+    {
+      "name": "device",
+      "ok": true,
+      "detail": "Tesla T4"
+    },
+    {
+      "name": "torch/torchaudio import",
+      "ok": true,
+      "detail": "2.5.1+cu124"
+    },
+    {
+      "name": "checkpoints/adain-vc-official/config.yaml",
+      "ok": true,
+      "detail": "3ef536aa57ee27d6a39ab5531e16de285a8859fa4565cdd13628963e1d7a571b"
+    },
+    {
+      "name": "checkpoints/adain-vc-official/attr.pkl",
+      "ok": true,
+      "detail": "c5ec695df8e84be2ee440fbc8816f36ef96ecc557af088026e22139e56c181e5"
+    },
+    {
+      "name": "checkpoints/adain-vc-official/vctk_model.ckpt",
+      "ok": true,
+      "detail": "31d3a9361b756122e7f8aa2cfecbb7ee0ac3bc98d4fc656d92543e0ad4f0b3ca"
+    },
+    {
+      "name": "checkpoints/ecapa-local/hyperparams.yaml",
+      "ok": true,
+      "detail": "0c7279c122fe96fa50a6654643dde8759f605aac0be91c8e769dae0e5538f49f"
+    },
+    {
+      "name": "checkpoints/ecapa-local/embedding_model.ckpt",
+      "ok": true,
+      "detail": "0575cb64845e6b9a10db9bcb74d5ac32b326b8dc90352671d345e2ee3d0126a2"
+    },
+    {
+      "name": "checkpoints/ecapa-local/mean_var_norm_emb.ckpt",
+      "ok": true,
+      "detail": "cd70225b05b37be64fc5a95e24395d804231d43f74b2e1e5a513db7b69b34c33"
+    },
+    {
+      "name": "checkpoints/ecapa-local/classifier.ckpt",
+      "ok": true,
+      "detail": "fd9e3634fe68bd0a427c95e354c0c677374f62b3f434e45b78599950d860d535"
+    },
+    {
+      "name": "checkpoints/ecapa-local/label_encoder.txt",
+      "ok": true,
+      "detail": "e13c3a167bb4112685670ee896d20e2b565af16b3a4ceeaa8689fa4d22adb8b9"
+    },
+    {
+      "name": "p225",
+      "ok": true,
+      "detail": "80 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p226",
+      "ok": true,
+      "detail": "80 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p227",
+      "ok": true,
+      "detail": "80 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p228",
+      "ok": true,
+      "detail": "80 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p229",
+      "ok": true,
+      "detail": "80 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p230",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p231",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p232",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p233",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p234",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p236",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p237",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p238",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p239",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p240",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p241",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p243",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p244",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p245",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "p246",
+      "ok": true,
+      "detail": "31 WAVs; enrollment=30, test>=1"
+    },
+    {
+      "name": "registry.npz",
+      "ok": true,
+      "detail": "(20, 192); sha256=1ee10beb36fa35d58e164f457b56093315d9a8377c33e3ad6df5796ff3a034ae"
+    },
+    {
+      "name": "registry_vc.npz",
+      "ok": true,
+      "detail": "(20, 128); sha256=7918fb8fdcb32418e67d567f2d6f1774dbae6f6ccc9adebb6d13bb3fd24ee09e"
+    }
+  ]
+}

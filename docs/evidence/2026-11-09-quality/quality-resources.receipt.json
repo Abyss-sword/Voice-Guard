@@ -1,0 +1,22 @@
+{
+  "archive": "VoiceGuard-quality-evaluator-resources.zip",
+  "bytes": 515068559,
+  "sha256": "634e697f10622559d704e2f6111a6618bf7b239507001be7883e1aab40dbd2e5",
+  "files_sha256": {
+    "checkpoints/mosnet-original/model.py": "c1c0525c8bb012ae5319ff59ebe27b53a91783f28014c62ccfccee5afb0eceb5",
+    "checkpoints/mosnet-original/utils.py": "61a5e2fc918cc6e8685814e4747f9c0f8b4c2bcd94a09b2dc9c2ed1085c9c78f",
+    "checkpoints/mosnet-original/LICENSE": "b3445db00a86dc8a53b506bf2d3010278f6ab26631fe0f06a451a1637df3891c",
+    "checkpoints/mosnet-original/cnn_blstm.h5": "78b75e7d76ee6074ea7d57dcffa56d0c90be9d3d8dedc2217e25e259423cb756",
+    "checkpoints/mosnet-original/source.json": "f16c55dc0a79632b29aa64e1059038c05b5596422e1dd1a05e745dca7f817f97",
+    "whisper-cache/small.en.pt": "f953ad0fd29cacd07d5a9eda5624af0f6bcf2258be67c92b79389873d91e0872",
+    "resemblyzer/pretrained.pt": "39373b86598fa3da9fcddee6142382efe09777e8d37dc9c0561f41f0070f134e",
+    "outputs/paper_quality/ge2e-registry.npz": "d936189de499cd399e3ef63694209b3931b4c24b69281c0e6d6418ce3720fc7c",
+    "deploy/quality-recovery-requirements.txt": "526dae9f7c62177e6ed91c7a011a6d88878f6b69b08382f2583ca590dc8545f9",
+    "docs/evidence/2026-11-09-quality/supplemental-protocol.json": "52eacac25c08ea2250afa3eebca205b799bdf463e6c9d86564e6b5c90a2eca17",
+    "docs/evidence/2026-11-09-quality/ge2e-resources.json": "4187c5ac908c3d50f7a7041b31350ea20b3d55275a64f688c87a6ec0060846b9",
+    "licenses/Resemblyzer/LICENSE": "835cbdc5bdc6c60fae874e544e7d5ba648d77d25ec72e4c2efc26b5fde0862c3",
+    "licenses/openai-whisper/LICENSE": "b5d65a59060e68c4ff940e1eddfa6f94b2d68fdf58ed7f4dd57721c997e35e9d"
+  },
+  "uploaded_cloud_share_link": null,
+  "local_archive_and_members_verified": true
+}

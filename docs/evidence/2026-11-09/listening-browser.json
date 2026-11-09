@@ -1,0 +1,26 @@
+{
+  "verified_utc": "2026-11-09T05:24:43.183Z",
+  "audio_count": 15,
+  "finite_durations": [
+    1.002667,
+    1.194667,
+    1.002667,
+    0.938667,
+    0.810667,
+    0.938667,
+    0.874667,
+    0.810667,
+    1.194667,
+    0.938667,
+    1.002667,
+    0.810667,
+    1.194667,
+    0.874667,
+    0.874667
+  ],
+  "csv_download": true,
+  "quoted_csv_roundtrip": true,
+  "test_values_are_synthetic": true,
+  "human_ratings_collected": 0,
+  "page_errors": []
+}

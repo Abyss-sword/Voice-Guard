@@ -26,6 +26,7 @@ import numpy as np  # noqa: E402
 import soundfile as sf  # noqa: E402
 
 from vguard.pipeline import Pipeline  # noqa: E402
+from vguard.evaluation import identity_verdict  # noqa: E402
 
 # ---------------------------------------------------------------- 文案（双语）
 
@@ -56,7 +57,7 @@ T = {
         "eps_label": "ε（扰动强度）",
         "eps_info": "0.05 为历史抽样的起点；更大扰动也可能损害音质与身份保真",
         "demo_label": "⚡ 演示快速模式（300/200 步）",
-        "demo_info": "关闭则用完整 3000/1500 步（更慢更稳）",
+        "demo_info": "关闭则用完整 3000/1500 步，耗时更长，不保证成功",
         "g3": "③ 执行",
         "run_btn": "🛡️ 一键保护",
         "g4": "④ 验证结果",
@@ -64,7 +65,7 @@ T = {
         "t_try": "🎧 试听",
         "t_plot": "📈 波形",
         "t_detail": "📋 明细",
-        "a_orig": "原始（trim 后）",
+        "a_orig": "原始音频（按所选裁剪选项）",
         "a_def": "被保护音频",
         "a_delta": "扰动本身",
         "a_cc": "干净 → VC 转换",
@@ -88,7 +89,7 @@ T = {
         "examples_label": "💡 试试 VCTK 样例（点击载入）",
         "sample_btn": "💡 载入 VCTK 样例音频（p225）",
         "conv_md": "零样本语音转换演示：**内容**来自一段音频、**声纹**来自另一段——"
-                   "这正是攻击者伪造声音的方式；保护页生成的扰动会让这一步失效。",
+                   "可以检查保护页生成的扰动是否影响转换身份。",
         "src_label": "📄 内容音频 t̂",
         "tgt_label": "🗣 声纹音频 x̂",
         "conv_btn": "转换",
@@ -98,17 +99,16 @@ T = {
                     "1. 给说话人 X 的音频注入时域扰动 δ = 2ε·tanh(w)；\n"
                     "2. 优化目标：让 X 的音频经 VC 转换后不再被判为 X（攻击项），"
                     "同时尝试降低扰动超过心理声学掩蔽阈值 θx 的能量；\n"
-                    "3. 身份维判定：**F_imp**（被保护音频仍被识别为 X）∧ "
-                    "**F_str**（被保护后 VC 转换不再被识别为 X）⇒ 防御成功。\n\n"
-                    "## 历史抽样记录（待重新验证）\n"
-                    "- ε 曲线来自历史报告，当前缺原始逐句产物；\n"
-                    "- 旧逐句表筛选后：emb 0/4、fb 1/4、e2e 0/4、无掩蔽消融 3/4；\n"
-                    "- 本页面只评估身份维，不代表论文联合质量指标或不可感知性已达标。\n\n"
+                    "3. 干净转换先识别为 X，再要求保护音频仍识别为 X、保护后转换不再识别为 X。\n\n"
+                    "## 云端实测与质量改进\n"
+                    "- 首批五句：VG 保护音频 MOSNet 均值 1.397、WER 62.76%；\n"
+                    "- 谱投影后继续优化：MOSNet 3.192、WER 5.71%，筛选后联合通过 2/4；\n"
+                    "- 是小样本观察，包含失败。MOSNet 非人工 MOS，本页面未联合质量阈值。\n\n"
                     "论文：Li et al., *Voice Guard: Protecting Voice Privacy with Strong and "
                     "Imperceptible Adversarial Perturbation in the Time Domain*, IJCAI 2023, "
                     "pp.4812–4820。\n"
                     "仓库：[github.com/Abyss-sword/Voice-Guard](https://github.com/Abyss-sword/Voice-Guard)",
-        "curve_label": "ε 权衡曲线（历史记录，待复核）",
+        "curve_label": "云端首批五句质量比较（原方法/实验性改进）",
     },
     "en": {
         "hero_title": "🛡️ Voice Guard · Proactive Voice Privacy Defense",
@@ -136,7 +136,7 @@ T = {
         "eps_label": "ε (perturbation strength)",
         "eps_info": "0.05 is a historical starting point; stronger perturbations can harm quality and identity",
         "demo_label": "⚡ Demo fast mode (300/200 iters)",
-        "demo_info": "Uncheck for full 3000/1500 iters (slower, more stable)",
+        "demo_info": "Uncheck for full 3000/1500 iters; slower, without a success guarantee",
         "g3": "③ Run",
         "run_btn": "🛡️ Protect",
         "g4": "④ Verification",
@@ -144,7 +144,7 @@ T = {
         "t_try": "🎧 Listen",
         "t_plot": "📈 Waveform",
         "t_detail": "📋 Detail",
-        "a_orig": "Original (trimmed)",
+        "a_orig": "Original (selected crop/context)",
         "a_def": "Defended audio",
         "a_delta": "Perturbation itself",
         "a_cc": "Clean → VC conversion",
@@ -168,7 +168,7 @@ T = {
         "examples_label": "💡 Try a VCTK sample (click to load)",
         "sample_btn": "💡 Load VCTK sample audio (p225)",
         "conv_md": "Zero-shot voice conversion demo: **content** from one clip, **voice** from another — "
-                   "exactly how attackers forge voices; the perturbation from the Protect tab breaks this.",
+                   "check whether the perturbation from the Protect tab changes the converted identity.",
         "src_label": "📄 Content audio t̂",
         "tgt_label": "🗣 Voice audio x̂",
         "conv_btn": "Convert",
@@ -179,15 +179,14 @@ T = {
                     "2. Objective: VC conversion of the defended audio is no longer recognized as X "
                     "(attack term), while the perturbation stays under the psychoacoustic masking "
                     "threshold θx (a training objective);\n"
-                    "3. Identity criterion: **F_imp** (defended still recognized as X) ∧ "
-                    "**F_str** (defended→VC no longer recognized as X) ⇒ defense succeeds.\n\n"
-                    "## Historical sample records (pending verification)\n"
-                    "- The old epsilon curve lacks original per-sample artifacts;\n"
-                    "- Screened baseline counts: emb 0/4, fb 1/4, e2e 0/4, no-masking ablation 3/4;\n"
-                    "- Identity-only results do not establish joint quality or imperceptibility.\n\n"
+                    "3. Require a correctly matched clean conversion, retained protected identity and changed converted identity.\n\n"
+                    "## Measured cloud samples\n"
+                    "- Five original VG clips: mean MOSNet 1.397, macro WER 62.76%;\n"
+                    "- Projected refinement: mean MOSNet 3.192, macro WER 5.71%, screened joint pass 2/4;\n"
+                    "- Small sample with failures. MOSNet is not human MOS; this interface evaluates identity only.\n\n"
                     "Paper: Li et al., *Voice Guard*, IJCAI 2023, pp.4812–4820.\n"
                     "Repo: [github.com/Abyss-sword/Voice-Guard](https://github.com/Abyss-sword/Voice-Guard)",
-        "curve_label": "ε trade-off curve (historical, unverified)",
+        "curve_label": "Five measured cloud clips: original vs experimental refinement",
     },
 }
 
@@ -425,7 +424,11 @@ def _status_html(report: dict, lang: str) -> str:
 
     imp = pred_def == tgt
     str_ = pred_conv != "-" and pred_conv != tgt
-    if imp and str_:
+    screened_ok = identity_verdict(asv, tgt)["screened_identity_ok"]
+    if not identity_verdict(asv, tgt)["clean_vc_identity_ok"]:
+        head = ("⚠️ 干净转换未通过身份筛选，不能归因于防护" if lang == "zh" else
+                "Clean conversion failed identity screening; defense cannot be credited")
+    elif screened_ok:
         head = L["ok_head"]
     elif imp:
         head = L["part_head"] + pred_conv
@@ -440,7 +443,7 @@ def _status_html(report: dict, lang: str) -> str:
             (L["st_eq"], L["st_eq_v"]),
         ]
     )
-    cls = "vg-status-ok" if (imp and str_) else "vg-status-fail"
+    cls = "vg-status-ok" if screened_ok else "vg-status-fail"
     return (f'<div class="{cls}"><b>{head}</b>'
             f'<table style="margin-top:8px;font-size:13.5px;border-collapse:collapse;">{rows}</table></div>')
 
@@ -521,7 +524,7 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
 
     theme = gr.themes.Base()
     curve_img = os.path.abspath(os.path.join(os.path.dirname(__file__), "..",
-                                             "docs", "fig_eps_curve.png"))
+                                             "docs", "figures", "2026-11-09", "01_quality_comparison.png"))
 
     with gr.Blocks(title="Voice Guard — Voice Privacy Defense", theme=theme,
                    css=CSS) as demo:
@@ -556,6 +559,11 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
                                        label=L["eps_label"], info=L["eps_info"])
                     demo_cb = gr.Checkbox(value=True, label=L["demo_label"],
                                           info=L["demo_info"])
+                method_dd = gr.Dropdown(choices=["vg", "vg-projected"], value="vg",
+                    label="保护方法 / Method",
+                    info="vg-projected 额外优化 1000 步；实验性质量改进，需核查每次结果")
+                context_cb = gr.Checkbox(value=False, label="保留完整音频 / Preserve full audio",
+                    info="保留安静的开头和结尾；可能改变转换与评分结果")
 
             with gr.Group():
                 g3_md = gr.Markdown(f"### {L['g3']}")
@@ -581,7 +589,7 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
 
             last_state = gr.State({"lang": lang, "report": None, "mcd": None})
 
-            def on_protect(defend, speaker, adv, eps, demo_mode, state):
+            def on_protect(defend, speaker, adv, eps, demo_mode, state, method, preserve_context):
                 CL = T[state.get("lang", "zh")]
                 if not defend:
                     raise gr.Error(CL["err_no_defend"])
@@ -596,7 +604,9 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
                 out_dir = os.path.join(args.out_dir, f"{speaker}_{uuid.uuid4().hex}")
                 gr.Info(CL["info_start"].format(it1, it2))
                 rep = pipe.protect(defend, speaker, adv, eps=eps, iters1=it1, iters2=it2,
-                                   out_dir=out_dir, progress=False)
+                                   out_dir=out_dir, progress=False,
+                                   refine_steps=1000 if method == "vg-projected" else 0,
+                                   preserve_context=preserve_context)
 
                 mcd_val = None
                 try:
@@ -616,7 +626,7 @@ def build_app(args, pipe: Pipeline, lang: str = "zh"):
                         _detail_html(rep, state["lang"]), state)
 
             run_btn.click(on_protect,
-                          [defend_in, speaker_dd, adv_in, eps_sl, demo_cb, last_state],
+                          [defend_in, speaker_dd, adv_in, eps_sl, demo_cb, last_state, method_dd, context_cb],
                           [status_html, aud_orig, aud_def, aud_delta, aud_conv_clean,
                            aud_conv_def, plot_out, metrics_html, detail_html, last_state],
                           concurrency_id="gpu", concurrency_limit=1)

@@ -9,7 +9,8 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from vguard.run_state import completed_row, summarize, write_json
+from vguard.run_state import as_bool, completed_row, summarize, write_json
+from vguard.evaluation import quality_pass
 
 EXPECTED = [f"main_{method}" for method in ("vg", "vg-nop", "emb", "fb", "e2e")]
 EXPECTED += [f"eps_{eps}" for eps in (".02", ".05", ".08", ".10")]
@@ -49,6 +50,17 @@ def main():
         wer = read_csv(directory / "wer.csv")
         utterances = {row["utterance"] for row in rows}
         stats = summarize(rows)
+        mos_by_utt={row['utterance']:row for row in mos}
+        wer_by_utt={row['utterance']:row for row in wer}
+        joint=0
+        quality_evaluated=0
+        for row in rows:
+            utterance=row['utterance']
+            if utterance in mos_by_utt and utterance in wer_by_utt:
+                quality_evaluated+=1
+                joint+=bool(as_bool(row.get('conv_clean_hits_X')) and as_bool(row.get('defense_ok')) and
+                    quality_pass(float(mos_by_utt[utterance]['mos_defended']),
+                                 float(wer_by_utt[utterance]['wer_defended']),True))
         complete = (len(rows) == len(utterances) == stats["evaluated"] == 5 and
                     all(completed_row(directory / utterance) is not None for utterance in utterances) and
                     len(mos) == len(wer) == 5 and finite_fields(mos, "mos") and finite_fields(wer, "wer") and
@@ -56,7 +68,14 @@ def main():
                     {row["utterance"] for row in wer} == utterances and
                     all(row.get("reference_mode") == "transcript" for row in wer))
         groups.append({"name": name, "complete": complete, **stats,
+                       "quality_evaluated":quality_evaluated,"joint_screened_successes":joint,
                        "mean_mcd": average(rows, "mcd"),
+                       "mean_mos_original":average(mos,'mos_original_trimmed'),
+                       "mean_wer_original":average(wer,'wer_original_trimmed'),
+                       "mean_mos_converted_clean":average(mos,'mos_conv_from_clean'),
+                       "mean_wer_converted_clean":average(wer,'wer_conv_from_clean'),
+                       "mean_mos_converted_defended":average(mos,'mos_conv_from_defended'),
+                       "mean_wer_converted_defended":average(wer,'wer_conv_from_defended'),
                        "mean_mos_defended": average(mos, "mos_defended"),
                        "mean_wer_defended": average(wer, "wer_defended"),
                        "total_sample_seconds": round(sum(float(row.get("elapsed_s", 0)) for row in rows), 2)})
@@ -66,7 +85,7 @@ def main():
               "limitations": ["Not an exact replication of the paper's models, dataset or metrics",
                               "MOS is a third-party predictor; WER uses VCTK transcripts",
                               "Identity success is not joint quality success",
-                              "main and eps run concurrently; per-sample times include contention"]}
+                              "Historical main/eps phases overlapped; resumed stages are sequential; sample times may include GPU contention"]}
     args.root.mkdir(parents=True, exist_ok=True)
     write_json(args.root / "campaign-summary.json", report)
     lines = ["# Huawei ECS campaign", "", f"Generated UTC: {report['generated_utc']}", "",

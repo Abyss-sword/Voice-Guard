@@ -1,0 +1,33 @@
+{
+  "parameters": {
+    "model_dir": "checkpoints/adain-vc-official",
+    "vctk": "data/VCTK22",
+    "speakers": "p225,p226,p227,p228,p229",
+    "per_speaker": 2,
+    "utt_offset": 40,
+    "registry": "outputs/registry.npz",
+    "attack_registry": "outputs/registry_vc.npz",
+    "asv_probe": "",
+    "max_dur": 3.5,
+    "source_speaker": "p226",
+    "source_utt": 2,
+    "eps": 0.05,
+    "method": "vg",
+    "eot": false,
+    "iters1": 3000,
+    "iters2": 1500,
+    "device": "cuda",
+    "seed": 2026,
+    "input_sha256": {
+      "checkpoints/adain-vc-official/vctk_model.ckpt": "31d3a9361b756122e7f8aa2cfecbb7ee0ac3bc98d4fc656d92543e0ad4f0b3ca",
+      "checkpoints/adain-vc-official/config.yaml": "3ef536aa57ee27d6a39ab5531e16de285a8859fa4565cdd13628963e1d7a571b",
+      "checkpoints/adain-vc-official/attr.pkl": "c5ec695df8e84be2ee440fbc8816f36ef96ecc557af088026e22139e56c181e5",
+      "outputs/registry.npz": "1ee10beb36fa35d58e164f457b56093315d9a8377c33e3ad6df5796ff3a034ae",
+      "outputs/registry_vc.npz": "7918fb8fdcb32418e67d567f2d6f1774dbae6f6ccc9adebb6d13bb3fd24ee09e"
+    }
+  },
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "torch": "2.5.1+cu124",
+  "cuda": "12.4",
+  "gpu": "Tesla T4"
+}

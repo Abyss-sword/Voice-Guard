@@ -1,0 +1,22 @@
+{
+  "checked_utc": "2026-11-09T04:56:05.632Z",
+  "method_id": "group_xx_voice_guard",
+  "configuration_schema_valid": true,
+  "default_parameters_valid": true,
+  "configuration_sha256": "88f51d62952f90e8bc53a48b39288e27c76a85a0d9cdfdc95a65f4d0c74b5ef4",
+  "assets": [
+    {
+      "path": "samples/group_xx_voice_guard/input.wav",
+      "bytes": 42028,
+      "sha256": "2cd414a49fe9ac6e8b7b65ef47c508045c1703c86f4cad5c7773ff055ef5ee6d"
+    },
+    {
+      "path": "samples/group_xx_voice_guard/output_defended.wav",
+      "bytes": 42028,
+      "sha256": "3eefad037999abb88f7d37553ca1d5adef1b7cdc932c02e65ed1bfa4ab024ec6"
+    }
+  ],
+  "endpoint": "http://127.0.0.1:8020/process",
+  "live_api_tested": false,
+  "note": "Schema, defaults and preview files only. Live request and returned artifacts require a separate API test."
+}

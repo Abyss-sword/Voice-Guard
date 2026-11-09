@@ -1,0 +1,67 @@
+{
+  "checked_utc": "2026-11-09T04:56:06.109198+00:00",
+  "checks": [
+    {
+      "name": "python-unittest",
+      "command": [
+        "F:\\Voice-Guard-master\\Voice-Guard-master\\.venv\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "elapsed_s": 31.09
+    },
+    {
+      "name": "features",
+      "command": [
+        "F:\\Voice-Guard-master\\Voice-Guard-master\\.venv\\Scripts\\python.exe",
+        "tests/test_features.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "elapsed_s": 12.2
+    },
+    {
+      "name": "masking",
+      "command": [
+        "F:\\Voice-Guard-master\\Voice-Guard-master\\.venv\\Scripts\\python.exe",
+        "tests/test_masking.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "elapsed_s": 9.88
+    },
+    {
+      "name": "platform-contract",
+      "command": [
+        "node",
+        "tools/check_platform.mjs"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "elapsed_s": 0.2
+    },
+    {
+      "name": "platform-tests",
+      "command": [
+        "node",
+        "--test",
+        "tests/contract.test.js",
+        "tests/media.test.js"
+      ],
+      "cwd": "outputs/course/platform-frontend",
+      "exit_code": 0,
+      "elapsed_s": 0.45
+    }
+  ],
+  "live_gpu_api_tested": true,
+  "browser_live_gpu_tested": true,
+  "gradio_full_context_gpu_tested": true,
+  "updated_utc": "2026-11-09T05:10:15.510464+00:00"
+}

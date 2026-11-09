@@ -1,0 +1,10 @@
+{
+  "repository": "lochenchou/MOSNet",
+  "revision": "3ea20beaa3c1e886464fe0b1b9807fa62c732029",
+  "files": {
+    "cnn_blstm.h5": "78b75e7d76ee6074ea7d57dcffa56d0c90be9d3d8dedc2217e25e259423cb756",
+    "LICENSE": "b3445db00a86dc8a53b506bf2d3010278f6ab26631fe0f06a451a1637df3891c",
+    "model.py": "c1c0525c8bb012ae5319ff59ebe27b53a91783f28014c62ccfccee5afb0eceb5",
+    "utils.py": "61a5e2fc918cc6e8685814e4747f9c0f8b4c2bcd94a09b2dc9c2ed1085c9c78f"
+  }
+}

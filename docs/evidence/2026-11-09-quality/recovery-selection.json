@@ -1,0 +1,101 @@
+{
+  "frozen_utc": "2026-11-09T06:54:11.314028+00:00",
+  "protocol_sha256": "fdb9dedebf2a30077930b2199d6ec5b2ee896b019bf680cef90ed477090cf41a",
+  "development_results_sha256": "c8722cfea2feb190fcb9733b0507aeb85ffd763dcf514cd11ed4212dfdcefbf0",
+  "profile": {
+    "name": "feedback_snr20",
+    "objective": "feedback",
+    "snr_db": 20.0,
+    "margin_db": 3.0,
+    "learning_rate": 0.0003
+  },
+  "checkpoint": 1500,
+  "selected_development_summary": {
+    "profile": "feedback_snr20",
+    "checkpoint": 1500,
+    "count": 3,
+    "strict_joint": 1,
+    "paper_structure_full_screen": 0,
+    "protected_quality_ok": 3,
+    "mean_wer": 0.0,
+    "mean_mos_original": 3.5930248896280923,
+    "mean_actual_snr_db": 21.440188884735107,
+    "snr_budget_db": 20.0
+  },
+  "all_development_summaries": [
+    {
+      "profile": "embedding_snr25",
+      "checkpoint": 500,
+      "count": 3,
+      "strict_joint": 0,
+      "paper_structure_full_screen": 0,
+      "protected_quality_ok": 3,
+      "mean_wer": 0.0,
+      "mean_mos_original": 3.5563717683156333,
+      "mean_actual_snr_db": 27.259058157602947,
+      "snr_budget_db": 25.0
+    },
+    {
+      "profile": "embedding_snr25",
+      "checkpoint": 1500,
+      "count": 3,
+      "strict_joint": 1,
+      "paper_structure_full_screen": 0,
+      "protected_quality_ok": 3,
+      "mean_wer": 0.0,
+      "mean_mos_original": 3.56316606203715,
+      "mean_actual_snr_db": 25.10424057642619,
+      "snr_budget_db": 25.0
+    },
+    {
+      "profile": "feedback_snr25",
+      "checkpoint": 500,
+      "count": 3,
+      "strict_joint": 0,
+      "paper_structure_full_screen": 0,
+      "protected_quality_ok": 3,
+      "mean_wer": 0.0,
+      "mean_mos_original": 3.5647024313608804,
+      "mean_actual_snr_db": 26.409722963968914,
+      "snr_budget_db": 25.0
+    },
+    {
+      "profile": "feedback_snr25",
+      "checkpoint": 1500,
+      "count": 3,
+      "strict_joint": 1,
+      "paper_structure_full_screen": 0,
+      "protected_quality_ok": 3,
+      "mean_wer": 0.0,
+      "mean_mos_original": 3.5701560974121094,
+      "mean_actual_snr_db": 25.11942148208618,
+      "snr_budget_db": 25.0
+    },
+    {
+      "profile": "feedback_snr20",
+      "checkpoint": 500,
+      "count": 3,
+      "strict_joint": 0,
+      "paper_structure_full_screen": 0,
+      "protected_quality_ok": 3,
+      "mean_wer": 0.0,
+      "mean_mos_original": 3.57084059715271,
+      "mean_actual_snr_db": 24.925966262817383,
+      "snr_budget_db": 20.0
+    },
+    {
+      "profile": "feedback_snr20",
+      "checkpoint": 1500,
+      "count": 3,
+      "strict_joint": 1,
+      "paper_structure_full_screen": 0,
+      "protected_quality_ok": 3,
+      "mean_wer": 0.0,
+      "mean_mos_original": 3.5930248896280923,
+      "mean_actual_snr_db": 21.440188884735107,
+      "snr_budget_db": 20.0
+    }
+  ],
+  "rule": "Global profile/checkpoint maximizing strict identity joint count, full-control paper-structure joint count, protected quality count, then lower macro WER, higher mean original MOSNet, higher SNR budget, fewer steps, profile name. Development only. No per-utterance or validation selection.",
+  "validation_examined": false
+}

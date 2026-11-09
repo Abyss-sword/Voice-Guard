@@ -1,0 +1,42 @@
+{
+  "model_backed_gradio_request_passed": true,
+  "method": "vg",
+  "preserve_context": true,
+  "fast_mode": true,
+  "elapsed_s": 34.59,
+  "status_html": "<div class=\"vg-status-fail\"><b>⚠️ 干净转换未通过身份筛选，不能归因于防护</b><table style=\"margin-top:8px;font-size:13.5px;border-collapse:collapse;\"><tr><td>被保护音频判定</td><td style='padding-left:14px;'>p225（sim 0.319）</td></tr><tr><td>被保护→VC 转换判定</td><td style='padding-left:14px;'>p238（sim 0.176）</td></tr><tr><td>判定式</td><td style='padding-left:14px;'>ECAPA：保护后身份保留，转换后身份改变；未联合 MOS/WER 阈值</td></tr></table></div>",
+  "waves": [
+    {
+      "name": "original",
+      "sample_rate": 24000,
+      "samples": 51873,
+      "sha256": "5da9438e5d5131f65695dd75552cef52efe8ac3308d7b61dbf2ecc6831df46d5"
+    },
+    {
+      "name": "defended",
+      "sample_rate": 24000,
+      "samples": 51873,
+      "sha256": "47978ab880703e79c856bccd3d325bda88af0a26dfeb13e169bfcb870951fa22"
+    },
+    {
+      "name": "delta",
+      "sample_rate": 24000,
+      "samples": 51873,
+      "sha256": "215c8ea65ffadc68e6f5e928356cb396dfaa1f1a2c309249addf3e52f9cb0e1e"
+    },
+    {
+      "name": "converted_clean",
+      "sample_rate": 24000,
+      "samples": 23700,
+      "sha256": "59305742f4b8d810ab6db63c7c300a7347faa253763eb243b6f1207ad7526e61"
+    },
+    {
+      "name": "converted_defended",
+      "sample_rate": 24000,
+      "samples": 23700,
+      "sha256": "7e8f68e29a57eff4c51cf14a0c94b05df5678471e0b666889d5d08da9e04ed8c"
+    }
+  ],
+  "input_sha256": "f2607c18552b6dda69306206b415b9af1187ccf4f43e32d26302eb2fe63010a6",
+  "note": "Original method, full-context fast GPU demonstration, not defense/quality rate evaluation"
+}

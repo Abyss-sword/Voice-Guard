@@ -1,0 +1,10 @@
+{
+  "state": "complete",
+  "started_utc": "2026-11-09T06:54:13.788773+00:00",
+  "protocol_sha256": "fdb9dedebf2a30077930b2199d6ec5b2ee896b019bf680cef90ed477090cf41a",
+  "split": "validation",
+  "selection_sha256": "a6f388ed8d80211928a09129fe4187c8330f7d5b1e85ee20a134de602f28bb3a",
+  "rows": 30,
+  "elapsed_s": 904.36,
+  "updated_utc": "2026-11-09T07:09:17.780703+00:00"
+}

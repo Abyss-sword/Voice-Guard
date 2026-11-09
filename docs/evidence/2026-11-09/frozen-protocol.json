@@ -1,0 +1,103 @@
+{
+  "frozen_utc": "2026-11-09T04:27:54.258506+00:00",
+  "course_scope": "User confirmed A036 is assessed as one non-open-source topic",
+  "new_utterances": [
+    {
+      "utterance": "p225_051",
+      "duration_s": 2.292108843537415,
+      "wav_sha256": "26cb01ceaacecd8e17da261a34551a42a79178079b2d22e3a5d8c0ea1885ebf3",
+      "transcript_sha256": "9c7754369d2008330b229a242d2a211878fccf7b8b29057ff54569b01953107d"
+    },
+    {
+      "utterance": "p225_053",
+      "duration_s": 2.5375510204081633,
+      "wav_sha256": "d03def15fd433bb3f5bf095ecce35fcfbc2331aff3aab13864380f61492d7889",
+      "transcript_sha256": "c4d90620caed844247d6b7e1e7ef840e13961b5ee758ee212d0c1afb9d66c676"
+    },
+    {
+      "utterance": "p226_045",
+      "duration_s": 3.079954648526077,
+      "wav_sha256": "ab13330ee543590e3b58a5325639e5a4b6cf73645bcabddda1aa8d88a35d50fc",
+      "transcript_sha256": "926e5b4e26b70517cb415dc977a3b93cea029e03ae167038f06910693de02edc"
+    },
+    {
+      "utterance": "p226_047",
+      "duration_s": 2.1507936507936507,
+      "wav_sha256": "bea11eb34a18fcd51567be0205ed3b33d22184c4570c2067d3b6dbf098937241",
+      "transcript_sha256": "9782a20b041e1d9ff8aaaed5e07dd26cccf0454fd8fe31d79a8c2c045c794d86"
+    },
+    {
+      "utterance": "p227_042",
+      "duration_s": 3.384308390022676,
+      "wav_sha256": "c54dc7e9e399b21268532413430d19b5135b6dcd1fd745d13a6b119595404778",
+      "transcript_sha256": "b0f53c45d9a0d674c1b9a424a478eae7258f6c6b6186663ee0331a81deda359d"
+    },
+    {
+      "utterance": "p227_043",
+      "duration_s": 2.547936507936508,
+      "wav_sha256": "78b0db66d9e4795dd6f9dfac002feeddbe2ce57a1cd703724aea7f69bc170d1e",
+      "transcript_sha256": "90efbe752dd42b74ca0b19fc357a1685eaa4521a3af9b56be4a6e9f42cbacc34"
+    },
+    {
+      "utterance": "p228_042",
+      "duration_s": 2.9040362811791383,
+      "wav_sha256": "5778bd31ad7ecaac0f5df3545669486d20aee7fd433c214a6e5e055350adca2c",
+      "transcript_sha256": "1b3511e1b0f8dcc01b251824917d79323e4a4ef974458c2d5f2b9e9c8ae4f649"
+    },
+    {
+      "utterance": "p228_043",
+      "duration_s": 1.6229931972789116,
+      "wav_sha256": "a2eb94a612e9a9a4d1c2ec3448ce360108107b215322aa5e357a7b554466a871",
+      "transcript_sha256": "d8dbabecdbcc959e89a2f548596b7cbc9bf46a1789add864a44983eb67edda0b"
+    },
+    {
+      "utterance": "p229_041",
+      "duration_s": 2.561043083900227,
+      "wav_sha256": "be397400c782b9bfcb0e058e82b70bbc4ad9c2e45fc3f9d74d162141a5f2ca28",
+      "transcript_sha256": "1c8dcf83b5b9e0892a48d49aeb6effd108ad7b613180cf9f65b2a017e426b462"
+    },
+    {
+      "utterance": "p229_042",
+      "duration_s": 2.3903854875283446,
+      "wav_sha256": "4920a8d0e25ede9b9895dc2b2f7067d01da39f5d24650ee3c4a23d36ebba43f2",
+      "transcript_sha256": "988313e324a1aa87ceb70ea75bbdaa1f16590810e00fb254c1bada355315f929"
+    }
+  ],
+  "split": "new utterances from previously seen speakers; not speaker-held-out",
+  "baseline": {
+    "eps": 0.05,
+    "iters1": 3000,
+    "iters2": 1500,
+    "seed": 2026
+  },
+  "refinement": {
+    "steps": 1000,
+    "learning_rate": 0.0003,
+    "margin_db": 3,
+    "eps": 0.05,
+    "seed_base": 2026,
+    "tuning": "unchanged from 2026-11-04"
+  },
+  "channels": [
+    "none",
+    "pcm16",
+    "mp3-128k",
+    "mp3-32k",
+    "aac-64k",
+    "opus-24k",
+    "g711",
+    "resample8k"
+  ],
+  "codec_content": "p226_002",
+  "content_sensitivity": [
+    "p226_002",
+    "p225_002",
+    "p227_002"
+  ],
+  "engineering_gate": "MOSNet>=3, target WER<=.10, protected ECAPA identity retained, converted ECAPA identity changed; clean-VC identity correctly matched per channel/source",
+  "zero_denominator": "N/A",
+  "all_failures_retained": true,
+  "multiple_testing": "descriptive extension; no confirmatory statistical significance claim",
+  "max_hours_first_campaign": 3,
+  "declared_before_new_utterance_evaluation": true
+}

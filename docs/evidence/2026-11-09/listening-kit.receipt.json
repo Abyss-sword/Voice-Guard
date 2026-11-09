@@ -1,0 +1,10 @@
+{
+  "archive": "VoiceGuard-listening-participant.zip",
+  "bytes": 617471,
+  "sha256": "253b7ecc08ebaccc6a28eddf753bfac24a36054052fb4c762c9303c700e2047c",
+  "clips": 15,
+  "human_ratings_collected": 0,
+  "amplitude_normalized": false,
+  "source_answer_key_sha256": "ec8289e45695120b2cad54a8058f6bc4220a4077b069307b47e1bdc36cac5331",
+  "note": "Prepared material only; no human MOS or formal listening study claim"
+}

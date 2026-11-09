@@ -83,6 +83,19 @@ def mosnet(endpoint):
         "upstream_sha256": file_sha256(pristine), "local_sha256": file_sha256(out / "config.json")})
 
 
+def original_mosnet():
+    revision='3ea20beaa3c1e886464fe0b1b9807fa62c732029'
+    out=ROOT/'checkpoints/mosnet-original'
+    files={'pre_trained/cnn_blstm.h5':'78b75e7d76ee6074ea7d57dcffa56d0c90be9d3d8dedc2217e25e259423cb756',
+           'model.py':'c1c0525c8bb012ae5319ff59ebe27b53a91783f28014c62ccfccee5afb0eceb5',
+           'utils.py':'61a5e2fc918cc6e8685814e4747f9c0f8b4c2bcd94a09b2dc9c2ed1085c9c78f',
+           'LICENSE':'b3445db00a86dc8a53b506bf2d3010278f6ab26631fe0f06a451a1637df3891c'}
+    for name,digest in files.items():
+        download(f'https://raw.githubusercontent.com/lochenchou/MOSNet/{revision}/{name}',out/Path(name).name,digest)
+    write_json(out/'source.json',{'repository':'lochenchou/MOSNet','revision':revision,
+        'files':{Path(name).name:digest for name,digest in files.items()}})
+
+
 def extract_vctk(archive, output):
     output = Path(output).resolve()
     output.mkdir(parents=True, exist_ok=True)
@@ -112,7 +125,7 @@ def extract_vctk(archive, output):
 def main():
     global CURL
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("what", choices=["adainvc", "ecapa", "mosnet", "vctk", "models"])
+    ap.add_argument("what", choices=["adainvc", "ecapa", "mosnet", "mosnet-original", "vctk", "models"])
     ap.add_argument("--endpoint", default=os.getenv("HF_ENDPOINT", "https://hf-mirror.com"))
     ap.add_argument("--extract", action="store_true", help="extract VCTK to data/VCTK22/pXXX")
     ap.add_argument("--curl", default=CURL, help="curl executable; Windows may use Git's OpenSSL curl")
@@ -124,6 +137,8 @@ def main():
         ecapa(args.endpoint.rstrip("/"))
     if args.what == "mosnet":
         mosnet(args.endpoint.rstrip("/"))
+    if args.what == 'mosnet-original':
+        original_mosnet()
     if args.what == "vctk":
         dst = ROOT / "data/VCTK_22kHz_raw.zip"
         download(f"{args.endpoint.rstrip('/')}/datasets/arampacha/vctk_22kHz/resolve/main/raw_data.zip", dst, VCTK_SHA)

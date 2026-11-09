@@ -1,0 +1,12 @@
+[
+  {
+    "method": "Original VG",
+    "mean_positive_excess_db": 22.25944298166581,
+    "exceed_fraction": 0.7970871080139372
+  },
+  {
+    "method": "Projected refinement",
+    "mean_positive_excess_db": 0.02071547051619848,
+    "exceed_fraction": 0.006940766550522648
+  }
+]

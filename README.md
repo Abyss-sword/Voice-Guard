@@ -6,18 +6,63 @@ Perturbation in the Time Domain*，IJCAI 2023，4812–4820。
 实现时域对抗扰动、心理声学掩蔽、AdaIN-VC 转换、独立 ECAPA 身份评估和 Gradio 界面。
 目标是可核验的抽样复现；数据、ASV、声码器及 MCD 定义与原论文有差异，不能宣称精确复现论文数值。
 
-## 当前状态（2026-11-04）
+## 当前状态（2026-11-09）
 
-- 主仓库 `master` 已两次合并审计分支（第二次：华为云实测 + 质量改进）；本文件综合两台机器记录。
-- 审计修复重采样、批量断点续跑、随机种子、筛选分母和 WER 参考文本错误，补齐模型下载与 ECS 部署工具。
+第三轮原生参考与两阶段实验已完成：在开发集比较嵌入、反馈、解码频谱和软掩蔽 alpha 搜索后，冻结唯一配置，再完成 20 个新句、10 位注册人物、2 个内容源的同句配对验证。独立 GE2E/small.en 严格联合由基线 **9/31（29.0%）提高至 15/31（48.4%）**；完整干净控制下的 Eq.10 均为 **2/6（33.3%）**。保护原音预测 MOS 为 3.990、WER 为 1.27%。按说话人计算的改进区间跨过零，尚未建立稳定改进或原文总体质量复现，详见 [最新实验报告](docs/15_两阶段与原生参考修正.md) 与 [7 页 PDF](deliverables/Voice_Guard_原生参考与两阶段报告.pdf)。
+
+已修复常规 VC 注册构建器的静音上下文不一致，现有 39 项测试全部通过，新增归档包含可核验的 302 个 WAV。原生参考修正本身不算防护提升；ECAPA/base 只筛身份的 81.5% 属次评估，完整控制仅 1/2，不能代替独立主结果。实际执行快照、协议、转录和哈希收据见 [第三轮证据](docs/evidence/2026-11-09-staged/README.md)，原有注册库、音频与负结果保留。
+
+第二轮质量实验已完成：冻结 15 句、两个内容源，保护原音原始 MOSNet 预测均值 4.063、Whisper base 逐句 WER 4.61%；严格身份联合 8/21，Eq.10 结构 16/21，完整干净控制下 4/7。独立 GE2E/small.en 复核分别为 11/27、16/27、5/12，不能宣称达到论文 80.06% 的总体复现。旧结果保留，详见 [补充实验](docs/14_论文质量追赶.md) 与 [补充报告 PDF](deliverables/Voice_Guard_论文质量补充报告.pdf)。
+
+- 主仓库 `master` 已三次合并审计分支（第三次：云端战役 + 论文质量追赶 + 两阶段原生参考）；本文件综合两台机器记录。
+- 已修复重采样、批量断点续跑、随机种子、筛选分母、WER 参考文本，以及平台上传采样率、缺失 ASV 判定与请求串行处理；补齐模型下载与 ECS 部署工具。
 - **华为云 T4 已部署并验证**：Ubuntu 22.04、Tesla T4（15GB 可用显存）、32GB 内存、100GB 系统盘；
-  `voiceguard.service`（systemd）+ SSH 隧道访问 `http://127.0.0.1:7860` HTTP 200，
-  真实调用 `/on_protect` 生成 5 份音频；benchmark 3000/1500 步单句 194.67s、CUDA 峰值 175.8 MiB。
-- 本机（4060 8GB）留有实验 `outputs/` 逐句 CSV：ε 扫描与基线表可按 `docs/06_结果表.md` 复核。
-
+  双 systemd 服务 `voiceguard`（127.0.0.1:7860）与 `voiceguard-platform`（8020）+ SSH 隧道；
+  真实课程浏览器（Vite 5173）、FastAPI 与 Gradio 完整上下文请求均通过。
+- 本机（4060 8GB）留有实验 `outputs/` 逐句 CSV：ε 扫描与基线表可按 `docs/06_结果表.md` 复核；
+  历史表/旧 PPT 仅作历史材料。新报告与图表使用云端归档实测数据。
 - 本轮验证记录见 [复现审计](docs/10_复现审计.md)，实际部署见 [华为云操作手册](docs/07_部署操作手册.md)。
-- 云端服务与真实语音首句已验证；完整步数首句身份维通过，但质量指标未达预期。主表/ε 扫描仍在后台运行，见 [华为云实测](docs/11_华为云实测.md)。
+- 11 月 9 日已完成全部 32 个冻结阶段：原主表/ε 的 9 组各 5 句、全部 MOS/WER、新 10 句、80 次信道和 60 次内容源配对；追加完整上下文与 ASR 重复性诊断也已完成。服务的双声道 API、6 文件下载、真实课程浏览器和 Gradio 完整上下文请求通过，见 [华为云实测](docs/11_华为云实测.md)。
 - 新增投影后优化实验：同 5 句平均 MOS 1.397→3.192、平均逐句 WER 62.76%→5.71%；PCM16 导出后有 2 个样例同时通过质量与身份防护门槛。固定参数验证仅 1/2（筛选后），尚不能宣称达到论文质量，见 [质量改进实验](docs/12_质量改进实验.md)。
+- 冻结新句中，原法/改进 MOSNet 为 1.936/3.055、WER 为 44.60%/14.69%，两者联合通过均为 0/8。完整上下文使改进 WER 降至 3.10%，但联合仍为 0/7。原 VG 首批联合 0/4；改进首批通过 2/4，且部分压缩/内容源下失败，不能宣称普遍有效。
+
+报告正文：[可编辑 Markdown](docs/04_报告.md)；[PDF 报告](deliverables/Voice_Guard_课程报告.pdf)。
+汇报：[14 页 / 9 分钟 PPT](deliverables/Voice_Guard_9分钟汇报.pptx)、[讲稿](docs/05_验收PPT大纲.md)。历史 PPT 已移至 `docs/history/`。
+技术实验与材料已补齐；真实组号/成员、权重云盘链接、正式平台 PR、问卷和课程提交仍待本人完成。课程要求与加分对应见
+[交付清单](docs/13_课程要求与交付清单.md)、[验收自查](docs/08_验收自查.md)。
+本篇按用户确认的非开源选题范围验收；无需再增加两篇论文。
+
+## 冻结的扩展实验
+
+ECS 开机、同步本轮代码并检查 CUDA/资源后运行：
+
+```bash
+OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python deploy/run_course_campaign.py --max-hours 3
+```
+
+依次续跑原主表/ε、补齐全部 MOS/WER、10 个新句的原法/固定改进对照、
+8 种配对编码/重采样信道、3 种内容源敏感性。协议与输入摘要事前冻结于
+`docs/evidence/2026-11-09/frozen-protocol.json`，输出 `outputs/course/2026-11-09/`。
+逐句续跑，并保留已完整的原表 MOS/WER（在阶段记录中写分数文件 SHA256），避免重新采样解码覆盖已有观测。
+修改参数/输入/评估代码使用新目录；任务时限不会关机或停止实例计费。
+余额约 470 元，首批最多 3 小时，按旧单价估计计算费约 22 元，磁盘/EIP 另计。
+
+下载云端原目录至 `outputs/course/remote/` 后，重建报告：
+
+```bash
+python tools/build_course_figures.py
+python tools/analyze_course_extensions.py
+python tools/build_course_report.py
+# 需要 reportlab、pypdfium2、Pillow 与支持中文的字体
+python tools/render_course_pdf.py --font /path/to/simsun.ttc
+```
+
+PPT 源码 `tools/build_course_slides.mjs` 使用 `@oai/artifact-tool`；讲稿含来源与时长。
+CPU 单元测试及前端 schema/构建不替代真实 GPU API 与质量实验。
+完整归档已下载并校验，含 1559 份证据文件和 70 份云端源码快照，700 个实验 WAV 逐项匹配记录；
+收据为 `docs/evidence/2026-11-09/final-archive.receipt.json`。
+事后诊断可通过 `deploy/run_context_diagnostic.py` 和 `scripts/audit_asr_repeatability.py` 复查；
+它们不替代原冻结结果。默认 Whisper 温度回退存在解码随机性，报告单列固定音频控制。
 
 ## 华为云 GPU ECS
 
@@ -164,8 +209,9 @@ python tools/verify_local.py --frontend  # 需先下载 AdaIN 权重；合成输
 | e2e | 1/5，20% | 4/5 | **0/4，0%** |
 | VG w/o P | 3/5，60% | 4/5 | **3/4，75%** |
 
-这些是对已存 Markdown 行的重新计数，不是本轮运行结果。ε 扫描 75/75/50/50% 的逐句 CSV
-本机保留（`outputs/exp03_eps*/results.csv`），可作为历史声明依据；正式复跑以修复后的管线为准。
+这些是对已存 Markdown 行的重新计数，不是本轮运行结果。历史 VG ε 扫描的逐句 CSV
+本机保留（`outputs/exp03_eps*/results.csv`），可作历史声明依据；本轮云端重跑的身份维为
+3/4、2/4、2/4、2/4，四档联合质量通过均为 0/4，详见当前报告。
 
 ## 目录
 
@@ -173,15 +219,22 @@ python tools/verify_local.py --frontend  # 需先下载 AdaIN 权重；合成输
 `deploy/` ECS/Docker；`tools/` 下载、预检和统计；`tests/` 数值与回归；
 `third_party/` 上游参考；`docs/` 方案、历史报告、实验协议与审计。
 
-权重/数据/输出不入源码包。组员姓名、真实云端证据、数据分发链接与更新后的 PPT 仍需补齐。
+权重/数据/大批输出不入源码包。真实云端证据已归档；成员、权重云盘链接与正式课程提交待补齐。
 
 ## 课程平台接入
 
-保留仓库 `platform/` 适配服务、方法配置与三份样例音频。启动及接口说明见
-[课程平台接入说明](docs/10_课程平台接入说明.md) 和 [小组 README](platform/README-group.md)。
-平台 Fork 与集成**已完成**：`Abyss-sword/algorithm_research_frontend` 分支 `group_xx_submission`
-（README/方法配置/索引/样例均已推送，endpoint 本地 `http://127.0.0.1:8020/process`）。
-剩余：替换真实组号 → `npm test && npm run build` → 发 PR（标题 `第XX组-音频主动防御`，暂缓）。
+本轮更新 `platform/` 适配服务（含启动时任务目录清理 `--keep-jobs`）、1.1.0 方法配置与三份有来源摘要的真实音频。
+启动及接口说明见 [课程平台接入说明](docs/10_课程平台接入说明.md) 和
+[小组 README](platform/README-group.md)。平台 Fork 已存在（`Abyss-sword/algorithm_research_frontend`，
+分支 `group_xx_submission` 已推送方法配置/索引/样例/小组 README，endpoint 指向 `http://127.0.0.1:8020/process`），
+本地 6 项测试、配置校验与生产构建通过；可选参考输入导致样例按钮拒绝执行的问题有补丁
+`platform/patches/optional-input-sample.patch`。真实组号、成员、云盘链接与正式 PR 仍待补齐。
+
+完整模型分发包位于忽略目录 `outputs/course/resources/VoiceGuard-model-resources-complete.zip`（253,422,166 字节），
+含 AdaIN-VC、ECAPA、MOSNet、Whisper base、来源、逐文件摘要与恢复说明；不含数据、注册库及运行环境。
+本机已核验压缩包和全部成员摘要，SHA256 为
+`bf2254d9413028820bba5ddb7e8170cf02abe1d820d287d0e049847f00d9e208`，记录见
+`docs/evidence/2026-11-09/model-resources-complete.receipt.json`。填写与演示流程见 [提交信息模板](deliverables/提交信息模板.md)。
 已有的含资源打包工具 `tools/make_cloud_bundle.py` 同样保留；新 ECS 流程使用源码包并在云端下载资源。
 
 ## 本地使用（本机验证环境，历史命令仍可用）

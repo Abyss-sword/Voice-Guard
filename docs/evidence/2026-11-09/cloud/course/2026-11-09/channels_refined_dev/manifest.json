@@ -1,0 +1,65 @@
+{
+  "source_manifest": "outputs/quality/refine_dev/manifest.json",
+  "channels": [
+    "none",
+    "pcm16",
+    "mp3-128k",
+    "mp3-32k",
+    "aac-64k",
+    "opus-24k",
+    "g711",
+    "resample8k"
+  ],
+  "contents": [
+    "p226_002"
+  ],
+  "speakers": [
+    "p225",
+    "p226"
+  ],
+  "device": "cuda",
+  "ffmpeg": "ffmpeg version 4.4.2-0ubuntu0.22.04.1 Copyright (c) 2000-2021 the FFmpeg developers",
+  "input_sha256": {
+    "outputs/quality/refine_dev/manifest.json": "34d88b7027578dbce280fa2f4f23e314b51b1e2993ab110f4aae89d6a6db3dfd",
+    "data/VCTK22/p226/p226_002.wav": "9be1622dd552d1b728ddb8754042ac4bb1cbe8b64ea04ed929d71c1fcc39d28c",
+    "data/VCTK22/p226/p226_002.txt": "cc089050d61d57f3e806b6cf2ffa31aee29b8d749aa3067ade1f45ec3773ca73",
+    "outputs/quality/refine_dev/p225_040/original_trimmed.wav": "2cd414a49fe9ac6e8b7b65ef47c508045c1703c86f4cad5c7773ff055ef5ee6d",
+    "outputs/quality/refine_dev/p225_040/defended.wav": "e73f42c6449a0a0059fedce50cbc0cbd29981e5440c3c94fa658b62b560e90a4",
+    "data/VCTK22/p225/p225_040.txt": "ace2ad269cc173884c76d0d5416e0c8abb06eb70149483765ae8d67daa6c348a",
+    "outputs/quality/refine_dev/p226_039/original_trimmed.wav": "0aa2e96ce5dc114e1c3b2d953dd300155533f041487e401d7a24d17c7c9926d2",
+    "outputs/quality/refine_dev/p226_039/defended.wav": "1421fd6490510bd72d1205b45974c5bf1ad8d967a92f18ad540293d201f9ebd5",
+    "data/VCTK22/p226/p226_039.txt": "64c42afb0fb1fcccfc250acc483c15cb53b4e04560918726a73b9019cb6adc7a"
+  },
+  "model_sha256": {
+    "/root/voiceguard/checkpoints/mosnet-hf/config.upstream.json.download.json": "e972d4ea52033ad8ef3fbd76c9a39ff5164637ba61908397e6de8a29017647d5",
+    "/root/voiceguard/checkpoints/mosnet-hf/config.json": "71e85350b2efa56cfddb25e0a17ed06e151c1cc62376aff4871c2474065d4307",
+    "/root/voiceguard/checkpoints/mosnet-hf/configuration_mosnet.py.download.json": "422c40593ba654f3a64c2bd9e78d25c4d452115f6aa72c358336996940ffd1e1",
+    "/root/voiceguard/checkpoints/mosnet-hf/pytorch_model.bin.download.json": "c052d5131da8e52e3c7d5b0df65d3c1236a64028157912e6d598cadc9cae21d9",
+    "/root/voiceguard/checkpoints/mosnet-hf/modeling_mosnet.py": "862ea1b0a8353454023ecf208a5419f860fdd98d6f1f077531930f3313398b79",
+    "/root/voiceguard/checkpoints/mosnet-hf/modeling_mosnet.py.download.json": "b2f7e45b6d99b83b971bbbe2dec8358b0d774cd4290e689cb10b48c010f699e3",
+    "/root/voiceguard/checkpoints/mosnet-hf/pytorch_model.bin": "a71a45618d77d652ffa77117e9188729c76d214c858d0c29bdf71da4954b9544",
+    "/root/voiceguard/checkpoints/mosnet-hf/config.upstream.json": "5230e64861e6bd7ae99633e3e430148812c34222c7b3d3a35720c52a94a6dc84",
+    "/root/voiceguard/checkpoints/mosnet-hf/local_config.json": "4b5cf4b5760feed2502947c9a8670006d159da46fe2c2b56997d1f66514c43b8",
+    "/root/voiceguard/checkpoints/mosnet-hf/configuration_mosnet.py": "486001bc64145b5c6ec17548502e58106ca06ff6e602306d7948e382071fcda5",
+    "/root/.cache/whisper/base.pt": "ed3a0b6b1c0edf879ad9b11b1af5a0e6ab5db9205f891f668f8b0e6c6326e34e",
+    "/root/voiceguard/checkpoints/ecapa-local/label_encoder.ckpt": "e13c3a167bb4112685670ee896d20e2b565af16b3a4ceeaa8689fa4d22adb8b9",
+    "/root/voiceguard/checkpoints/ecapa-local/mean_var_norm_emb.ckpt": "cd70225b05b37be64fc5a95e24395d804231d43f74b2e1e5a513db7b69b34c33",
+    "/root/voiceguard/checkpoints/ecapa-local/embedding_model.ckpt": "0575cb64845e6b9a10db9bcb74d5ac32b326b8dc90352671d345e2ee3d0126a2",
+    "/root/voiceguard/checkpoints/ecapa-local/classifier.ckpt": "fd9e3634fe68bd0a427c95e354c0c677374f62b3f434e45b78599950d860d535"
+  },
+  "code_sha256": {
+    "scripts/audit_channels.py": "3edf180f8bb15828ed23ce0cfd7f9a16d8c8f0d87d26da9136b2a4595da00074",
+    "vguard/channel.py": "e655f9928c59eabf201196a4f552fad49296830a84c068ad38972a72c7a43cd7",
+    "vguard/evaluation.py": "f55f196e61253d9a23f96c8945e63793529e9a32be5f6b35c4ed12c603cf86c6",
+    "vguard/asv.py": "27a969bf96f7a5e2abf2a823568ebd97c749506547dd7e7d1ef788685be99a25",
+    "vguard/vc/adainvc.py": "59aa141bd1b2f1738b033debf7725fce0aea9c125dc5aa92f06d1ca4b99c5878",
+    "vguard/metrics/mos.py": "b1cf797b1c0b99e825a04774922c07c2bf2de583a0b392464f9f72cafde2efa3",
+    "vguard/metrics/wer.py": "b2688c6629e5eacc1c786d6d9e9fd9d82f1e91703ee533d317754f3e5f87b814"
+  },
+  "gate": "MOS>=3, target transcript WER<=.10, protected identity retained, converted identity changed, paired clean-VC identity correct",
+  "limitations": [
+    "Small correlated sample",
+    "Closed-set ECAPA and third-party MOSNet",
+    "Laboratory codecs; no live platform or human listening test"
+  ]
+}

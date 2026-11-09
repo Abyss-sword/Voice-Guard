@@ -1,0 +1,19 @@
+{
+  "utterance": "p225_040",
+  "content_source": "p226_002",
+  "experiment": "outputs/quality/refine_dev_pcm16_eval",
+  "evidence": "docs/evidence/2026-11-04/quality/refine_dev_pcm16_eval/summary.json",
+  "export": "PCM_16",
+  "metrics": {
+    "mos_defended": 3.2750256061553955,
+    "wer_defended": 0,
+    "asv_defended": "p225",
+    "asv_converted": "p246"
+  },
+  "audio_sha256": {
+    "input.wav": "2cd414a49fe9ac6e8b7b65ef47c508045c1703c86f4cad5c7773ff055ef5ee6d",
+    "output_defended.wav": "3eefad037999abb88f7d37553ca1d5adef1b7cdc932c02e65ed1bfa4ab024ec6",
+    "output_converted.wav": "c840fc3697d2ac28409578b7201d129a3153650f7e148f491d9ef3fb93c37421"
+  },
+  "note": "Offline audit sample; interactive runs use their own optimization and content source; no byte-identical reproduction claim"
+}

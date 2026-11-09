@@ -15,12 +15,29 @@ from pathlib import Path
 
 import numpy as np
 import soundfile as sf
+import torch
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from vguard.asv import build_registry, load_ecapa  # noqa: E402
-from vguard.vc.adainvc import load_adainvc, speaker_embed  # noqa: E402
+from vguard.vc.adainvc import load_adainvc, get_spectrograms, normalize  # noqa: E402
 from vguard.run_state import file_sha256, write_json  # noqa: E402
+
+
+@torch.inference_mode()
+def vc_file_embedding(model, config, attr, path, device):
+    """Enroll through exactly the same loading/trim/features path as conversion.
+
+    Calling speaker_embed on an untrimmed waveform changes the temporal context
+    and produces a reference that is inconsistent with native VC inference.
+    Raw Es vectors are averaged; no L2 normalization is introduced here.
+    """
+    mel, _ = get_spectrograms(str(path), **config['preprocess'])
+    value = torch.from_numpy(normalize(mel, attr)).T.unsqueeze(0).to(device)
+    embedding = model.speaker_encoder(value).squeeze(0).cpu().numpy()
+    if embedding.ndim != 1 or not np.isfinite(embedding).all():
+        raise ValueError('Invalid native speaker embedding: ' + str(path))
+    return embedding
 
 
 def main():
@@ -48,18 +65,13 @@ def main():
 
     if args.mode == "vc":
         model, config, attr = load_adainvc(args.model_dir, device=args.device)
-        pp = config["preprocess"]
         embs = []
         for n in names:
             d = os.path.join(args.vctk, n)
             wav_files = sorted(f for f in os.listdir(d) if f.endswith(".wav"))
             vs = []
             for f in wav_files[: args.per_speaker]:
-                w, sr = sf.read(os.path.join(d, f))
-                if sr != pp["sample_rate"]:
-                    import librosa
-                    w = librosa.resample(w.astype(np.float32), orig_sr=sr, target_sr=pp["sample_rate"])
-                vs.append(speaker_embed(model, config, attr, w.astype(np.float32), args.device))
+                vs.append(vc_file_embedding(model, config, attr, os.path.join(d, f), args.device))
             embs.append(np.mean(vs, axis=0))
             print(f"{n}: {len(vs)} utterances -> emb {embs[-1].shape}")
         embs_np = np.stack(embs).astype(np.float32)
@@ -90,6 +102,9 @@ def main():
         "mode": args.mode, "device": args.device, "per_speaker": args.per_speaker,
         "enrollment": enrollment, "registry_sha256": file_sha256(args.out),
         "shape": list(embs.shape),
+        "preprocessing": ('native-get_spectrograms-trim-normalize-raw-Es-v1'
+                          if args.mode == 'vc' else 'ecapa-16000Hz-v1'),
+        "builder_sha256": file_sha256(__file__),
     })
     print(f"saved {args.out}: {names} {embs.shape}")
 

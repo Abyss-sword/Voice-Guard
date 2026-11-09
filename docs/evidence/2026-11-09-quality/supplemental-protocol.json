@@ -1,0 +1,23 @@
+{
+  "frozen_utc": "2026-11-09T06:52:04.022600+00:00",
+  "recovery_protocol_sha256": "fdb9dedebf2a30077930b2199d6ec5b2ee896b019bf680cef90ed477090cf41a",
+  "purpose": "Secondary independent evaluation of the same validation audio. Original base/ECAPA observations retained, no per-utterance evaluator choice.",
+  "asr": {
+    "name": "small.en",
+    "url": "https://openaipublic.azureedge.net/main/whisper/models/f953ad0fd29cacd07d5a9eda5624af0f6bcf2258be67c92b79389873d91e0872/small.en.pt",
+    "expected_sha256": "f953ad0fd29cacd07d5a9eda5624af0f6bcf2258be67c92b79389873d91e0872",
+    "package_version": "20240930",
+    "language": "en",
+    "temperature": 0,
+    "fp16": false
+  },
+  "asv": {
+    "name": "Resemblyzer GE2E",
+    "registry_sha256": "d936189de499cd399e3ef63694209b3931b4c24b69281c0e6d6418ce3720fc7c",
+    "registry": "outputs/paper_quality/ge2e-registry.npz",
+    "resources_sha256": "4187c5ac908c3d50f7a7041b31350ea20b3d55275a64f688c87a6ec0060846b9"
+  },
+  "mos": "Original MOSNet scores from primary experiment; same fixed gate MOS>=3, WER<=.10",
+  "scorer_sha256": "91e45a793cf05374be1dc17f37355aa8d57c7c393a22740226f87f9588b66b9e",
+  "validation_examined": false
+}

@@ -1,0 +1,6 @@
+utterance,reference_mode,cer_original_trimmed,wer_original_trimmed,cer_defended,wer_defended,cer_conv_from_clean,wer_conv_from_clean,cer_conv_from_defended,wer_conv_from_defended
+p225_040,transcript,0.0,0.0,0.5,0.8,0.3889,0.6364,0.1481,0.3636
+p226_039,transcript,0.0,0.0,1.0,1.0,0.1481,0.1818,0.3333,0.5455
+p227_033,transcript,0.1875,0.2857,0.75,1.0,0.537,0.7273,0.1852,0.3636
+p228_035,transcript,0.0,0.0,1.0,1.3333,0.6296,1.1818,0.2778,0.4545
+p229_032,transcript,0.0,0.0,0.8462,1.0,0.6667,1.0,0.2778,0.5455

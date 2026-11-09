@@ -1,0 +1,53 @@
+{
+  "checked_utc": "2026-11-09T07:23:07.508670+00:00",
+  "frozen_code_sha256_verified": {
+    "scripts/run_quality_recovery.py": "6bcb0e3c592d10a2f8f4500daeb0007b82942cf68dc9c397b47bd8b54d4c505b",
+    "vguard/recovery.py": "2b07cb39802570b88e4dd29c2aa5c666d5dc3823622ab1515ebc66492a507580",
+    "vguard/features.py": "16ec2985e8cf82358c14a319ab15613997652c009dbf10cdb30abd5f685bcf76",
+    "vguard/masking.py": "d3b5000cef4b9bc1d56b40f9f8f5af5d08742bd7e4b9e780bf78c817b62d04e8",
+    "vguard/audio.py": "5b025eb903d8c6dd9fe289f1bb1312d4ec718b3c63943a04cd12f2e7b7062d6f",
+    "vguard/asv.py": "27a969bf96f7a5e2abf2a823568ebd97c749506547dd7e7d1ef788685be99a25",
+    "vguard/vc/adainvc.py": "59aa141bd1b2f1738b033debf7725fce0aea9c125dc5aa92f06d1ca4b99c5878",
+    "vguard/metrics/mos_original.py": "58f3b43ee3d09e4e087355f66a1f9140ed281344cb00665d2bd2e83545441a80",
+    "vguard/metrics/mos.py": "b1cf797b1c0b99e825a04774922c07c2bf2de583a0b392464f9f72cafde2efa3",
+    "vguard/metrics/wer.py": "b2688c6629e5eacc1c786d6d9e9fd9d82f1e91703ee533d317754f3e5f87b814",
+    "third_party/ada_in_vc/model.py": "3f602da959517ad927ea0525797928559f0205325bdb25c8804f02685b316480"
+  },
+  "supplement_scorer_sha256_verified": "91e45a793cf05374be1dc17f37355aa8d57c7c393a22740226f87f9588b66b9e",
+  "enrollment_overlap": {
+    "registry.npz.manifest.json": [],
+    "registry_vc.npz.manifest.json": [],
+    "GE2E": []
+  },
+  "unit_tests": {
+    "count": 30,
+    "passed": true,
+    "log_sha256": "3398f17aca5d2c3503c7d99ab24cef1cb472ad9fa08ca3c9109f7b95de76aca3"
+  },
+  "report": {
+    "path": "deliverables/Voice_Guard_论文质量补充报告.pdf",
+    "sha256": "db6a84abcee0eea51893814bc937fa4de6156faf326a0a4bbd60e7fc7c2f40f8",
+    "pages": 5,
+    "rendered_page_sha256": {
+      "page-01.png": "8a68b408ab4a2c5e0a469b8d669de42392a7d6c1cf0e540ce3fb5ff77971f9b4",
+      "page-02.png": "d554cdd76fdd058a565e61ddad1e2e11e30c4a0d324d1084c073df3d70e899dc",
+      "page-03.png": "e2851cbaf8a3fd07e0445e07830d58a0503f1200d4c1c83a980ba1e4e521b579",
+      "page-04.png": "5e44eb31e2e164fcbb3d2e6582640b9f5eec77309280970a0ff5e75dea577a88",
+      "page-05.png": "0194e42341daed0cdf4c1937aee3d20ea59bc66c17c23f8552c085b9b8fdfeb8"
+    },
+    "visual_review": "All latest rendered pages inspected; no clipped text or overlap observed"
+  },
+  "resource_bundle_sha256": "634e697f10622559d704e2f6111a6618bf7b239507001be7883e1aab40dbd2e5",
+  "resource_bundle_local_verified": true,
+  "experiment_archive": {
+    "archive_sha256": "9a2aeb9e389b5910c0f5723ff5c87ebc40a13925efbf760c2c10a045f61a3a5d",
+    "bytes": 14975538,
+    "all_files_verified": 363,
+    "wav_files_verified": 132,
+    "measurement_audio_hashes_verified": 132,
+    "verified": true
+  },
+  "human_mos_ratings": 0,
+  "automatic_shutdown": false,
+  "claim": "Quality predictions near paper targets, overall paper-level protection not established"
+}

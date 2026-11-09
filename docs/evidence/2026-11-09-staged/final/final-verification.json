@@ -1,0 +1,152 @@
+{
+  "checked_utc": "2026-11-09T08:56:35.782496+00:00",
+  "frozen_code_sha256_verified": {
+    "vguard/staged_recovery.py": {
+      "execution_sha256": "2f149f2c8f823c38067621292c0e1058773351f536e8fb4c0d07b99fe9296495",
+      "delivery_sha256": "2f149f2c8f823c38067621292c0e1058773351f536e8fb4c0d07b99fe9296495",
+      "byte_identical": true,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/metrics/staged.py": {
+      "execution_sha256": "c6bd268b68645fcf769861c1c3fa4c044462a053d54227d1839f56a72eb5764e",
+      "delivery_sha256": "c6bd268b68645fcf769861c1c3fa4c044462a053d54227d1839f56a72eb5764e",
+      "byte_identical": true,
+      "equal_after_lf_normalization": true
+    },
+    "scripts/run_staged_recovery.py": {
+      "execution_sha256": "194eb58d32f0a36968d49a6927e623fd284e18078ba2353dd85bbaf72639bb40",
+      "delivery_sha256": "194eb58d32f0a36968d49a6927e623fd284e18078ba2353dd85bbaf72639bb40",
+      "byte_identical": true,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/recovery.py": {
+      "execution_sha256": "f5025a1ecf3ae867acfe708fb3e8f1499e9ba246de9bf356baf825e0d4e45001",
+      "delivery_sha256": "2b07cb39802570b88e4dd29c2aa5c666d5dc3823622ab1515ebc66492a507580",
+      "byte_identical": false,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/features.py": {
+      "execution_sha256": "61970004de9afac52cc3804658688d04102205426bd7cbf0f19932a0ae24f767",
+      "delivery_sha256": "16ec2985e8cf82358c14a319ab15613997652c009dbf10cdb30abd5f685bcf76",
+      "byte_identical": false,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/masking.py": {
+      "execution_sha256": "c44bd63e9df70bd8525cff04759bda1cd5af46072f807c746a606e86dfb2d830",
+      "delivery_sha256": "d3b5000cef4b9bc1d56b40f9f8f5af5d08742bd7e4b9e780bf78c817b62d04e8",
+      "byte_identical": false,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/vc/adainvc.py": {
+      "execution_sha256": "b79a3e9cff2a0357473d0bdf6c0df266c3b9fde1d69b545526a22290287f78b8",
+      "delivery_sha256": "59aa141bd1b2f1738b033debf7725fce0aea9c125dc5aa92f06d1ca4b99c5878",
+      "byte_identical": false,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/metrics/wer.py": {
+      "execution_sha256": "75f953eecdc415fbd338eb42cb551d163f1de2d7f9055fac2b36081ec5f21f07",
+      "delivery_sha256": "b2688c6629e5eacc1c786d6d9e9fd9d82f1e91703ee533d317754f3e5f87b814",
+      "byte_identical": false,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/metrics/mos_original.py": {
+      "execution_sha256": "d41771ece8132bf97fff3488962cefaead85c9d5edcd0fc7ece2fc58c5d20e5d",
+      "delivery_sha256": "58f3b43ee3d09e4e087355f66a1f9140ed281344cb00665d2bd2e83545441a80",
+      "byte_identical": false,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/asv.py": {
+      "execution_sha256": "a0561d5de6a2b00067add163622c4425545382d8d1c735a3e5ecb8fef9cfd511",
+      "delivery_sha256": "27a969bf96f7a5e2abf2a823568ebd97c749506547dd7e7d1ef788685be99a25",
+      "byte_identical": false,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/audio.py": {
+      "execution_sha256": "38d7688a5a0fe4e0dd5590ca5c8909d27c1127ef5a10e59dc1e404f1a1cbe74f",
+      "delivery_sha256": "5b025eb903d8c6dd9fe289f1bb1312d4ec718b3c63943a04cd12f2e7b7062d6f",
+      "byte_identical": false,
+      "equal_after_lf_normalization": true
+    },
+    "third_party/ada_in_vc/model.py": {
+      "execution_sha256": "a0a2b8201e8c45eceab6b626fbef0ed67e07faad3509baca98b68f2fa208bdd7",
+      "delivery_sha256": "3f602da959517ad927ea0525797928559f0205325bdb25c8804f02685b316480",
+      "byte_identical": false,
+      "equal_after_lf_normalization": true
+    },
+    "vguard/native_soft_recovery.py": {
+      "execution_sha256": "eaa11fa7f664b598801f145bcc1b9c52d3198dbc17c4d480b1a0417e0f847c3d",
+      "delivery_sha256": "eaa11fa7f664b598801f145bcc1b9c52d3198dbc17c4d480b1a0417e0f847c3d",
+      "byte_identical": true,
+      "equal_after_lf_normalization": true
+    },
+    "scripts/run_native_soft_comparison.py": {
+      "execution_sha256": "0ebd71d992ac62c83d3ce7f4d3949a5b8045be6aa5cda88a6f518c37f20f81f6",
+      "delivery_sha256": "0ebd71d992ac62c83d3ce7f4d3949a5b8045be6aa5cda88a6f518c37f20f81f6",
+      "byte_identical": true,
+      "equal_after_lf_normalization": true
+    },
+    "tools/prepare_native_soft_comparison.py": {
+      "execution_sha256": "5b53886be9f97b43f7c0c9daab9ef5c9687fdd51c6e1e2eb4077a8414ca36ce8",
+      "delivery_sha256": "5b53886be9f97b43f7c0c9daab9ef5c9687fdd51c6e1e2eb4077a8414ca36ce8",
+      "byte_identical": true,
+      "equal_after_lf_normalization": true
+    }
+  },
+  "protocol_sha256": "35a1373e6fa15baffa822794dd9b136424a7dec1111a17d7f145d9777e4ea3ba",
+  "selection_sha256": "7a5f5b9abd53507a63bd3855e1ecc2792b4f379e91b11c17d65c4d6a19549f5a",
+  "independent_analysis_recomputed": true,
+  "native_audit_code_sha256_verified": "e33a9c7486f0eb69b536105044de4c8a1737769ed94f571f5855c29e1794b286",
+  "production_enrollment_check": {
+    "registry_sha256": "2c4ccddd3b7bb9aaf72359d7e878fbdd978c8ff5b6c08657cee4820ac91e037c",
+    "native_bank_sha256": "0210327d757ad73792e30ffbc3cd2fbd0252a8b7af8e960d049889a84edd0337",
+    "builder_sha256": "2ad5f85ef93dfbf997d5d38bbe477278d31c5f5f7e7730170938d5c6dd4e1eb3",
+    "shape": [
+      20,
+      128
+    ],
+    "max_abs_embedding_error": 0.0,
+    "passed": true,
+    "existing_registry_overwritten": false,
+    "purpose": "Production enrollment correction verified on the same 20x30 enrollment WAVs; not a new defense success or validation retuning."
+  },
+  "unit_tests": {
+    "count": 39,
+    "passed": true,
+    "log_sha256": "d17a08644908ca3d030834f1f4103d06fb170b200b14fa1936e5222941d3bb33"
+  },
+  "archive": {
+    "archive": "final-staged-evidence.tar.gz",
+    "bytes": 33613073,
+    "sha256": "874865a9d35672143a8cbbac105bb5724189698d805fd4d0efaf8f5ea2134c80",
+    "measured_wavs_verified_against_scores": 270,
+    "wav_files": 302,
+    "intermediate_strong_stage_wavs": 35,
+    "scored_strong_stage_wavs": 3,
+    "note": "Strong-stage WAVs are intermediate diagnostics, not final scored successes. Protocol code hashes identify executed bytes; later delivery commits must not be backdated.",
+    "all_files_verified": 658,
+    "local_archive_verified": true
+  },
+  "native_reference_bank_sha256": "0210327d757ad73792e30ffbc3cd2fbd0252a8b7af8e960d049889a84edd0337",
+  "previous_archives_unchanged": {
+    "outputs/course/final-complete-evidence.tar.gz": "4984c94226caae7eb4602cb804b6217bf94d1eedd34c73e898a944a3ed341b3f",
+    "outputs/paper_quality/final-recovery-evidence.tar.gz": "9a2aeb9e389b5910c0f5723ff5c87ebc40a13925efbf760c2c10a045f61a3a5d"
+  },
+  "report": {
+    "path": "deliverables/Voice_Guard_原生参考与两阶段报告.pdf",
+    "sha256": "87399d59eb45a26c0e97c16a63ee9f7af125085b643f8999f46894634380a385",
+    "pages": 7,
+    "rendered_page_sha256": {
+      "page-01.png": "e48780a231e9fa7b7dcf9923b43b9aaf0d8c971ec6a28bccff723f0740cef2f3",
+      "page-02.png": "190a37258551aa60d171f4b7c2809fbce733ae41fb86a1a4d0d9eaf2b1a34193",
+      "page-03.png": "79627a1a742460000b5ee0b7f6a098d224d5efa0664415d3db1d832361bb586f",
+      "page-04.png": "2ca794e63b1d2820fc6a8a923b830a0a3adf7a3c2cc15f6a64a0c11951d6cb4e",
+      "page-05.png": "482eed68171f160a52fc6a29c1ce2d7fd95e2dcfa72901b77b7f6ceda766cdc9",
+      "page-06.png": "79ec7608301d4a6a35d868efd0834f114e49e485f735aaafa51d8852e1e64fba",
+      "page-07.png": "f83160671e253909e3425c36ffec3a594fe3d0126eaa8feb69ce9683b8c7b904"
+    },
+    "visual_review": "Every latest rendered page inspected; no clipping or overlap observed"
+  },
+  "human_mos_ratings": 0,
+  "automatic_shutdown": false,
+  "claim": "Paired exploratory reproduction; paper-scale equivalence not established"
+}
