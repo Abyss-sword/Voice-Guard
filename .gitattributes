@@ -9,8 +9,10 @@ docs/evidence/2026-11-09-quality/** -text whitespace=blank-at-eol,blank-at-eof,s
 docs/evidence/2026-11-09-staged/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 docs/evidence/2026-11-09-joint/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 docs/evidence/2026-11-09-joint-anchored/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+docs/evidence/2026-11-09-content-robust/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 # Preserve raw progress logs and generated vector output as emitted by their tools.
 docs/evidence/**/*.log -text -whitespace
 docs/figures/**/*.svg -whitespace
 docs/figures/2026-11-09-joint/*.svg -text -whitespace
 docs/figures/2026-11-09-joint-anchored/*.svg -text -whitespace
+docs/figures/2026-11-09-content-robust/*.svg -text -whitespace

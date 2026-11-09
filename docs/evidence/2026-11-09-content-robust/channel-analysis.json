@@ -1,0 +1,217 @@
+{
+  "protocol_sha256": "3f75374c66c3fbcdf564734eed5dffa1de57293bde248d8b579fc19ae7415582",
+  "rows": 36,
+  "development_diagnostic_only": true,
+  "by_channel": {
+    "identity": {
+      "native_emb_snr20": {
+        "utterances": 4,
+        "conversion_pairs": 4,
+        "protected_quality_count": 3,
+        "protected_mos_mean": 4.075439155101776,
+        "protected_wer_macro": 0.03125,
+        "strict_joint": {
+          "successes": 1,
+          "denominator": 4,
+          "rate": 0.25
+        },
+        "paper_identity_screen": {
+          "successes": 1,
+          "denominator": 4,
+          "rate": 0.25
+        },
+        "paper_full_screen": {
+          "successes": 1,
+          "denominator": 3,
+          "rate": 0.3333333333333333
+        }
+      },
+      "ctc_tf_snr20": {
+        "utterances": 4,
+        "conversion_pairs": 4,
+        "protected_quality_count": 3,
+        "protected_mos_mean": 4.078446984291077,
+        "protected_wer_macro": 0.03125,
+        "strict_joint": {
+          "successes": 1,
+          "denominator": 4,
+          "rate": 0.25
+        },
+        "paper_identity_screen": {
+          "successes": 1,
+          "denominator": 4,
+          "rate": 0.25
+        },
+        "paper_full_screen": {
+          "successes": 1,
+          "denominator": 3,
+          "rate": 0.3333333333333333
+        }
+      },
+      "ctc_tf_eot_snr20": {
+        "utterances": 4,
+        "conversion_pairs": 4,
+        "protected_quality_count": 3,
+        "protected_mos_mean": 4.078112900257111,
+        "protected_wer_macro": 0.03125,
+        "strict_joint": {
+          "successes": 1,
+          "denominator": 4,
+          "rate": 0.25
+        },
+        "paper_identity_screen": {
+          "successes": 1,
+          "denominator": 4,
+          "rate": 0.25
+        },
+        "paper_full_screen": {
+          "successes": 1,
+          "denominator": 3,
+          "rate": 0.3333333333333333
+        }
+      }
+    },
+    "heldout_room": {
+      "native_emb_snr20": {
+        "utterances": 4,
+        "conversion_pairs": 4,
+        "protected_quality_count": 2,
+        "protected_mos_mean": 3.7761372327804565,
+        "protected_wer_macro": 0.03125,
+        "strict_joint": {
+          "successes": 1,
+          "denominator": 4,
+          "rate": 0.25
+        },
+        "paper_identity_screen": {
+          "successes": 1,
+          "denominator": 4,
+          "rate": 0.25
+        },
+        "paper_full_screen": {
+          "successes": 1,
+          "denominator": 3,
+          "rate": 0.3333333333333333
+        }
+      },
+      "ctc_tf_snr20": {
+        "utterances": 4,
+        "conversion_pairs": 4,
+        "protected_quality_count": 2,
+        "protected_mos_mean": 3.7775670289993286,
+        "protected_wer_macro": 0.03125,
+        "strict_joint": {
+          "successes": 1,
+          "denominator": 4,
+          "rate": 0.25
+        },
+        "paper_identity_screen": {
+          "successes": 1,
+          "denominator": 4,
+          "rate": 0.25
+        },
+        "paper_full_screen": {
+          "successes": 1,
+          "denominator": 3,
+          "rate": 0.3333333333333333
+        }
+      },
+      "ctc_tf_eot_snr20": {
+        "utterances": 4,
+        "conversion_pairs": 4,
+        "protected_quality_count": 2,
+        "protected_mos_mean": 3.782647967338562,
+        "protected_wer_macro": 0.03125,
+        "strict_joint": {
+          "successes": 1,
+          "denominator": 4,
+          "rate": 0.25
+        },
+        "paper_identity_screen": {
+          "successes": 1,
+          "denominator": 4,
+          "rate": 0.25
+        },
+        "paper_full_screen": {
+          "successes": 1,
+          "denominator": 3,
+          "rate": 0.3333333333333333
+        }
+      }
+    },
+    "mp3_64k": {
+      "native_emb_snr20": {
+        "utterances": 4,
+        "conversion_pairs": 4,
+        "protected_quality_count": 3,
+        "protected_mos_mean": 4.072535693645477,
+        "protected_wer_macro": 0.03125,
+        "strict_joint": {
+          "successes": 1,
+          "denominator": 4,
+          "rate": 0.25
+        },
+        "paper_identity_screen": {
+          "successes": 1,
+          "denominator": 4,
+          "rate": 0.25
+        },
+        "paper_full_screen": {
+          "successes": 1,
+          "denominator": 3,
+          "rate": 0.3333333333333333
+        }
+      },
+      "ctc_tf_snr20": {
+        "utterances": 4,
+        "conversion_pairs": 4,
+        "protected_quality_count": 3,
+        "protected_mos_mean": 4.069274604320526,
+        "protected_wer_macro": 0.03125,
+        "strict_joint": {
+          "successes": 1,
+          "denominator": 4,
+          "rate": 0.25
+        },
+        "paper_identity_screen": {
+          "successes": 1,
+          "denominator": 4,
+          "rate": 0.25
+        },
+        "paper_full_screen": {
+          "successes": 1,
+          "denominator": 3,
+          "rate": 0.3333333333333333
+        }
+      },
+      "ctc_tf_eot_snr20": {
+        "utterances": 4,
+        "conversion_pairs": 4,
+        "protected_quality_count": 3,
+        "protected_mos_mean": 4.05801522731781,
+        "protected_wer_macro": 0.03125,
+        "strict_joint": {
+          "successes": 1,
+          "denominator": 4,
+          "rate": 0.25
+        },
+        "paper_identity_screen": {
+          "successes": 1,
+          "denominator": 4,
+          "rate": 0.25
+        },
+        "paper_full_screen": {
+          "successes": 1,
+          "denominator": 3,
+          "rate": 0.3333333333333333
+        }
+      }
+    }
+  },
+  "limitations": [
+    "Four already observed development utterances, one content source.",
+    "First-order synthetic room, not a measured room or full Treble simulator.",
+    "Independent final evaluators, but no claim of held-out-sentence generalization.",
+    "Same fixed MOS/WER/identity gates. A degraded clean control is excluded, not counted as defense."
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "reviewed_utc": "2026-11-09T12:11:15.984799+00:00",
+  "source_url": "https://blog.csdn.net/weixin_33139275/article/details/170178909",
+  "source_published": "2026-11-05T13:38:32+08:00",
+  "source_modified": "2026-11-06T07:49:46+08:00",
+  "source_html_sha256": "07daa2e5afd11393d816040a6abd849d5d38807575d662bebe3cb08083357ef0",
+  "source_text_sha256": "9a697fa31adad817ae7ca6a2c9efb2d9b026d1dda217c84b94231321c264fe7a",
+  "crosscheck_snapshot_sha256": "ef0f9ad04c4515614aae6791208af3881dab4a6909845aa47ce639c91f06094e",
+  "status": "Secondary blog inspiration only; no official Kalypta paper, checkpoint, SDK or reproducible configuration was established in this review.",
+  "unverified_blog_claims": [
+    "1.2M parameters",
+    "<12ms end-to-end latency",
+    "0.8dB imperceptibility bound",
+    "Zoom recognition 92% to 11.3%"
+  ],
+  "target_difference": "Blog aims to prevent ASR transcription. This project instead preserves original ASR content while disrupting unauthorized voice cloning.",
+  "corrections": [
+    "ISO 226 equal-loudness contours do not establish an inaudibility threshold for arbitrary adversarial perturbations.",
+    "A 20ms frame description and <12ms end-to-end latency require an explicit causal/window/lookahead accounting that the blog does not provide.",
+    "Official Treble describes wave-based FEM and geometrical acoustics; the blog Maxwell-equation attribution is not supported by the inspected official description."
+  ],
+  "verified_related_sources": [
+    {
+      "url": "https://www.treble.tech/",
+      "observation": "Official platform describes wave-based FEM, geometrical acoustics, synthetic audio and acoustic validation; its company-level claims do not verify the blog Kalypta examples."
+    },
+    {
+      "url": "https://github.com/LCAV/pyroomacoustics",
+      "observation": "Open-source image-source/ray-tracing RIR simulation; not installed or used as the engine of this experiment."
+    }
+  ],
+  "implemented_adaptations": [
+    "CTC-preserving local time-frequency gradient allocation",
+    "First-order conflict projection",
+    "Fixed synthetic reference-channel objective and ablation",
+    "Proxy-only pre-export and actual-PCM16 acceptance with baseline fallback"
+  ],
+  "not_implemented": [
+    "Anti-ASR objective",
+    "Kalypta SDK/network reproduction",
+    "Treble simulator",
+    "Neural streaming generator",
+    "Measured room or platform experiments"
+  ],
+  "human_mos_ratings": 0
+}

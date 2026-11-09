@@ -1,0 +1,201 @@
+{
+  "verified_utc": "2026-11-09T13:01:28.543073+00:00",
+  "execution_source_verified": {
+    "vguard/joint_recovery.py": {
+      "execution_sha256": "24037e5f86c079ce8ab63da310ac0f6936d642e97633c7d8ec95c8d04f16205f",
+      "delivery_sha256": "24037e5f86c079ce8ab63da310ac0f6936d642e97633c7d8ec95c8d04f16205f",
+      "equal_after_lf_normalization": true
+    },
+    "scripts/run_joint_recovery.py": {
+      "execution_sha256": "8a571bd23347fbe819286b6b81e96bb3879cb1cfe5c6b0a767e701caa7ebe9a0",
+      "delivery_sha256": "8a571bd23347fbe819286b6b81e96bb3879cb1cfe5c6b0a767e701caa7ebe9a0",
+      "equal_after_lf_normalization": true
+    },
+    "tools/prepare_joint_recovery.py": {
+      "execution_sha256": "9c21e29b8de6efa2108a455bcc95dfb7c214460e6841164788b6aba94543cdda",
+      "delivery_sha256": "9c21e29b8de6efa2108a455bcc95dfb7c214460e6841164788b6aba94543cdda",
+      "equal_after_lf_normalization": true
+    },
+    "tools/analyze_joint_recovery.py": {
+      "execution_sha256": "28a3d5c0dc9fe8360811a00d4f3bd13ef3246f025db790810ae2d48699af549d",
+      "delivery_sha256": "28a3d5c0dc9fe8360811a00d4f3bd13ef3246f025db790810ae2d48699af549d",
+      "equal_after_lf_normalization": true
+    },
+    "tools/analyze_staged_recovery.py": {
+      "execution_sha256": "34be54e1154eb9830ef93b3459968b06f0f5868de1eb825a15de63724033e113",
+      "delivery_sha256": "34be54e1154eb9830ef93b3459968b06f0f5868de1eb825a15de63724033e113",
+      "equal_after_lf_normalization": true
+    },
+    "vguard/staged_recovery.py": {
+      "execution_sha256": "2f149f2c8f823c38067621292c0e1058773351f536e8fb4c0d07b99fe9296495",
+      "delivery_sha256": "2f149f2c8f823c38067621292c0e1058773351f536e8fb4c0d07b99fe9296495",
+      "equal_after_lf_normalization": true
+    },
+    "vguard/recovery.py": {
+      "execution_sha256": "f5025a1ecf3ae867acfe708fb3e8f1499e9ba246de9bf356baf825e0d4e45001",
+      "delivery_sha256": "2b07cb39802570b88e4dd29c2aa5c666d5dc3823622ab1515ebc66492a507580",
+      "equal_after_lf_normalization": true
+    },
+    "vguard/features.py": {
+      "execution_sha256": "61970004de9afac52cc3804658688d04102205426bd7cbf0f19932a0ae24f767",
+      "delivery_sha256": "16ec2985e8cf82358c14a319ab15613997652c009dbf10cdb30abd5f685bcf76",
+      "equal_after_lf_normalization": true
+    },
+    "vguard/masking.py": {
+      "execution_sha256": "c44bd63e9df70bd8525cff04759bda1cd5af46072f807c746a606e86dfb2d830",
+      "delivery_sha256": "d3b5000cef4b9bc1d56b40f9f8f5af5d08742bd7e4b9e780bf78c817b62d04e8",
+      "equal_after_lf_normalization": true
+    },
+    "vguard/vc/adainvc.py": {
+      "execution_sha256": "b79a3e9cff2a0357473d0bdf6c0df266c3b9fde1d69b545526a22290287f78b8",
+      "delivery_sha256": "59aa141bd1b2f1738b033debf7725fce0aea9c125dc5aa92f06d1ca4b99c5878",
+      "equal_after_lf_normalization": true
+    },
+    "vguard/asv.py": {
+      "execution_sha256": "a0561d5de6a2b00067add163622c4425545382d8d1c735a3e5ecb8fef9cfd511",
+      "delivery_sha256": "27a969bf96f7a5e2abf2a823568ebd97c749506547dd7e7d1ef788685be99a25",
+      "equal_after_lf_normalization": true
+    },
+    "vguard/audio.py": {
+      "execution_sha256": "38d7688a5a0fe4e0dd5590ca5c8909d27c1127ef5a10e59dc1e404f1a1cbe74f",
+      "delivery_sha256": "5b025eb903d8c6dd9fe289f1bb1312d4ec718b3c63943a04cd12f2e7b7062d6f",
+      "equal_after_lf_normalization": true
+    },
+    "vguard/metrics/staged.py": {
+      "execution_sha256": "c6bd268b68645fcf769861c1c3fa4c044462a053d54227d1839f56a72eb5764e",
+      "delivery_sha256": "c6bd268b68645fcf769861c1c3fa4c044462a053d54227d1839f56a72eb5764e",
+      "equal_after_lf_normalization": true
+    },
+    "vguard/metrics/wer.py": {
+      "execution_sha256": "75f953eecdc415fbd338eb42cb551d163f1de2d7f9055fac2b36081ec5f21f07",
+      "delivery_sha256": "b2688c6629e5eacc1c786d6d9e9fd9d82f1e91703ee533d317754f3e5f87b814",
+      "equal_after_lf_normalization": true
+    },
+    "vguard/metrics/mos_original.py": {
+      "execution_sha256": "d41771ece8132bf97fff3488962cefaead85c9d5edcd0fc7ece2fc58c5d20e5d",
+      "delivery_sha256": "58f3b43ee3d09e4e087355f66a1f9140ed281344cb00665d2bd2e83545441a80",
+      "equal_after_lf_normalization": true
+    },
+    "vguard/run_state.py": {
+      "execution_sha256": "b60f5de10999981242aeedbc2b2105054b3a7e69cd2b0b184b9fba0dc63ddf5b",
+      "delivery_sha256": "b60f5de10999981242aeedbc2b2105054b3a7e69cd2b0b184b9fba0dc63ddf5b",
+      "equal_after_lf_normalization": true
+    },
+    "third_party/ada_in_vc/model.py": {
+      "execution_sha256": "a0a2b8201e8c45eceab6b626fbef0ed67e07faad3509baca98b68f2fa208bdd7",
+      "delivery_sha256": "3f602da959517ad927ea0525797928559f0205325bdb25c8804f02685b316480",
+      "equal_after_lf_normalization": true
+    },
+    "vguard/content_robust_recovery.py": {
+      "execution_sha256": "f5451fc98467346f3f6f90c2bd85364883dce5a174a237a1ef8fa6373cc692ee",
+      "delivery_sha256": "f5451fc98467346f3f6f90c2bd85364883dce5a174a237a1ef8fa6373cc692ee",
+      "equal_after_lf_normalization": true
+    },
+    "scripts/run_content_robust.py": {
+      "execution_sha256": "bed85232ed6650f9f02ea4c15ed6b5ddb41c4ed43fa8a167452a6d9c625f1f8b",
+      "delivery_sha256": "bed85232ed6650f9f02ea4c15ed6b5ddb41c4ed43fa8a167452a6d9c625f1f8b",
+      "equal_after_lf_normalization": true
+    },
+    "tools/prepare_content_robust.py": {
+      "execution_sha256": "088e371888341d83a47f7c7b17b3223ffc69088d8bfee6033dac727cf9f6b9d7",
+      "delivery_sha256": "088e371888341d83a47f7c7b17b3223ffc69088d8bfee6033dac727cf9f6b9d7",
+      "equal_after_lf_normalization": true
+    },
+    "tools/decide_content_validation.py": {
+      "execution_sha256": "38afcde816714f94432b067eb5961d21b7e32ca2cd1f4c172bcb82e66db2c353",
+      "delivery_sha256": "38afcde816714f94432b067eb5961d21b7e32ca2cd1f4c172bcb82e66db2c353",
+      "equal_after_lf_normalization": true
+    },
+    "tools/smoke_content_robust.py": {
+      "execution_sha256": "adb83ab772dc6c60b2f7911199a566243f1fd2f641e537c6fbc18361960a975f",
+      "delivery_sha256": "adb83ab772dc6c60b2f7911199a566243f1fd2f641e537c6fbc18361960a975f",
+      "equal_after_lf_normalization": true
+    },
+    "tests/test_content_robust.py": {
+      "execution_sha256": "7a114be18d1fa7ec3e55ea8cd40ba7780ad8a34294360d1fca81c3316f126d18",
+      "delivery_sha256": "7a114be18d1fa7ec3e55ea8cd40ba7780ad8a34294360d1fca81c3316f126d18",
+      "equal_after_lf_normalization": true
+    },
+    "tools/probe_content_channels.py": {
+      "execution_sha256": "e1e136494fe22f3b171bbfcf892707ab2becc24994db999c77ab170946ff203d",
+      "delivery_sha256": "e1e136494fe22f3b171bbfcf892707ab2becc24994db999c77ab170946ff203d",
+      "equal_after_lf_normalization": true
+    }
+  },
+  "independent_analysis_recomputed": true,
+  "analysis_comparison": {
+    "discrete_values_exact": true,
+    "float_absolute_tolerance": 1e-12,
+    "roundoff_differences": [
+      {
+        "path": "/splits/development/proxy_diagnostics/ctc_tf_eot_snr20/elapsed_optimization_s",
+        "recomputed": 111.72999999999999,
+        "saved": 111.73000000000002,
+        "absolute_difference": 2.842170943040401e-14
+      },
+      {
+        "path": "/splits/development/waveform_checks/native_emb_snr20/snr_min_db",
+        "recomputed": 20.02039490858539,
+        "saved": 20.020394908585395,
+        "absolute_difference": 3.552713678800501e-15
+      },
+      {
+        "path": "/splits/validation/proxy_diagnostics/ctc_tf_snr20/elapsed_optimization_s",
+        "recomputed": 182.56,
+        "saved": 182.56000000000003,
+        "absolute_difference": 2.842170943040401e-14
+      }
+    ]
+  },
+  "channel_gates_and_controls_verified": true,
+  "archive": {
+    "archive": "content-evidence.tar.gz",
+    "bytes": 103784811,
+    "sha256": "d279eb814c51eacbc98bbd3a58dc689768aca632d4df4d1be9abe5c98e95b4eb",
+    "measured_wavs_verified_against_scores": 636,
+    "wav_files": 673,
+    "development_only": false,
+    "validation_allowed": true,
+    "note": "Model weights excluded. Existing model/evaluator packages plus the exact CTC checkpoint are required. Includes new inputs, prototypes, WAVs, transcript scores, main/channel protocols, decisions and executed code.",
+    "all_files_verified": 1360,
+    "local_archive_verified": true
+  },
+  "ctc_resource_package_verified": {
+    "archive": "VoiceGuard-content-ctc-resources.zip",
+    "bytes": 377665434,
+    "sha256": "6ab8449d3f7b49d6c6875e8559c44c57440e6e00690d6ad2ab0a5ad66d2bd65d",
+    "checkpoint_path": "checkpoints/ctc/wav2vec2_fairseq_base_ls960_asr_ls960.pth",
+    "checkpoint_sha256": "488fd4f16de84438ffc945334278c1b9fb9b7159a806c1080b16111a958c945d",
+    "members": 2,
+    "source": "https://download.pytorch.org/torchaudio/models/wav2vec2_fairseq_base_ls960_asr_ls960.pth",
+    "note": "Supplement to existing model/evaluator packages; no private credentials or experiment scores."
+  },
+  "historical_archives_unchanged": {
+    "outputs/course/final-complete-evidence.tar.gz": "4984c94226caae7eb4602cb804b6217bf94d1eedd34c73e898a944a3ed341b3f",
+    "outputs/paper_quality/final-recovery-evidence.tar.gz": "9a2aeb9e389b5910c0f5723ff5c87ebc40a13925efbf760c2c10a045f61a3a5d",
+    "outputs/staged_recovery/final-staged-evidence.tar.gz": "874865a9d35672143a8cbbac105bb5724189698d805fd4d0efaf8f5ea2134c80",
+    "outputs/joint_recovery/joint-evidence.tar.gz": "b231f74d1f2d7dd8ca9b1a9dbb242d528c33557154bcedb8d8888aa47f09c5f0",
+    "outputs/joint_anchored/anchored-evidence.tar.gz": "28526b1cedade34a67347d33125e407a5e5c57cd09941a7eb7f6656c599c0229"
+  },
+  "unit_tests": 52,
+  "unit_test_log_sha256": "46cf6fe039216f62762443bdd2e3021815b61fb6b575007875f5396e76504303",
+  "validation_allowed": true,
+  "report": {
+    "path": "deliverables/Voice_Guard_内容监督与环境鲁棒报告.pdf",
+    "sha256": "343fbe92649e46b07e09e4576a7cb318f6d1fdfee564de1545acb9e36717b980",
+    "pages": 6,
+    "markdown_sha256": "1a9ea24686aea8804eb3f667b3b7f78a247d505ac99e78f40bfc9f88664fec78",
+    "rendered_page_sha256": {
+      "page-01.png": "ea5ef6d5e513bae9174c531da1d1e159ca0e4eb7e742673e7eb3e923a5187345",
+      "page-02.png": "469f16cbe40352bcb80ed1f854d2df48ea5e6773c595c9d917ff3b649ffd6384",
+      "page-03.png": "f29cef078fc29c968c1e041a3798d6c62ffdc88f3c6b07b3fe5b4286d7850da7",
+      "page-04.png": "9c740a317a2ecb2713dbe698e8c78b642d10796c90bc532a1b67d186d3d044eb",
+      "page-05.png": "f3c827d643c26cb411ec706482dad7b77c69621def3eb79de95902dec503f39c",
+      "page-06.png": "848c00ba504e0b582459143337cc36cba20b9cc31da793cbafe0419d7746384d"
+    },
+    "visual_review": "All latest rendered pages inspected; no clipping or overlap observed"
+  },
+  "human_mos_ratings": 0,
+  "automatic_shutdown": false,
+  "claim": "Controlled exploratory extension, not a verified Kalypta implementation or paper-scale reproduction"
+}
