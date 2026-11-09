@@ -362,45 +362,44 @@ $env:MPLCONFIGDIR="D:\Voice Guard\.mplcache"
 > **建议顺序**：L15 → L16 → L17（20 分钟顺手做）→ L21/L22 收尾；L18/L19/L20 按余力。
 
 
-### 云端可做（需登录 T4 ECS 或云资源）
+### 云端任务进度（截至 2026-11-09）
 
-> **一键驱动**：`deploy/run_cloud_enhancements.py`（本地已 dry-run 验证）覆盖 C1 多种子、C2 扩展样本、
-> C7 ASR 阈值映射与 C8 基础信道扫描：
->
-> ```bash
-> # 在 ECS /root/voiceguard 下：
-> git pull
-> .venv/bin/python deploy/run_cloud_enhancements.py --dry-run   # 先看要跑的命令
-> .venv/bin/python deploy/run_cloud_enhancements.py --max-hours 6   # 断点续跑，已有结果自动跳过
-> ```
->
-> 结束后会打印「ECS 仍在计费」提醒；回传 `outputs/cloud/` 与 `outputs/enhancements/` 即可。
+> 环境：华为云 **Tesla T4**（15360 MiB，驱动 580.178.04），Ubuntu 22.04 / Python 3.10.12 / torch 2.5.1+cu124。
+> 计费：计算约 **7.32 元/小时**（磁盘与 EIP 另计）。**截至最新证据（content-robust 轮）`automatic_shutdown=false`，
+> 服务器与结果尚未释放** —— 请尽快关机止损。
 
-| # | 事项 | 内容 | 预计 | 状态 |
-|---|---|---|---|---|
-| C1 | 多种子完整批次 | `--seed` 跑 2–3 个种子，报告 mean±std（每种子 5 方法×5 句） | 每种子 1–1.5h | ⬜（驱动覆盖） |
-| C2 | 扩展样本 | 句子数 5→15/人或更多说话人 | 2–3h | ⬜（驱动覆盖） |
-| C3 | VQMIVC 黑盒迁移 | 论文 Table 3 跨模型验证（需先拿到权重，见 U5） | 1–2h | ⬜ |
-| C4 | 镜像瘦身/冷启动 | 多阶段构建、裁剪 CUDA 组件（镜像 6–8GB → 更小） | 1–2h | ⬜ |
-| C5 | HTTPS | nginx 反代 + 证书（平台页面为 HTTPS 时接口必须 HTTPS） | 1h | ⬜ |
-| C6 | 云端留证与停机 | systemd 截图/日志归档；**ECS 关机/释放止计费** | 0.5h | ⚠️ 待办 |
-| **C7** | **ASR 阈值映射规模化** | 在 3000/1500 步 + 完整上下文的云端数据上跑 Whisper WER 分布，给 Eq.10 的 10% 阈值可解释定义 | 15min | ✅ 工具就绪（`tools/asr_threshold_map.py`，驱动覆盖） |
-| **C8** | **信道扫描扩展** | 信道已扩到 **11 种**（none/pcm16/loudness/mp3-128k/mp3-32k/aac-64k/opus-24k/g711/resample8k/resample16k/denoise/loudnorm，`vguard/channel.py`）；对 refined/staged/EOT 版本分别跑 | 每版 20min | ✅ 工具就绪（待云端跑） |
-| **C9** | **评估器扩展 ⭐推荐** | 中文 ASV（ModelScope `3D-Speaker/ERes2Net`）+ Whisper `large-v3` 交叉验证 | 1–2h（含下载） | ✅ 工具就绪（`tools/asv_modelscope.py`，需 `pip install modelscope`） |
-| **C10** | **staged 方法扩样本** | 现有 15/31，再跑 20–40 句把统计效力提上去 | 2–4h | ⬜ 云端跑（`deploy/run_staged_recovery.sh`） |
-| **C11** | **内容源扩展** | 同一保护句 × 多内容源，报告方差而非单点 | 2–3h | ✅ 工具就绪（`scripts/run_content_sweep.py`） |
-| **C12** | **长音频/真实朗读** | 已本地验证：10.88s 拼接音频完整跑通（300/200 步 40.3s，显存正常；该预算下防御失败属预期）；更长数据未测 | 1–2h | ✅ 工程验证通过 |
-| **C13** | **跨数据集泛化** | 工程验证：LibriSpeech 16kHz 样本（5.86s）跑通完整保护（19.5s，重采样/trim 正常）；身份维判定不适用（说话人不在注册库），正式跨数据集评估需建新注册库（[docs/17](docs/20_并行与多种子.md)） | 数小时（含下载） | ✅ 工程验证通过 |
-| **C14** | **target 选择策略消融** | `--target-strategy least_likely/nearest/random` 已实现并冒烟通过 | 1–2h | ✅ 工具就绪（待云端跑） |
-| **C15** | 48kHz 原版 VCTK | 与论文数据对齐（可选） | 数小时 | ⬜ 需数据 |
-| **C16** | **云端压测** | `tools/load_test.py` 实测 2×200（并发/延迟/429 行为） | 1h | ✅ 工具就绪 |
-| **C17** | **监听网页托管 ⭐妙用** | `tools/listening_app.py`（匿名 A/B/C/D 随机顺序 + 1–5 分 + 偏好，写 JSONL） | 1–2h | ✅ 工具就绪 |
-| **C18** | 成本/稳定性 | 自动关机/空闲关机/留证模板：`deploy/auto_shutdown.template.sh` | 0.5h | ✅ 模板就绪 |
-| **C19** | ModelArts 路线补验 | 想多一条部署路线加分时再考虑 | 2h | ⬜ 需云 |
+#### 已完成（云端真实跑完并有证据归档）
 
-> **云端推荐顺序**：C1（驱动直接跑）→ C9 评估器扩展 → C8 信道扩展 → C17 监听网页 → 其余按需。
-> **注意**：C6（留证 + 关机）随做随停；`deploy/auto_shutdown.template.sh` 提供空闲/定时自动关机模板。
-> 本地与云端互不阻塞；云端产物回传后由我合并进报告/README/PPT。
+| 轮次 | 内容 | 结果 | 证据 |
+|---|---|---|---|
+| 首轮战役 | 32 个冻结阶段：主表 9 组×5 句、ε 扫描 4 档、新 10 句、80 次信道配对、60 次内容源配对、MOS/WER 全补齐 | `campaign-summary.complete=true`；原 VG 身份 2/4、联合 0/4 | `docs/11`、`docs/evidence/2026-11-04/` |
+| 服务验证 | systemd `voiceguard`(7860) + `voiceguard-platform`(8020)、课程 Vite(5173)、FastAPI/浏览器/Gradio 真实调用 | 全部通过（49.23s / 48.33s / 34.59s） | `docs/11` |
+| 第二轮 | 论文质量追赶：移植作者原始 MOSNet + 冻结 15 句验证 | 严格联合 1/8（评估器口径修正，非算法提升） | `docs/14`、`docs/evidence/2026-11-09-quality/` |
+| 第三轮 | 两阶段 + 原生参考修正（20 句 × 2 内容源配对） | **GE2E 严格联合 9/31→15/31**；完整干净控制 2/6 | `docs/15`、`docs/evidence/2026-11-09-staged/` |
+| 第四轮 | 输出波形反馈 + 基线锚定联合防护（20 句 / 10 句） | 负结果：7/25 vs 11/25；7/11 vs 9/11（区间含零） | `docs/16`/`docs/17`、`docs/evidence/2026-11-09-joint*/` |
+| 第五轮 | 内容监督（CTC Wav2Vec2）+ 环境鲁棒（房间/麦克风/8k） | 负结果：新验证 10/22 vs 10/22 | `docs/18`、`docs/evidence/2026-11-09-content-robust/` |
+| 归档回传 | 3 个 tar.gz（course / paper_quality / staged_recovery）下载并逐项校验 | SHA256 全部匹配（700 个实验 WAV 摘要核对） | `docs/11`、`deliverables/README.md` |
+
+#### 待办（按优先级）
+
+| # | 事项 | 状态 | 前置条件 |
+|---|---|---|---|
+| **C6** | **留证 + 关机/释放** | 🔴 **未做（仍在计费）** | 控制台操作；模板 `deploy/auto_shutdown.template.sh` |
+| C1 | 多种子完整批次（seed 2027/2028 × 5 方法） | ⬜ 未跑（驱动就绪 `deploy/run_cloud_enhancements.py`） | ECS 开机 + `git pull` |
+| C9 | 评估器扩展（ModelScope 中文 ASV + Whisper large-v3） | ⬜ 未跑（工具就绪 `tools/asv_modelscope.py`） | `pip install modelscope` |
+| C8 | 11 种信道扩展（现有 6 种已在云端跑过 baseline/refined 版本） | ⬜ 新 5 种未跑 | ECS |
+| C10 | staged 方法扩样本（现有 20 句） | ⬜ 未扩 | ECS |
+| C7 | ASR 阈值映射规模化 | ⬜ 工具就绪、云端未跑 | ECS |
+| C16 | 云端压测（并发/队列/429） | ⬜ 工具就绪（本地 2×200 通过） | ECS 服务在跑 |
+| C17 | 监听网页托管（人工听测远程收集） | ⬜ 工具就绪 | ECS + 收集者 |
+| C18 | 自动关机/空闲关机配置 | ⬜ 模板就绪未配置 | ECS |
+| C12/C13/C14 | 长音频 / 跨数据集 / target 策略（均已完成本地验证） | ⬜ 云端正式版未跑 | ECS |
+| C19 | ModelArts 备用部署路线 | ⬜ 未做 | 云资源 |
+| C3/C15 | VQMIVC 黑盒迁移 / 48kHz 原版 VCTK | ⬜ 缺权重/数据 | 下载 |
+
+> **一键跑增强批次**：`git pull && .venv/bin/python deploy/run_cloud_enhancements.py --dry-run` 预览；
+> 去掉 `--dry-run` 加 `--max-hours 6` 正式跑（断点续跑，已有结果自动跳过）；结束后脚本会打印关机提醒。
+> ⚠️ `--max-hours` 只限制脚本运行时间，**不停止 ECS 计费**。
 
 ### 需真人/外部账号
 
@@ -423,6 +422,6 @@ $env:MPLCONFIGDIR="D:\Voice Guard\.mplcache"
 - [x] **本地优化项 L1–L14 全部落地**：L1 防御侧 EOT 试点、L2 严格掩蔽投影（不可感知-防御冲突量化）、L3 频带能量分配试点（MCD -14%）、L5 Attack-VC 一致性测试、L6 多种子试点、L7 并行加速（2.17×）、L8 前端实时进度、L9 服务治理、L11 一键自检、L12 性能剖析、L13 结构化日志、L14 资源清理；L10 CI 内容本地验证通过（待 PAT 启用）
 - [x] **云端工具准备 C7–C19**：ASR 映射、11 种信道、ModelScope ASV、内容源扫描、target 策略消融、压测、监听网页、自动关机模板；本地试点：C11 内容源（0.50/0.667，均值 0.584）、C12 长音频（10.88s 跑通）、C13 跨数据集（LibriSpeech 16kHz 跑通）、C14 三策略（短预算无差异）
 - [x] CI 已启用（GitHub Actions 首次运行 success，徽章在顶部）
-- [~] 待用户侧：真实组号、组员姓名、平台 PR、问卷与最终提交、云上跑增强批次；ECS 记得关机
+- [~] 待用户侧：真实组号、组员姓名、平台 PR、问卷与最终提交；云上增强批次（C1/C9/C8 等）与 **ECS 关机止损**（约 7.32 元/小时，仍开机）
 
 
