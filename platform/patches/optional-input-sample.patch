@@ -1,0 +1,16 @@
+diff --git a/src/components/Workbench.jsx b/src/components/Workbench.jsx
+index c49cff9..d392c0c 100644
+--- a/src/components/Workbench.jsx
++++ b/src/components/Workbench.jsx
+@@ -65,8 +65,9 @@ export default function Workbench({ method, example }) {
+     sampleController.current?.abort(); sampleController.current = active;
+     setLoadingSample(true); setError('');
+     try {
+-      const input = method.inputs[0];
+-      if (method.inputs.length !== 1 || example.input.kind !== input.kind) throw new Error('多输入方法请按各输入框手动选择素材。');
++      const required = method.inputs.filter(input => input.required);
++      const input = required.length === 1 ? required[0] : method.inputs[0];
++      if (required.length > 1 || example.input.kind !== input.kind) throw new Error('多个必填输入的方法请按各输入框手动选择素材。');
+       const response = await fetch(assetUrl(example.input.src), { signal: active.signal, credentials: 'omit' });
+       if (!response.ok) throw new Error('样例素材加载失败，请检查样例路径。');
+       let blob = await response.blob();

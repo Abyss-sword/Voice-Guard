@@ -23,52 +23,63 @@ def _ffmpeg(in_path: str, out_path: str, codec_args) -> bool:
     return r.returncode == 0
 
 
-def _read_write(wav: np.ndarray, sr: int) -> (str, str):
-    import soundfile as sf
-
-    d = tempfile.mkdtemp(prefix="vgch_")
-    fin = os.path.join(d, "in.wav")
-    fout = os.path.join(d, "out.wav")
-    sf.write(fin, wav, sr)
-    return fin, fout
-
-
 def codec_channel(wav: np.ndarray, sr: int, spec: str) -> np.ndarray:
+    """A real codec roundtrip; preserve floating input and remove temporary files."""
+    import soundfile as sf
+    wav = np.asarray(wav, dtype=np.float32)
+    if wav.ndim != 1 or not wav.size or not np.isfinite(wav).all() or sr <= 0:
+        raise ValueError("Need finite nonempty mono audio and a positive sample rate")
+    if spec == "none":
+        return wav.copy()
+    if spec == "pcm16":
+        import io
+        output = io.BytesIO()
+        sf.write(output, wav, sr, subtype="PCM_16", format="WAV")
+        output.seek(0)
+        return sf.read(output, dtype="float32")[0]
+    with tempfile.TemporaryDirectory(prefix="vgch_") as directory:
+        fin, fout = os.path.join(directory, "in.wav"), os.path.join(directory, "out.wav")
+        sf.write(fin, wav, sr, subtype="FLOAT")
+        return _codec_roundtrip(fin, fout, sr, spec)
+
+
+def _codec_roundtrip(fin, fout, sr, spec):
     """spec: 'mp3-128k' / 'mp3-32k' / 'aac-64k' / 'opus-24k' / 'g711'（8k μ-law）/ 'resample8k'"""
     import soundfile as sf
 
-    fin, fout = _read_write(wav, sr)
     tmp = os.path.join(os.path.dirname(fin), "enc")
     ok = False
     if spec.startswith("mp3"):
         br = spec.split("-")[1]
         ok = _ffmpeg(fin, tmp + ".mp3", ["-codec:a", "libmp3lame", "-b:a", br])
         if ok:
-            ok = _ffmpeg(tmp + ".mp3", fout, ["-ar", str(sr)])
+            ok = _ffmpeg(tmp + ".mp3", fout, ["-ar", str(sr), "-ac", "1", "-c:a", "pcm_f32le"])
     elif spec.startswith("aac"):
         br = spec.split("-")[1]
         ok = _ffmpeg(fin, tmp + ".m4a", ["-codec:a", "aac", "-b:a", br])
         if ok:
-            ok = _ffmpeg(tmp + ".m4a", fout, ["-ar", str(sr)])
+            ok = _ffmpeg(tmp + ".m4a", fout, ["-ar", str(sr), "-ac", "1", "-c:a", "pcm_f32le"])
     elif spec.startswith("opus"):
         br = spec.split("-")[1]
         ok = _ffmpeg(fin, tmp + ".opus", ["-codec:a", "libopus", "-b:a", br])
         if ok:
-            ok = _ffmpeg(tmp + ".opus", fout, ["-ar", str(sr)])
+            ok = _ffmpeg(tmp + ".opus", fout, ["-ar", str(sr), "-ac", "1", "-c:a", "pcm_f32le"])
     elif spec == "g711":
         ok = _ffmpeg(fin, tmp + ".wav", ["-ar", "8000", "-ac", "1", "-codec:a", "pcm_mulaw"])
         if ok:
-            ok = _ffmpeg(tmp + ".wav", fout, ["-ar", str(sr)])
+            ok = _ffmpeg(tmp + ".wav", fout, ["-ar", str(sr), "-ac", "1", "-c:a", "pcm_f32le"])
     elif spec == "resample8k":
-        ok = _ffmpeg(fin, tmp + ".wav", ["-ar", "8000"])
+        ok = _ffmpeg(fin, tmp + ".wav", ["-ar", "8000", "-ac", "1", "-c:a", "pcm_f32le"])
         if ok:
-            ok = _ffmpeg(tmp + ".wav", fout, ["-ar", str(sr)])
+            ok = _ffmpeg(tmp + ".wav", fout, ["-ar", str(sr), "-ac", "1", "-c:a", "pcm_f32le"])
     else:
         raise ValueError(spec)
     if not ok:
         raise RuntimeError(f"ffmpeg channel failed: {spec}")
-    w, _ = sf.read(fout)
-    return w.astype(np.float32)
+    w, decoded_sr = sf.read(fout, dtype="float32")
+    if decoded_sr != sr or w.ndim != 1 or not w.size or not np.isfinite(w).all():
+        raise ValueError("Invalid codec output")
+    return w
 
 
 def normalize_loudness(wav: np.ndarray, peak: float = 0.95) -> np.ndarray:
