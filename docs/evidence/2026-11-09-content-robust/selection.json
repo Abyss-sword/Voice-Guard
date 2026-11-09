@@ -1,0 +1,77 @@
+{
+  "frozen_utc": "2026-11-09T12:24:13.366212+00:00",
+  "protocol_sha256": "6e3aa565c497f9191cbc94c1bb8d4e2df4e467a4d715a44d5226b64fb09dc9ba",
+  "development_results_sha256": "ebb956b423674d1a107a3434f3d544cbe067a9dea34c2f753bd2132ea1cb0206",
+  "selected": {
+    "profile": {
+      "name": "ctc_tf_snr20",
+      "eot": false
+    },
+    "full_joint": 8,
+    "strict_joint": 17,
+    "protected_quality": 10,
+    "mean_wer": 0.042559523809523804,
+    "mean_mos": 4.162693480650584
+  },
+  "baseline": {
+    "profile": {
+      "name": "native_emb_snr20",
+      "objective": "embedding",
+      "strong_steps": 3000,
+      "conceal_steps": 1500,
+      "strong_snr_db": 15.0,
+      "final_snr_db": 20.0,
+      "learning_rate": 0.001,
+      "final_margin_db": 0.0
+    },
+    "full_joint": 7,
+    "strict_joint": 16,
+    "protected_quality": 10,
+    "mean_wer": 0.042559523809523804,
+    "mean_mos": 4.162421623865764
+  },
+  "all_candidates": [
+    {
+      "profile": {
+        "name": "native_emb_snr20",
+        "objective": "embedding",
+        "strong_steps": 3000,
+        "conceal_steps": 1500,
+        "strong_snr_db": 15.0,
+        "final_snr_db": 20.0,
+        "learning_rate": 0.001,
+        "final_margin_db": 0.0
+      },
+      "full_joint": 7,
+      "strict_joint": 16,
+      "protected_quality": 10,
+      "mean_wer": 0.042559523809523804,
+      "mean_mos": 4.162421623865764
+    },
+    {
+      "profile": {
+        "name": "ctc_tf_snr20",
+        "eot": false
+      },
+      "full_joint": 8,
+      "strict_joint": 17,
+      "protected_quality": 10,
+      "mean_wer": 0.042559523809523804,
+      "mean_mos": 4.162693480650584
+    },
+    {
+      "profile": {
+        "name": "ctc_tf_eot_snr20",
+        "eot": true
+      },
+      "full_joint": 7,
+      "strict_joint": 16,
+      "protected_quality": 10,
+      "mean_wer": 0.042559523809523804,
+      "mean_mos": 4.162202258904775
+    }
+  ],
+  "recommended_after_development": "ctc_tf_snr20",
+  "validation_examined": false,
+  "selection_rule": "One global challenger selected on development only: maximize full-clean Eq10 success count, strict identity joint count, unique protected-quality count, lower macro WER, higher protected MOS, profile name. Compare this tuple to baseline and retain baseline recommendation unless strictly better. Selected challenger still gets one frozen paired validation for an honest test."
+}

@@ -1,0 +1,48 @@
+{
+  "frozen_utc": "2026-11-09T12:06:23.975013+00:00",
+  "main_protocol_sha256": "6e3aa565c497f9191cbc94c1bb8d4e2df4e467a4d715a44d5226b64fb09dc9ba",
+  "code_sha256": "a96d2fcc4ecc5d91abedebee142cb61ab30cfe050948a9357fe2ae15cc10a19d",
+  "utterances": [
+    "p225_104",
+    "p226_073",
+    "p227_072",
+    "p228_072"
+  ],
+  "content": "p226_004",
+  "profiles": [
+    "native_emb_snr20",
+    "ctc_tf_snr20",
+    "ctc_tf_eot_snr20"
+  ],
+  "channels": [
+    "identity",
+    "heldout_room",
+    "mp3_64k"
+  ],
+  "room": {
+    "dimensions": [
+      6.0,
+      4.5,
+      2.8
+    ],
+    "source": [
+      0.8,
+      1.2,
+      1.4
+    ],
+    "microphone": [
+      4.0,
+      3.0,
+      1.3
+    ],
+    "reflection": 0.27,
+    "gain": "Normalize kernel by its L1 norm, identically for every reference"
+  },
+  "reporting": "All conditions and candidates; paired clean controls; zero denominator N/A; original quality once per reference. No method/threshold selection based on this diagnostic.",
+  "limitations": [
+    "Four already observed development utterances, one content source.",
+    "First-order synthetic room, not a measured room or full Treble simulator.",
+    "Independent final evaluators, but no claim of held-out-sentence generalization.",
+    "Same fixed MOS/WER/identity gates. A degraded clean control is excluded, not counted as defense."
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "archive": "content-evidence.tar.gz",
+  "bytes": 103784811,
+  "sha256": "d279eb814c51eacbc98bbd3a58dc689768aca632d4df4d1be9abe5c98e95b4eb",
+  "measured_wavs_verified_against_scores": 636,
+  "wav_files": 673,
+  "development_only": false,
+  "validation_allowed": true,
+  "note": "Model weights excluded. Existing model/evaluator packages plus the exact CTC checkpoint are required. Includes new inputs, prototypes, WAVs, transcript scores, main/channel protocols, decisions and executed code.",
+  "all_files_verified": 1360,
+  "local_archive_verified": true
+}

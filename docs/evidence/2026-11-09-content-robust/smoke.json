@@ -1,0 +1,65 @@
+{
+  "development_only": true,
+  "utterance": "p225_104",
+  "ctc_gradient_finite": true,
+  "ctc_loss": 1.4539399147033691,
+  "ctc_gradient_rms": 3.3912925720214844,
+  "models_frozen": true,
+  "unit_tests_passed": true,
+  "unit_test_count": 7,
+  "details": {
+    "baseline_proxy_checks": {
+      "ctc": 1.3994059562683105,
+      "own_similarity": 0.9411643743515015,
+      "spectrum": 0.15640349686145782,
+      "native_defense": 0.432035356760025,
+      "training_defense_mean": 0.5120825171470642
+    },
+    "proxy_caps": {
+      "ctc_max": 1.4094059562683106,
+      "own_similarity_min": 0.9361643743515015,
+      "spectrum_max": 0.16640349686145783,
+      "native_defense_max": 0.43703535676002503
+    },
+    "accepted_blocks": 1,
+    "rejected_blocks": 0,
+    "content_gradient_conflicts": 2,
+    "trace": [
+      {
+        "step": 8,
+        "accepted": true,
+        "checks": {
+          "ctc": 1.4034442901611328,
+          "own_similarity": 0.9413231611251831,
+          "spectrum": 0.15622389316558838,
+          "native_defense": 0.4205721616744995,
+          "training_defense_mean": 0.5019306540489197
+        },
+        "gate_mean": 0.6394702196121216,
+        "learning_rate_next": 3e-05,
+        "elapsed_s": 0.95
+      }
+    ],
+    "channels": [
+      "identity",
+      "small_room",
+      "larger_room",
+      "microphone",
+      "resample_8k"
+    ],
+    "ctc_surrogate": "torchaudio WAV2VEC2_ASR_BASE_960H; frozen, input gradients only",
+    "defense_surrogate": "AdaIN native reference encoder; no Griffin-Lim gradient",
+    "original_identity_surrogate": "ECAPA; participates in proxy acceptance checks",
+    "independent_evaluators": [
+      "GE2E",
+      "MOSNet",
+      "Whisper base",
+      "Whisper small.en"
+    ],
+    "acceptance_note": "Training-proxy constraints only; no independent-quality guarantee",
+    "elapsed_s": 0.95
+  },
+  "code_sha256": "f5451fc98467346f3f6f90c2bd85364883dce5a174a237a1ef8fa6373cc692ee",
+  "training_budget_estimate_per_160_steps_s": 19.0,
+  "human_mos_ratings": 0
+}
