@@ -6,6 +6,7 @@ EOT 信道（训练用，可微）：随机重采样 / 低通 / 量化噪声 / �
 from __future__ import annotations
 
 import os
+import shutil
 import subprocess
 import tempfile
 
@@ -31,6 +32,8 @@ def codec_channel(wav: np.ndarray, sr: int, spec: str) -> np.ndarray:
         raise ValueError("Need finite nonempty mono audio and a positive sample rate")
     if spec == "none":
         return wav.copy()
+    if spec == "loudness":
+        return normalize_loudness(wav)
     if spec == "pcm16":
         import io
         output = io.BytesIO()
@@ -72,6 +75,20 @@ def _codec_roundtrip(fin, fout, sr, spec):
         ok = _ffmpeg(fin, tmp + ".wav", ["-ar", "8000", "-ac", "1", "-c:a", "pcm_f32le"])
         if ok:
             ok = _ffmpeg(tmp + ".wav", fout, ["-ar", str(sr), "-ac", "1", "-c:a", "pcm_f32le"])
+    elif spec == "resample16k":
+        ok = _ffmpeg(fin, tmp + ".wav", ["-ar", "16000", "-ac", "1", "-c:a", "pcm_f32le"])
+        if ok:
+            ok = _ffmpeg(tmp + ".wav", fout, ["-ar", str(sr), "-ac", "1", "-c:a", "pcm_f32le"])
+    elif spec == "denoise":
+        ok = _ffmpeg(fin, tmp + ".wav", ["-af", "afftdn=nf=-25", "-ac", "1", "-c:a", "pcm_f32le"])
+        if ok:
+            ok = _ffmpeg(tmp + ".wav", fout, ["-ar", str(sr), "-ac", "1", "-c:a", "pcm_f32le"])
+    elif spec == "loudnorm":
+        ok = _ffmpeg(fin, tmp + ".wav",
+                     ["-af", "loudnorm=I=-16:TP=-1.5:LRA=11", "-ar", str(sr), "-ac", "1",
+                      "-c:a", "pcm_f32le"])
+        if ok:
+            shutil.copyfile(tmp + ".wav", fout)
     else:
         raise ValueError(spec)
     if not ok:
