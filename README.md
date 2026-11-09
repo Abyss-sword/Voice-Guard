@@ -326,8 +326,8 @@ $env:MPLCONFIGDIR="D:\Voice Guard\.mplcache"
 | L3 | 频带能量分配 | 按 θx 高的频带分配扰动，同防御下争取更高 MOS | 2–4h | ⬜ |
 | L4 | ASR 阈值论文映射 | Whisper WER 分布 vs 人工文本，给 Eq.10 的 10% 阈值可解释定义；`tools/asr_threshold_map.py` 已完成本地 5 句样本（云端可扩） | 1h | ✅ 工具完成 |
 | L5 | 完整 Attack-VC 基线 | 用 `third_party/attack-vc` 官方超参补齐 emb/fb/e2e | 1–2h | ⬜ |
-| L6 | 多种子本地小表 | 2 seed × 3–5 句，先验证方差量级 | 2–3h | ⬜ |
-| L7 | batch 并行攻击 | 显存峰值仅 175MB，`run_experiment` 主循环 batch 4–8（为云端提速 3–5×） | 2h | ⬜ |
+| L6 | 多种子本地小表 | 2 seed × 3 句试点：判定完全相同（2/3 vs 2/3）、MCD 38.5±3.5；种子敏感度低，更大规模留云端（[docs/17](docs/17_并行与多种子.md)） | 2–3h | ✅ 试点完成 |
+| L7 | batch 并行攻击 | `scripts/run_parallel.py`：3 句串行 79.8s → 3 worker **36.7s（2.17×）**；云端可直接用 `--workers 2–4`（[docs/17](docs/17_并行与多种子.md)） | 2h | ✅ 已完成 |
 | L8 | 前端接入 refine/质量模式 + 实时进度 | 需 pipeline 写 manifest；长任务不再"假死" | 2–3h | ⬜ |
 | L9 | 适配服务治理 | 已加：任务目录清理（`--keep-jobs`）、请求体积上限 20MB（413）、GPU 忙时 429、结构化 JSON 日志 + 请求 ID | 1–2h | ✅ 已完成 |
 | L10 | CI（GitHub Actions） | 39 项测试已有；轻量 CI（编译 + 纯 numpy 测试）。工作流模板已备 deploy/ci.workflow.yml.template；**需 PAT 带 workflow scope 或网页手动添加**才能启用 | 1h | ⏸ 待启用 |
