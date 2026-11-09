@@ -1,5 +1,7 @@
 # Voice Guard 复现与探索
 
+![ci](https://github.com/Abyss-sword/Voice-Guard/actions/workflows/ci.yml/badge.svg)
+
 论文：*Voice Guard: Protecting Voice Privacy with Strong and Imperceptible Adversarial
 Perturbation in the Time Domain*，IJCAI 2023，4812–4820。
 
@@ -334,7 +336,7 @@ $env:MPLCONFIGDIR="D:\Voice Guard\.mplcache"
 | L7 | batch 并行攻击 | `scripts/run_parallel.py`：3 句串行 79.8s → 3 worker **36.7s（2.17×）**；云端可直接用 `--workers 2–4`（[docs/17](docs/20_并行与多种子.md)） | 2h | ✅ 已完成 |
 | L8 | 前端接入 refine/质量模式 + 实时进度 | 质量模式（`vg-projected`）已存在；新增实时进度条：attack/pipeline `progress_cb` → Gradio `gr.Progress`（实测 100 次回调 0.03→1.00，[docs/17](docs/20_并行与多种子.md)） | 2–3h | ✅ 已完成 |
 | L9 | 适配服务治理 | 已加：任务目录清理（`--keep-jobs`）、请求体积上限 20MB（413）、GPU 忙时 429、结构化 JSON 日志 + 请求 ID | 1–2h | ✅ 已完成 |
-| L10 | CI（GitHub Actions） | 工作流模板 `deploy/ci.workflow.yml.template` **已在本地逐步验证通过**（compileall / test_features / test_masking / acceptance_check 全过）；一键启用脚本 `tools/enable_ci.py --token ghp_...`（需 PAT 带 `workflow` scope） | 1h | ✅ 内容验证通过，⏸ 待 token 启用 |
+| L10 | CI（GitHub Actions） | ✅ **已启用并跑通**：`.github/workflows/ci.yml`（语法编译 + 轻量测试 2 个 job），首次运行 success（run 42621600645 / 42621584793）；徽章见仓库顶部 | 1h | ✅ 已完成 |
 | L11 | 一键验收自检脚本 | 起服务→冒烟→查交付物→打印 checklist；`tools/acceptance_check.py` 已跑通（必需项全过） | 1h | ✅ 已完成 |
 | L12 | 攻击循环性能剖析 | `tools/profile_pipeline.py` 已备（分阶段耗时：Pipeline/特征/编码器/mask/protect） | 2h | ✅ 工具完成 |
 | L13 | 结构化日志/请求 ID | 适配服务输出 JSON 日志（ts/request_id/method/path/status/elapsed_ms），响应头透传 X-Request-ID | 1h | ✅ 已完成 |
@@ -399,6 +401,7 @@ $env:MPLCONFIGDIR="D:\Voice Guard\.mplcache"
 - [x] 交付物：17 页课程报告 PDF、14 页汇报 PPTX、质量补充报告 PDF、两阶段报告 PDF、提交信息模板
 - [x] **本地优化项 L1–L14 全部落地**：L1 防御侧 EOT 试点、L2 严格掩蔽投影（不可感知-防御冲突量化）、L3 频带能量分配试点（MCD -14%）、L5 Attack-VC 一致性测试、L6 多种子试点、L7 并行加速（2.17×）、L8 前端实时进度、L9 服务治理、L11 一键自检、L12 性能剖析、L13 结构化日志、L14 资源清理；L10 CI 内容本地验证通过（待 PAT 启用）
 - [x] **云端工具准备 C7–C19**：ASR 映射、11 种信道、ModelScope ASV、内容源扫描、target 策略消融、压测、监听网页、自动关机模板；本地试点：C11 内容源（0.50/0.667，均值 0.584）、C12 长音频（10.88s 跑通）、C13 跨数据集（LibriSpeech 16kHz 跑通）、C14 三策略（短预算无差异）
+- [x] CI 已启用（GitHub Actions 首次运行 success，徽章在顶部）
 - [~] 待用户侧：真实组号、组员姓名、平台 PR、问卷与最终提交、云上跑增强批次；ECS 记得关机
 
 
