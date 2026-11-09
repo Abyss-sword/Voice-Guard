@@ -342,6 +342,22 @@ $env:MPLCONFIGDIR="D:\Voice Guard\.mplcache"
 | L13 | 结构化日志/请求 ID | 适配服务输出 JSON 日志（ts/request_id/method/path/status/elapsed_ms），响应头透传 X-Request-ID | 1h | ✅ 已完成 |
 | L14 | 本地资源清理 | 已清理临时文件/参考仓库副本/cloud_bundle（约 260MB）；保留 `refs/wheels`（2.6GB 离线安装包） | 0.5h | ✅ 已完成 |
 
+#### 新增待办（2026-11-09 晚，按建议顺序）
+
+| # | 事项 | 内容 | 预计 | 状态 |
+|---|---|---|---|---|
+| **L15** | **报告/PPT 补探索章节** | 把 L2 严格掩蔽（不可感知↔防御冲突量化）、L3 频带分配（MCD -14%）、L7 并行（2.17×）、L10 CI 写进 `docs/04` 附录与 `docs/05` 讲稿，重新生成 PDF | 1–2h | ⬜ |
+| **L16** | **人工听测落地** | 用 `tools/listening_app.py` 从现有产物生成真实 `listening_items.json`（15 段：原始/防御/转换），本地起页收评分 JSONL | 1h+收集 | ⬜ |
+| **L17** | **本地 11 种信道扩展评估** | `exp03_eps005` 只跑过 6 种信道，补 opus/denoise/loudnorm/resample16k/loudness，更新信道结论 | 20min | ⬜ |
+| **L18** | **本地正式步数小批次** | 5 句 × 3000/1500（4060 约 2–3h），与云端数字互校 | 2–3h | ⬜ |
+| **L19** | **代码质量** | 加 ruff/pyflakes 配置 + pre-commit，清理明显坏味道 | 1h | ⬜ |
+| **L20** | **前端小优化** | 主题/语言 localStorage 持久化；样例切换更完整 | 1h | ⬜ |
+| **L21** | **提交前材料** | `deliverables/` 校验、LICENSE、docs 索引、临时产物归档 | 1h | ⬜ |
+| **L22** | **平台 PR 预演** | 准备好 PR 正文与文件清单（组号一到即发） | 30min | ⬜ |
+
+> **建议顺序**：L15 → L16 → L17（20 分钟顺手做）→ L21/L22 收尾；L18/L19/L20 按余力。
+
+
 ### 云端可做（需登录 T4 ECS 或云资源）
 
 > **一键驱动**：`deploy/run_cloud_enhancements.py`（本地已 dry-run 验证）覆盖 C1 多种子、C2 扩展样本、
@@ -379,6 +395,7 @@ $env:MPLCONFIGDIR="D:\Voice Guard\.mplcache"
 | **C19** | ModelArts 路线补验 | 想多一条部署路线加分时再考虑 | 2h | ⬜ 需云 |
 
 > **云端推荐顺序**：C1（驱动直接跑）→ C9 评估器扩展 → C8 信道扩展 → C17 监听网页 → 其余按需。
+> **注意**：C6（留证 + 关机）随做随停；`deploy/auto_shutdown.template.sh` 提供空闲/定时自动关机模板。
 > 本地与云端互不阻塞；云端产物回传后由我合并进报告/README/PPT。
 
 ### 需真人/外部账号
