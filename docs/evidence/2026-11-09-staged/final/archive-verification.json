@@ -1,0 +1,12 @@
+{
+  "archive": "final-staged-evidence.tar.gz",
+  "bytes": 33613073,
+  "sha256": "874865a9d35672143a8cbbac105bb5724189698d805fd4d0efaf8f5ea2134c80",
+  "measured_wavs_verified_against_scores": 270,
+  "wav_files": 302,
+  "intermediate_strong_stage_wavs": 35,
+  "scored_strong_stage_wavs": 3,
+  "note": "Strong-stage WAVs are intermediate diagnostics, not final scored successes. Protocol code hashes identify executed bytes; later delivery commits must not be backdated.",
+  "all_files_verified": 658,
+  "local_archive_verified": true
+}

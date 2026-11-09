@@ -1,0 +1,81 @@
+test_complete_transcript_scores_preserved_but_partial_or_pseudo_scores_rejected (test_campaign_quality_resume.CampaignQualityResumeTests.test_complete_transcript_scores_preserved_but_partial_or_pseudo_scores_rejected) ... ok
+test_nonquality_stage_never_skipped (test_campaign_quality_resume.CampaignQualityResumeTests.test_nonquality_stage_never_skipped) ... ok
+test_losing_clean_screen_is_not_retained_success_or_removed_from_quality_mean (test_channel_audit.ChannelAuditTests.test_losing_clean_screen_is_not_retained_success_or_removed_from_quality_mean) ... ok
+test_requires_all_artifacts_and_real_transcript_quality (test_cloud_report.CloudReportTests.test_requires_all_artifacts_and_real_transcript_quality) ... ok
+test_failed_encode_raises_and_removes_temporary_directory (test_codec_channels.CodecTests.test_failed_encode_raises_and_removes_temporary_directory) ... ok
+test_zero_channel_control_has_no_quantization_but_pcm16_does (test_codec_channels.CodecTests.test_zero_channel_control_has_no_quantization_but_pcm16_does) ... ok
+test_joint_quality_never_accepts_nonfinite_or_changed_protected_identity (test_evaluation.EvaluationTests.test_joint_quality_never_accepts_nonfinite_or_changed_protected_identity) ... ok
+test_missing_asv_and_already_failed_clean_conversion_are_not_successes (test_evaluation.EvaluationTests.test_missing_asv_and_already_failed_clean_conversion_are_not_successes) ... ok
+test_zero_denominator_and_small_sample_uncertainty (test_evaluation.EvaluationTests.test_zero_denominator_and_small_sample_uncertainty) ... ok
+test_enrollment_matches_trimmed_native_inference_with_stereo_resampling (test_native_enrollment.NativeEnrollmentTests.test_enrollment_matches_trimmed_native_inference_with_stereo_resampling) ... F:\Voice-Guard-master\Voice-Guard-master\.venv\Lib\site-packages\audioread\rawread.py:16: DeprecationWarning: 'aifc' is deprecated and slated for removal in Python 3.13
+  import aifc
+F:\Voice-Guard-master\Voice-Guard-master\.venv\Lib\site-packages\audioread\rawread.py:17: DeprecationWarning: 'audioop' is deprecated and slated for removal in Python 3.13
+  import audioop
+F:\Voice-Guard-master\Voice-Guard-master\.venv\Lib\site-packages\audioread\rawread.py:19: DeprecationWarning: 'sunau' is deprecated and slated for removal in Python 3.13
+  import sunau
+ok
+Campaign complete: False
+Campaign complete: False
+Campaign complete: False
+Campaign complete: True
+Campaign complete: False
+{'phase': 'strong', 'step': 2, 'loss': 0.8331408500671387}
+test_eight_successful_attempts_select_largest_alpha (test_native_soft_recovery.NativeSoftRecoveryTests.test_eight_successful_attempts_select_largest_alpha) ... F:\Voice-Guard-master\Voice-Guard-master\.venv\Lib\site-packages\torch\functional.py:704: UserWarning: stft with return_complex=False is deprecated. In a future pytorch release, stft will return complex tensors for all inputs, and return_complex=False will raise an error.
+Note: you can still call torch.view_as_real on the complex output to recover the old return format. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\SpectralOps.cpp:878.)
+  return _VF.stft(  # type: ignore[attr-defined]
+{'phase': 'conceal', 'attempt': 1, 'alpha': 1.0, 'steps': 2, 'native_success': True, 'native_prediction': 1, 'mask_loss': 48.61717987060547}
+{'phase': 'conceal', 'attempt': 2, 'alpha': 2.0, 'steps': 2, 'native_success': True, 'native_prediction': 1, 'mask_loss': 48.61717987060547}
+{'phase': 'conceal', 'attempt': 3, 'alpha': 4.0, 'steps': 2, 'native_success': True, 'native_prediction': 1, 'mask_loss': 48.61717987060547}
+{'phase': 'conceal', 'attempt': 4, 'alpha': 8.0, 'steps': 2, 'native_success': True, 'native_prediction': 1, 'mask_loss': 48.61717987060547}
+{'phase': 'conceal', 'attempt': 5, 'alpha': 16.0, 'steps': 2, 'native_success': True, 'native_prediction': 1, 'mask_loss': 48.61717987060547}
+{'phase': 'conceal', 'attempt': 6, 'alpha': 32.0, 'steps': 2, 'native_success': True, 'native_prediction': 1, 'mask_loss': 48.61717987060547}
+{'phase': 'conceal', 'attempt': 7, 'alpha': 64.0, 'steps': 2, 'native_success': True, 'native_prediction': 1, 'mask_loss': 48.61717987060547}
+{'phase': 'conceal', 'attempt': 8, 'alpha': 128.0, 'steps': 2, 'native_success': True, 'native_prediction': 1, 'mask_loss': 48.61717987060547}
+ok
+{'phase': 'strong', 'step': 2, 'loss': 0.8331408500671387}
+{'phase': 'conceal', 'attempt': 1, 'alpha': 1.0, 'steps': 1, 'native_success': False, 'native_prediction': 0, 'mask_loss': 48.631378173828125}
+{'phase': 'conceal', 'attempt': 2, 'alpha': 0.5, 'steps': 1, 'native_success': False, 'native_prediction': 0, 'mask_loss': 48.631378173828125}
+{'phase': 'conceal', 'attempt': 3, 'alpha': 0.25, 'steps': 1, 'native_success': False, 'native_prediction': 0, 'mask_loss': 48.631378173828125}
+{'phase': 'conceal', 'attempt': 4, 'alpha': 0.125, 'steps': 1, 'native_success': False, 'native_prediction': 0, 'mask_loss': 48.631378173828125}
+{'phase': 'conceal', 'attempt': 5, 'alpha': 0.0625, 'steps': 1, 'native_success': False, 'native_prediction': 0, 'mask_loss': 48.631378173828125}
+{'phase': 'conceal', 'attempt': 6, 'alpha': 0.03125, 'steps': 1, 'native_success': False, 'native_prediction': 0, 'mask_loss': 48.631378173828125}
+{'phase': 'conceal', 'attempt': 7, 'alpha': 0.015625, 'steps': 1, 'native_success': False, 'native_prediction': 0, 'mask_loss': 48.631378173828125}
+{'phase': 'conceal', 'attempt': 8, 'alpha': 0.0078125, 'steps': 1, 'native_success': False, 'native_prediction': 0, 'mask_loss': 48.631378173828125}
+test_unsuccessful_search_retains_strong_and_marks_fallback (test_native_soft_recovery.NativeSoftRecoveryTests.test_unsuccessful_search_retains_strong_and_marks_fallback) ... ok
+test_auto_speaker_uses_upload_sample_rate_and_downmixes (test_platform_contract.PlatformContractTests.test_auto_speaker_uses_upload_sample_rate_and_downmixes) ... ok
+test_rejects_invalid_api_parameters_instead_of_clamping_or_truthy_strings (test_platform_contract.PlatformContractTests.test_rejects_invalid_api_parameters_instead_of_clamping_or_truthy_strings) ... ok
+test_preserves_quiet_prefix_and_suffix_and_rejects_wrong_crop (test_quality_constraints.QualityConstraintTests.test_preserves_quiet_prefix_and_suffix_and_rejects_wrong_crop) ... ok
+test_quality_gate_requires_identity_and_finite_metrics (test_quality_constraints.QualityConstraintTests.test_quality_gate_requires_identity_and_finite_metrics) ... ok
+test_reconstructed_projection_reduces_mask_violation_and_obeys_peak_cap (test_quality_constraints.QualityConstraintTests.test_reconstructed_projection_reduces_mask_violation_and_obeys_peak_cap) ... ok
+test_torch_projection_matches_numpy_stft_units (test_quality_constraints.QualityConstraintTests.test_torch_projection_matches_numpy_stft_units) ... ok
+test_constrained_noise_obeys_snr_peak_and_waveform_headroom (test_quality_recovery.QualityRecoveryTests.test_constrained_noise_obeys_snr_peak_and_waveform_headroom) ... ok
+{'step': 4, 'loss': 0.14011558890342712, 'direct': 0.4078923463821411, 'feedback': 0.038142502307891846, 'noise_rms': 0.00018149746756535023}
+test_feedback_propagates_to_waveform_without_model_weight_updates (test_quality_recovery.QualityRecoveryTests.test_feedback_propagates_to_waveform_without_model_weight_updates) ... ok
+test_complete_frozen_records_are_audited (test_recovery_analysis.RecoveryEvidenceTests.test_complete_frozen_records_are_audited) ... ok
+test_duplicate_pair_cannot_hide_missing_validation_pair (test_recovery_analysis.RecoveryEvidenceTests.test_duplicate_pair_cannot_hide_missing_validation_pair) ... ok
+test_supplement_must_score_identical_waveforms (test_recovery_analysis.RecoveryEvidenceTests.test_supplement_must_score_identical_waveforms) ... ok
+test_csv_keeps_optional_error_fields_and_records (test_reproduction.ReproductionTests.test_csv_keeps_optional_error_fields_and_records) ... ok
+test_partial_attack_is_not_complete (test_reproduction.ReproductionTests.test_partial_attack_is_not_complete) ... ok
+test_per_utterance_seed_independent_of_execution_order (test_reproduction.ReproductionTests.test_per_utterance_seed_independent_of_execution_order) ... ok
+test_screened_denominator_excludes_already_failed_clean_conversion (test_reproduction.ReproductionTests.test_screened_denominator_excludes_already_failed_clean_conversion) ... ok
+test_stereo_22050_reference_is_resampled_to_mono_24000 (test_reproduction.ReproductionTests.test_stereo_22050_reference_is_resampled_to_mono_24000) ... ok
+test_vctk_layout_flattens_audio_and_transcripts (test_reproduction.ReproductionTests.test_vctk_layout_flattens_audio_and_transcripts) ... ok
+test_wer_uses_target_reference_for_defended_and_source_for_converted (test_reproduction.ReproductionTests.test_wer_uses_target_reference_for_defended_and_source_for_converted) ... ok
+test_correlated_repetitions_are_resampled_as_two_speaker_clusters (test_staged_analysis.StagedPairedAnalysisTests.test_correlated_repetitions_are_resampled_as_two_speaker_clusters) ... ok
+test_different_paired_clean_controls_are_rejected (test_staged_analysis.StagedPairedAnalysisTests.test_different_paired_clean_controls_are_rejected) ... ok
+test_quality_failure_counts_deduplicate_repeated_content_sources (test_staged_analysis.StagedPairedAnalysisTests.test_quality_failure_counts_deduplicate_repeated_content_sources) ... ok
+test_zero_full_clean_denominator_is_na (test_staged_analysis.StagedPairedAnalysisTests.test_zero_full_clean_denominator_is_na) ... ok
+{'utterance': 'p225_040', 'reference_mode': 'transcript', 'cer_original_trimmed': 0, 'wer_original_trimmed': 0, 'cer_defended': 0, 'wer_defended': 0, 'cer_conv_from_clean': 0, 'wer_conv_from_clean': 0, 'cer_conv_from_defended': 0, 'wer_conv_from_defended': 0}
+saved: C:\WINDOWS\TEMP\tmphoetllww\wer.csv
+{'phase': 'strong', 'step': 4, 'loss': 0.9974660277366638, 'embedding_loss': 0.9974660277366638, 'auxiliary_loss': 0.0, 'noise_rms': 0.0039973934181034565}
+{'phase': 'conceal', 'step': 4, 'loss': 1.2500394582748413, 'embedding_loss': 0.9999726414680481, 'auxiliary_loss': 1.0000462532043457, 'noise_rms': 0.00021280063083395362}
+test_both_stages_update_audio_and_final_budget_is_enforced (test_staged_recovery.StagedRecoveryTests.test_both_stages_update_audio_and_final_budget_is_enforced) ... ok
+test_native_features_match_inference_including_first_sample (test_staged_recovery.StagedRecoveryTests.test_native_features_match_inference_including_first_sample) ... ok
+test_ignored_range_is_rejected (test_vctk_subset.RangeTests.test_ignored_range_is_rejected) ... ok
+test_prefetch_avoids_extra_download_for_contained_reads (test_vctk_subset.RangeTests.test_prefetch_avoids_extra_download_for_contained_reads) ... ok
+test_remote_zip_matches_original_members (test_vctk_subset.RangeTests.test_remote_zip_matches_original_members) ... ok
+
+----------------------------------------------------------------------
+Ran 39 tests in 13.704s
+
+OK
