@@ -338,23 +338,42 @@ $env:MPLCONFIGDIR="D:\Voice Guard\.mplcache"
 
 ### 云端可做（需登录 T4 ECS 或云资源）
 
-> **一键驱动**：deploy/run_cloud_enhancements.py（本地已 dry-run 验证）覆盖 C1 多种子、C2 扩展样本、
-> ASR 阈值映射与信道扫描：
-> `ash
+> **一键驱动**：`deploy/run_cloud_enhancements.py`（本地已 dry-run 验证）覆盖 C1 多种子、C2 扩展样本、
+> C7 ASR 阈值映射与 C8 基础信道扫描：
+>
+> ```bash
 > # 在 ECS /root/voiceguard 下：
-> git pull && .venv/bin/python deploy/run_cloud_enhancements.py --dry-run   # 先看命令
-> .venv/bin/python deploy/run_cloud_enhancements.py --max-hours 6           # 断点续跑，已有结果跳过
-> `
-> 结束后会打印「ECS 仍在计费」提醒；回传 outputs/cloud/ 与 outputs/enhancements/。
+> git pull
+> .venv/bin/python deploy/run_cloud_enhancements.py --dry-run   # 先看要跑的命令
+> .venv/bin/python deploy/run_cloud_enhancements.py --max-hours 6   # 断点续跑，已有结果自动跳过
+> ```
+>
+> 结束后会打印「ECS 仍在计费」提醒；回传 `outputs/cloud/` 与 `outputs/enhancements/` 即可。
 
 | # | 事项 | 内容 | 预计 | 状态 |
 |---|---|---|---|---|
-| C1 | 多种子完整批次 | `reproduce.py --seed` 跑 2–3 个种子，报告 mean±std（每种子 9 组×5 句） | 每种子 1–1.5h | ⬜ |
-| C2 | 扩展样本 | 句子数 5→15/人或更多说话人；或 48kHz 原版数据 | 数小时 | ⬜ |
-| C3 | VQMIVC 黑盒迁移 | 论文 Table 3 跨模型验证（需先拿到权重） | 1–2h | ⬜ |
+| C1 | 多种子完整批次 | `--seed` 跑 2–3 个种子，报告 mean±std（每种子 5 方法×5 句） | 每种子 1–1.5h | ⬜（驱动覆盖） |
+| C2 | 扩展样本 | 句子数 5→15/人或更多说话人 | 2–3h | ⬜（驱动覆盖） |
+| C3 | VQMIVC 黑盒迁移 | 论文 Table 3 跨模型验证（需先拿到权重，见 U5） | 1–2h | ⬜ |
 | C4 | 镜像瘦身/冷启动 | 多阶段构建、裁剪 CUDA 组件（镜像 6–8GB → 更小） | 1–2h | ⬜ |
 | C5 | HTTPS | nginx 反代 + 证书（平台页面为 HTTPS 时接口必须 HTTPS） | 1h | ⬜ |
 | C6 | 云端留证与停机 | systemd 截图/日志归档；**ECS 关机/释放止计费** | 0.5h | ⚠️ 待办 |
+| **C7** | **ASR 阈值映射规模化** | 在 3000/1500 步 + 完整上下文的云端数据上跑 Whisper WER 分布，给 Eq.10 的 10% 阈值可解释定义 | 15min | ⬜（驱动覆盖） |
+| **C8** | **信道扫描扩展** | 加 opus/降噪/16k 重采样/响度归一化；对 refined、staged、EOT 版本分别跑，回答"改进方法在信道下是否更稳" | 每版 20min | ⬜ |
+| **C9** | **评估器扩展 ⭐推荐** | 加中文 ASV（ModelScope `3D-Speaker/ERes2Net`，国内下载快）+ Whisper `large-v3` 做 WER，检验结论不依赖单一评估器 | 1–2h（含下载） | ⬜ |
+| **C10** | **staged 方法扩样本** | 现有 15/31，再跑 20–40 句把统计效力提上去 | 2–4h | ⬜ |
+| **C11** | **内容源扩展** | 每句 2–3 个内容源，报告方差而非单点 | 2–3h | ⬜ |
+| **C12** | **长音频/真实朗读** | 5–10s 句子或整段朗读（显存足够），验证工程可用性 | 1–2h | ⬜ |
+| **C13** | **跨数据集泛化** | LibriTTS / Common Voice 中文，验证不是 VCTK 特例 | 数小时（含下载） | ⬜ |
+| **C14** | **target 选择策略消融** | least-likely vs random vs 最近，解释 c 搜索行为 | 1–2h | ⬜ |
+| **C15** | 48kHz 原版 VCTK | 与论文数据对齐（可选） | 数小时 | ⬜ |
+| **C16** | **云端压测** | Gradio/FastAPI 并发吞吐、队列、超时表现（验收演示更有底） | 1h | ⬜ |
+| **C17** | **监听网页托管 ⭐妙用** | 把 15 段匿名试听部署成网页给同学打分 → U3 人工听测落地、数据自动收集 | 1–2h | ⬜ |
+| **C18** | 成本/稳定性 | 自动关机 cron、快照备份、日志回传 | 0.5h | ⬜ |
+| **C19** | ModelArts 路线补验 | 想多一条部署路线加分时再考虑 | 2h | ⬜ |
+
+> **云端推荐顺序**：C1（驱动直接跑）→ C9 评估器扩展 → C8 信道扩展 → C17 监听网页 → 其余按需。
+> 本地与云端互不阻塞；云端产物回传后由我合并进报告/README/PPT。
 
 ### 需真人/外部账号
 
