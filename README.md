@@ -27,8 +27,10 @@ Perturbation in the Time Domain*，IJCAI 2023，4812–4820。
 - 冻结新句中，原法/改进 MOSNet 为 1.936/3.055、WER 为 44.60%/14.69%，两者联合通过均为 0/8。完整上下文使改进 WER 降至 3.10%，但联合仍为 0/7。原 VG 首批联合 0/4；改进首批通过 2/4，且部分压缩/内容源下失败，不能宣称普遍有效。
 
 报告正文：[可编辑 Markdown](docs/04_报告.md)；[PDF 报告](deliverables/Voice_Guard_课程报告.pdf)。
-汇报：[14 页 / 9 分钟 PPT](deliverables/Voice_Guard_9分钟汇报.pptx)、[讲稿](docs/05_验收PPT大纲.md)。历史 PPT 已移至 `docs/history/`。
-技术实验与材料已补齐；真实组号/成员、权重云盘链接、正式平台 PR、问卷和课程提交仍待本人完成。课程要求与加分对应见
+汇报：**课程用** [14 页 / 9 分钟 PPT](deliverables/Voice_Guard_9分钟汇报.pptx) + [讲稿](docs/05_验收PPT大纲.md)；
+**技术备用**（8 页，含最新云端/两阶段数据）[docs/验收PPT_v2.pptx](docs/验收PPT_v2.pptx)，由 `tools/make_ppt_v2.py` 生成。
+旧版 PPT 已移至 `docs/history/验收PPT_v2_历史未复核.pptx`。
+技术实验与材料已补齐；真实组号/成员、正式平台 PR、问卷和课程提交仍待本人完成。课程要求与加分对应见
 [交付清单](docs/13_课程要求与交付清单.md)、[验收自查](docs/08_验收自查.md)。
 本篇按用户确认的非开源选题范围验收；无需再增加两篇论文。
 
